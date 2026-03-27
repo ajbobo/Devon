@@ -1,0 +1,14 @@
+C:\Dev\Misc\Devon\obj\Debug\net8.0\Devon.GeneratedMSBuildEditorConfig.editorconfig
+C:\Dev\Misc\Devon\obj\Debug\net8.0\Devon.AssemblyInfoInputs.cache
+C:\Dev\Misc\Devon\obj\Debug\net8.0\Devon.AssemblyInfo.cs
+C:\Dev\Misc\Devon\obj\Debug\net8.0\Devon.csproj.CoreCompileInputs.cache
+C:\Dev\Misc\Devon\bin\Debug\net8.0\Devon.exe
+C:\Dev\Misc\Devon\bin\Debug\net8.0\Devon.deps.json
+C:\Dev\Misc\Devon\bin\Debug\net8.0\Devon.runtimeconfig.json
+C:\Dev\Misc\Devon\bin\Debug\net8.0\Devon.dll
+C:\Dev\Misc\Devon\bin\Debug\net8.0\Devon.pdb
+C:\Dev\Misc\Devon\obj\Debug\net8.0\Devon.dll
+C:\Dev\Misc\Devon\obj\Debug\net8.0\refint\Devon.dll
+C:\Dev\Misc\Devon\obj\Debug\net8.0\Devon.pdb
+C:\Dev\Misc\Devon\obj\Debug\net8.0\Devon.genruntimeconfig.cache
+C:\Dev\Misc\Devon\obj\Debug\net8.0\ref\Devon.dll
