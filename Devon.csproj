@@ -13,4 +13,9 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <!-- Exclude test files from main project -->
+  <ItemGroup>
+    <Compile Remove="Tests\**" />
+  </ItemGroup>
+
 </Project>

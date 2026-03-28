@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Devon")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ae7d423b685fccb9ed1e2474d3487b7b4e2dd280")]
 [assembly: System.Reflection.AssemblyProductAttribute("Devon")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Devon")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
