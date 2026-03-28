@@ -164,6 +164,7 @@ public class ActionInvoker
     /// </summary>
     public void ShowInventory(Player player)
     {
+        Console.Clear();
         Console.WriteLine("You are carrying:");
         if (player.Inventory.Count == 0)
         {
@@ -209,7 +210,6 @@ public class ActionInvoker
     private static void WaitForKey()
     {
         Console.WriteLine();
-        Console.WriteLine("Press any key to continue...");
         Console.ReadKey(true);
     }
 }

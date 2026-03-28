@@ -135,7 +135,8 @@ public class MenuRenderer
         {
             bool isSelected = (i == selectedIndex);
             var prefix = isSelected ? "> " : "  ";
-            var line = $"  {prefix}{i + 1}. {options[i].Label}";
+            var suffix = isSelected ? " <" : "  ";
+            var line = $"  {prefix}{options[i].Label}{suffix}";
             Console.WriteLine(line);
         }
         // Clear any leftover lines if options decreased
