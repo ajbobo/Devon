@@ -63,7 +63,18 @@ public class ActionInvoker
             return;
         }
 
-        // Check if player has the required item
+        // Prompt for which item to use
+        Console.Write("What would you like to use? ");
+        var itemInput = Console.ReadLine()?.Trim();
+
+        // Validate that the input matches the required item and player has it
+        if (!string.Equals(itemInput, use.Item, StringComparison.OrdinalIgnoreCase))
+        {
+            Console.WriteLine($"That's not something you can use here.");
+            WaitForKey();
+            return;
+        }
+
         if (!player.HasItem(use.Item))
         {
             Console.WriteLine($"You don't have a {use.Item}.");
@@ -71,8 +82,8 @@ public class ActionInvoker
             return;
         }
 
-        // Prompt for target - either the specified target or any valid target
-        Console.Write($"What would you like to use the {use.Item} on? ");
+        // Prompt for target
+        Console.Write($"What would you like to use it on? ");
         var targetInput = Console.ReadLine()?.Trim();
 
         // If the action specifies a target, it must match exactly
@@ -100,9 +111,6 @@ public class ActionInvoker
     /// </summary>
     public void HandleTalk(Room room, Player player)
     {
-        // For talk, we need to find the talk action that matches the target. However the spec says talk action is defined with target and says.
-        // In a room, there could be multiple talk actions? The spec shows actions.talk as a single entry.
-        // We'll assume one talk action per room for now. The target is the NPC to talk to.
         if (!room.TryGetAction("talk", out var talkAction) || talkAction is not TalkAction talk)
         {
             Console.WriteLine("There's nobody to talk to.");
@@ -110,7 +118,6 @@ public class ActionInvoker
             return;
         }
 
-        // Check condition on talk action (availability checked before showing, but double-check)
         var state = new GameState { CurrentRoom = room, Player = player };
         if (!_conditionEvaluator.Evaluate(talk.Condition ?? "true", state))
         {
@@ -119,11 +126,22 @@ public class ActionInvoker
             return;
         }
 
-        // Prompt: "What would you like to say to <target>?"
-        Console.Write($"What would you like to say to the {talk.Target}? ");
-        var whatTheySay = Console.ReadLine()?.Trim();
+        // Prompt for target (who to talk to)
+        Console.Write("Who would you like to talk to? ");
+        var targetInput = Console.ReadLine()?.Trim();
 
-        if (!string.Equals(whatTheySay, talk.Says, StringComparison.OrdinalIgnoreCase))
+        if (!string.Equals(targetInput, talk.Target, StringComparison.OrdinalIgnoreCase))
+        {
+            Console.WriteLine("That person isn't here.");
+            WaitForKey();
+            return;
+        }
+
+        // Prompt for what to say
+        Console.Write("What would you like to say? ");
+        var saysInput = Console.ReadLine()?.Trim();
+
+        if (!string.Equals(saysInput, talk.Says, StringComparison.OrdinalIgnoreCase))
         {
             Console.WriteLine("The NPC doesn't respond to that.");
             WaitForKey();

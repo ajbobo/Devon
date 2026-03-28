@@ -149,7 +149,6 @@ public class Game
     private static void WaitForKey()
     {
         Console.WriteLine();
-        Console.WriteLine("Press any key to continue...");
         Console.ReadKey(true);
     }
 }

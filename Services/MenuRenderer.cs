@@ -99,32 +99,30 @@ public class MenuRenderer
         {
             if (currentRoom.TryGetAction(dir, out var action) && IsActionAvailable(action, currentRoom, player))
             {
-                var exitAction = (ExitAction)action;
-                options.Add(new MenuOption($"{char.ToUpper(dir[0])}{dir[1..]}", dir, $"Go {dir}"));
+                options.Add(new MenuOption($"{char.ToUpper(dir[0])}{dir[1..]}", dir));
             }
         }
 
         // Take action - only show if take action exists, is available (condition), and the specific item is present in the room
         if (currentRoom.TryGetAction("take", out var takeAction) && takeAction is TakeAction take && IsActionAvailable(takeAction, currentRoom, player) && currentRoom.Items.Contains(take.Item))
         {
-            options.Add(new MenuOption("Take", "take", $"Pick up {take.Item}"));
+            options.Add(new MenuOption("Take", "take"));
         }
 
         // Use action - only show if use action exists, is accessible, and player has the required item
         if (currentRoom.TryGetAction("use", out var useAction) && useAction is UseAction use && IsActionAvailable(useAction, currentRoom, player) && player.Inventory.Contains(use.Item))
         {
-            options.Add(new MenuOption("Use", "use", $"Use {use.Item} on {use.Target}"));
+            options.Add(new MenuOption("Use", "use"));
         }
 
         // Talk action - always available if talk action exists and condition met
         if (currentRoom.TryGetAction("talk", out var talkAction) && talkAction != null && IsActionAvailable(talkAction, currentRoom, player))
         {
-            var target = talkAction is TalkAction talk ? talk.Target : "NPC";
-            options.Add(new MenuOption("Talk", "talk", $"Talk to {target}"));
+            options.Add(new MenuOption("Talk", "talk"));
         }
 
         // Inventory always available
-        options.Add(new MenuOption("Inventory", "inventory", "Check your inventory"));
+        options.Add(new MenuOption("Inventory", "inventory"));
 
         return options;
     }
@@ -137,7 +135,7 @@ public class MenuRenderer
         {
             bool isSelected = (i == selectedIndex);
             var prefix = isSelected ? "> " : "  ";
-            var line = $"  {prefix}{i + 1}. {options[i].Label} - {options[i].Description}";
+            var line = $"  {prefix}{i + 1}. {options[i].Label}";
             Console.WriteLine(line);
         }
         // Clear any leftover lines if options decreased
@@ -154,5 +152,5 @@ public class MenuRenderer
         return _conditionEvaluator.Evaluate(action.Condition, state);
     }
 
-    private record MenuOption(string Label, string Key, string Description);
+    private record MenuOption(string Label, string Key);
 }
