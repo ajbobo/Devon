@@ -16,6 +16,7 @@
   <!-- Exclude test files from main project -->
   <ItemGroup>
     <Compile Remove="Tests\**" />
+    <Compile Remove="Editor\**" />
   </ItemGroup>
 
 </Project>

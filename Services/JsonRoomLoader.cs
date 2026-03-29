@@ -92,12 +92,12 @@ public class JsonRoomLoader : IJsonRoomLoader
             }
         }
 
-        // Room conditions (not in spec but useful): could be set from initial conditions
+        // Room initial conditions (will be applied after first description)
         if (roomElem.TryGetProperty("conditions", out JsonElement condsElem) && condsElem.ValueKind == JsonValueKind.Array)
         {
             foreach (var condElem in condsElem.EnumerateArray())
             {
-                room.Conditions.Add(condElem.GetString() ?? "");
+                room.InitialConditions.Add(condElem.GetString() ?? "");
             }
         }
 

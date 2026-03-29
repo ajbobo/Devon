@@ -75,12 +75,12 @@ public class ActionInvoker
             return;
         }
 
-        if (!player.HasItem(use.Item))
-        {
-            Console.WriteLine($"You don't have a {use.Item}.");
-            WaitForKey();
-            return;
-        }
+        // if (!player.HasItem(use.Item))
+        // {
+        //     Console.WriteLine($"You don't have a {use.Item}.");
+        //     WaitForKey();
+        //     return;
+        // }
 
         // Prompt for target
         Console.Write($"What would you like to use it on? ");

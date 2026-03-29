@@ -38,6 +38,16 @@ public class MenuRenderer
         }
         Console.WriteLine();
 
+        // Apply initial conditions after first description is shown
+        if (currentRoom.InitialConditions.Count > 0)
+        {
+            foreach (var cond in currentRoom.InitialConditions)
+            {
+                currentRoom.Conditions.Add(cond);
+            }
+            currentRoom.InitialConditions.Clear();
+        }
+
         // Display items in room (only those still available)
         var availableItems = currentRoom.Items;
         if (availableItems.Count > 0)
@@ -109,8 +119,8 @@ public class MenuRenderer
             options.Add(new MenuOption("Take", "take"));
         }
 
-        // Use action - only show if use action exists, is accessible, and player has the required item
-        if (currentRoom.TryGetAction("use", out var useAction) && useAction is UseAction use && IsActionAvailable(useAction, currentRoom, player) && player.Inventory.Contains(use.Item))
+        // Use action - always available if player has items
+        if (player.Inventory.Count > 0)
         {
             options.Add(new MenuOption("Use", "use"));
         }

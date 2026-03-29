@@ -1,53 +1,136 @@
 {
   "rooms": [
     {
-      "name": "Entrance",
+      "name": "Gate",
       "description": [
-        { "text": "You stand before the entrance to an ancient crypt." },
-        { "text": "A heavy iron door blocks the way north." }
+        {
+          "text": "\u003CAt Gate\u003E",
+          "condition": null
+        },
+        {
+          "text": "\u003Cknocker fall\u003E",
+          "condition": "!RoomHasCondition(knocker_fell)"
+        },
+        {
+          "text": "\u003Cgate unlocked\u003E",
+          "condition": "RoomHasCondition(gate_unlocked)"
+        }
       ],
-      "items": ["torch"],
-      "conditions": [],
-      "actions": {
-        "take": { "item": "torch", "result_text": "You pick up the torch." },
-        "north": { "room": "Inner Chamber", "condition": "HasItem(\"torch\")", "result_text": "You light your torch and approach the iron door. It seems to have a keyhole." }
-      }
-    },
-    {
-      "name": "Inner Chamber",
-      "description": [
-        { "text": "A dark room. You hear water dripping." },
-        { "text": "A faint draft comes from under a doorway to the north.", "condition": "RoomHasCondition(door_unlocked)" },
-        { "text": "The iron door behind you is now unlocked.", "condition": "RoomHasCondition(door_unlocked)" }
+      "items": [
+        "Brass key"
       ],
-      "items": ["rusty key"],
-      "conditions": ["door_locked"],
+      "conditions": [
+        "knocker_fell"
+      ],
       "actions": {
-        "south": { "room": "Entrance" },
-        "take": { "item": "rusty key", "result_text": "You pick up a rusty key." },
+        "take": {
+          "item": "Brass key",
+          "result_text": "You pick up the key. It is surprisingly heavy.",
+          "action": null,
+          "condition": null
+        },
         "use": {
-          "item": "rusty key",
-          "target": "iron door",
-          "result_text": "The key fits! The door unlocks with a click.",
-          "action": "Room.removeCondition(door_locked);Room.addCondition(door_unlocked)"
+          "item": "brass key",
+          "target": "gate",
+          "result_text": "You unlock the gate with the key",
+          "action": "Room.addCondition(gate_unlocked)",
+          "condition": "!RoomHasCondition(gate_unlocked)"
         },
         "north": {
-          "room": "Treasure Room",
-          "condition": "RoomHasCondition(door_unlocked)",
-          "result_text": "You push open the iron door and enter the next chamber."
+          "room": "Hall",
+          "result_text": null,
+          "action": null,
+          "condition": "RoomHasCondition(gate_unlocked)"
         }
       }
     },
     {
-      "name": "Treasure Room",
+      "name": "Hall",
       "description": [
-        { "text": "Gold coins spill across the floor!" },
-        { "text": "You have found the treasure of the ancient crypt!" }
+        {
+          "text": "\u003Cmain hall\u003E",
+          "condition": null
+        },
+        {
+          "text": "\u003Cblue sword\u003E",
+          "condition": "!Player.hasItem(sword)"
+        }
+      ],
+      "items": [
+        "Sword"
+      ],
+      "conditions": [],
+      "actions": {
+        "south": {
+          "room": "Gate",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "north": {
+          "room": "Dining Room",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "east": {
+          "room": "Armory",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "take": {
+          "item": "sword",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Dining Room",
+      "description": [
+        {
+          "text": "\u003Cdining room\u003E",
+          "condition": null
+        }
       ],
       "items": [],
       "conditions": [],
       "actions": {
-        "south": { "room": "Inner Chamber" }
+        "south": {
+          "room": "Hall",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Armory",
+      "description": [
+        {
+          "text": "\u003Carmory\u003E",
+          "condition": null
+        }
+      ],
+      "items": [
+        "Armor"
+      ],
+      "conditions": [],
+      "actions": {
+        "west": {
+          "room": "Target Room Name",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "take": {
+          "item": "Armor",
+          "result_text": "You pick up the armor and put it on. It is very cold at first, but feel comfortable quickly.",
+          "action": null,
+          "condition": null
+        }
       }
     }
   ]
