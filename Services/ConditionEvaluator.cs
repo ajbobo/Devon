@@ -49,6 +49,7 @@ public class ConditionEvaluator : IConditionEvaluator
                 "HasItem" => _stringArg != null && state.Player.HasItem(_stringArg),
                 "HasCondition" or "PlayerHasCondition" => _stringArg != null && state.Player.HasCondition(_stringArg),
                 "RoomHasCondition" => _stringArg != null && state.CurrentRoom != null && state.CurrentRoom.Conditions.Contains(_stringArg),
+                "RoomHasItem" => _stringArg != null && state.CurrentRoom != null && state.CurrentRoom.Items.Contains(_stringArg),
                 // Combinators: these evaluate their condition arguments (only one arg for Not, two+ for And/Or)
                 "Not" => _args.Count == 1 && !_args[0].Evaluate(state),
                 "And" => _args.All(arg => arg.Evaluate(state)),
@@ -83,7 +84,7 @@ public class ConditionEvaluator : IConditionEvaluator
             string? stringArg = null;
 
             // Check if the function expects a single string argument (the built-in checks)
-            bool expectsStringArg = funcName is "HasItem" or "HasCondition" or "PlayerHasCondition" or "RoomHasCondition";
+            bool expectsStringArg = funcName is "HasItem" or "HasCondition" or "PlayerHasCondition" or "RoomHasCondition" or "RoomHasItem";
 
             if (expectsStringArg)
             {

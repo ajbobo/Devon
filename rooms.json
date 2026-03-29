@@ -17,7 +17,7 @@
         },
         {
           "text": "\u003Chas Key\u003E",
-          "condition": "!HasItem(brass key)"
+          "condition": "RoomHasItem(brass key)"
         }
       ],
       "conditions": [
@@ -54,7 +54,7 @@
         },
         {
           "text": "\u003Cblue sword\u003E",
-          "condition": "!HasItem(sword)"
+          "condition": "RoomHasItem(sword)"
         }
       ],
       "conditions": [],
@@ -94,7 +94,7 @@
         },
         {
           "text": "\u003Chas knife\u003E",
-          "condition": "!HasItem(knife)"
+          "condition": "RoomHasItem(knife)"
         }
       ],
       "conditions": [],
@@ -122,7 +122,7 @@
         },
         {
           "text": "\u003Cice armor\u003E",
-          "condition": "!HasItem(armor)"
+          "condition": "RoomHasItem(armor)"
         }
       ],
       "conditions": [],

@@ -173,4 +173,47 @@ public class ConditionEvaluatorTests
         result = _evaluator.Evaluate("Not(false)", state);
         Assert.True(result);
     }
+
+    [Fact]
+    public void RoomHasItem_WithItemInRoom_ReturnsTrue()
+    {
+        var room = new Room { Items = new() };
+        room.Items.Add("key");
+        var player = new Player();
+        var state = new GameState { Player = player, CurrentRoom = room };
+        bool result = _evaluator.Evaluate("RoomHasItem(\"key\")", state);
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void RoomHasItem_WithItemNotInRoom_ReturnsFalse()
+    {
+        var room = new Room { Items = new() };
+        var player = new Player();
+        var state = new GameState { Player = player, CurrentRoom = room };
+        bool result = _evaluator.Evaluate("RoomHasItem(\"sword\")", state);
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void RoomHasItem_WithMultiWordItem_Works()
+    {
+        var room = new Room { Items = new() };
+        room.Items.Add("brass key");
+        var player = new Player();
+        var state = new GameState { Player = player, CurrentRoom = room };
+        bool result = _evaluator.Evaluate("RoomHasItem(brass key)", state);
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void RoomHasItem_WithSpaceButNotExactMatch_ReturnsFalse()
+    {
+        var room = new Room { Items = new() };
+        room.Items.Add(" brass key "); // With spaces (trimmed on add)
+        var player = new Player();
+        var state = new GameState { Player = player, CurrentRoom = room };
+        bool result = _evaluator.Evaluate("RoomHasItem(brass key)", state);
+        Assert.False(result); // " brass key " != "brass key" due to spaces
+    }
 }
