@@ -2,13 +2,12 @@ namespace Devon.Models;
 
 public class Player
 {
-    public List<string> Inventory { get; private set; } = new();
-    public HashSet<string> Conditions { get; private set; } = new();
+    public HashSet<string> Inventory { get; private set; } = new(StringComparer.OrdinalIgnoreCase);
+    public HashSet<string> Conditions { get; private set; } = new(StringComparer.OrdinalIgnoreCase);
 
     public void AddItem(string item)
     {
-        if (!Inventory.Contains(item))
-            Inventory.Add(item);
+        Inventory.Add(item); // HashSet.Add automatically ignores duplicates
     }
 
     public bool RemoveItem(string item)

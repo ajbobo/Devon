@@ -56,21 +56,14 @@ public class ActionInvoker
     /// </summary>
     public void HandleUse(Room room, Player player)
     {
-        if (!room.TryGetAction("use", out var useAction) || useAction is not UseAction use)
-        {
-            Console.WriteLine("You can't use anything here.");
-            WaitForKey();
-            return;
-        }
-
-        // Prompt for which item to use
+        // Always prompt for which item to use
         Console.Write("What would you like to use? ");
         var itemInput = Console.ReadLine()?.Trim();
 
-        // Validate that the input matches the required item and player has it
-        if (!string.Equals(itemInput, use.Item, StringComparison.OrdinalIgnoreCase))
+        // Validate that the room has a use action and the input matches the required item
+        if (!room.TryGetAction("use", out var useAction) || useAction is not UseAction use || !string.Equals(itemInput, use.Item, StringComparison.OrdinalIgnoreCase))
         {
-            Console.WriteLine($"That's not something you can use here.");
+            Console.WriteLine("That's not something you can use here.");
             WaitForKey();
             return;
         }

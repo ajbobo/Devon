@@ -6,7 +6,7 @@ namespace Devon.Models;
 public class GameState
 {
     public Player Player { get; set; } = new();
-    public Dictionary<string, Room> Rooms { get; } = new();
+    public Dictionary<string, Room> Rooms { get; } = new(StringComparer.OrdinalIgnoreCase);
     public Room? CurrentRoom { get; set; }
 
     /// <summary>

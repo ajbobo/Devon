@@ -57,10 +57,10 @@ public class Room
 {
     public string Name { get; set; } = string.Empty;
     public List<RoomDescription> Description { get; set; } = new();
-    public List<string> Items { get; set; } = new(); // Items available in this room
+    public HashSet<string> Items { get; set; } = new(StringComparer.OrdinalIgnoreCase); // Items available in this room (case-insensitive)
     public Dictionary<string, RoomAction> Actions { get; set; } = new(); // "north", "take", "use", "talk", etc.
-    public HashSet<string> Conditions { get; set; } = new(); // Room's persistent conditions (active)
-    public List<string> InitialConditions { get; set; } = new(); // Conditions to apply AFTER first description
+    public HashSet<string> Conditions { get; set; } = new(StringComparer.OrdinalIgnoreCase); // Room's persistent conditions (active, case-insensitive)
+    public HashSet<string> InitialConditions { get; set; } = new(StringComparer.OrdinalIgnoreCase); // Conditions to apply AFTER first description
 
     /// <summary>
     /// Gets an action by its type key (e.g., "north", "take", "use", "talk")

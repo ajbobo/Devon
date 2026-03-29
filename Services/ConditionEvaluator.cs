@@ -87,21 +87,28 @@ public class ConditionEvaluator : IConditionEvaluator
 
             if (expectsStringArg)
             {
-                // Accept either a quoted string or a bare identifier as the argument
-                if (parser.Token.Type == TokenType.String)
+                // Accept a string argument that may contain spaces.
+                // Read all tokens until the closing parenthesis and concatenate them with spaces.
+                var parts = new List<string>();
+                while (parser.Token.Type != TokenType.RightParen)
                 {
-                    stringArg = parser.Token.Value;
+                    if (parser.Token.Type == TokenType.End)
+                        throw new InvalidOperationException($"Unexpected end of input in argument to {funcName}");
+                    if (parser.Token.Type == TokenType.String)
+                    {
+                        parts.Add(parser.Token.Value ?? "");
+                    }
+                    else if (parser.Token.Type == TokenType.Identifier)
+                    {
+                        parts.Add(parser.Token.Value ?? "");
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Unexpected token {parser.Token.Type} in argument to {funcName}");
+                    }
                     parser.NextToken();
                 }
-                else if (parser.Token.Type == TokenType.Identifier)
-                {
-                    stringArg = parser.Token.Value;
-                    parser.NextToken();
-                }
-                else
-                {
-                    throw new InvalidOperationException($"Expected string argument for {funcName}");
-                }
+                stringArg = string.Join(" ", parts);
             }
             else
             {
