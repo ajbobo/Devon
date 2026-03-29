@@ -20,9 +20,6 @@
           "condition": "!HasItem(brass key)"
         }
       ],
-      "items": [
-        "Brass key"
-      ],
       "conditions": [
         "knocker_fell"
       ],
@@ -59,9 +56,6 @@
           "text": "\u003Cblue sword\u003E",
           "condition": "!HasItem(sword)"
         }
-      ],
-      "items": [
-        "Sword"
       ],
       "conditions": [],
       "actions": {
@@ -103,9 +97,6 @@
           "condition": "!HasItem(knife)"
         }
       ],
-      "items": [
-        "Knife"
-      ],
       "conditions": [],
       "actions": {
         "south": {
@@ -116,7 +107,7 @@
         },
         "take": {
           "item": "Knife",
-          "result_text": null,
+          "result_text": "You pick up the knife. It\u0027s rusty, but will still cut you. You carefully put it away.",
           "action": null,
           "condition": null
         }
@@ -133,9 +124,6 @@
           "text": "\u003Cice armor\u003E",
           "condition": "!HasItem(armor)"
         }
-      ],
-      "items": [
-        "Armor"
       ],
       "conditions": [],
       "actions": {

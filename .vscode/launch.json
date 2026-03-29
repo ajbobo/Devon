@@ -1,0 +1,28 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Devon: Console Game",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/bin/Debug/net8.0/Devon.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "stopAtEntry": false
+    },
+    {
+      "name": "Devon: Editor (WPF)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/Editor/bin/Debug/net8.0-windows/Devon.Editor.exe",
+      "args": [],
+      "cwd": "${workspaceFolder}/Editor",
+      "console": "integratedTerminal",
+      "stopAtEntry": false,
+      "justMyCode": true
+    }
+  ]
+}

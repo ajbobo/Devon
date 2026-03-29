@@ -19,12 +19,6 @@ public partial class RoomEditorViewModel : ObservableObject
     private RoomDescriptionEntry? _selectedDescription;
 
     [ObservableProperty]
-    private ObservableCollection<ItemEntry> _items = new();
-
-    [ObservableProperty]
-    private ItemEntry? _selectedItem;
-
-    [ObservableProperty]
     private ObservableCollection<ConditionEntry> _conditions = new();
 
     [ObservableProperty]
@@ -48,9 +42,6 @@ public partial class RoomEditorViewModel : ObservableObject
                 Condition = d.Condition ?? string.Empty
             });
         }
-        Items.Clear();
-        foreach (var item in room.Items)
-            Items.Add(new ItemEntry { Name = item });
         Conditions.Clear();
         foreach (var cond in room.Conditions)
             Conditions.Add(new ConditionEntry { Name = cond });
@@ -73,9 +64,6 @@ public partial class RoomEditorViewModel : ObservableObject
                 Condition = string.IsNullOrWhiteSpace(d.Condition) ? null : d.Condition
             });
         }
-        room.Items.Clear();
-        foreach (var item in Items)
-            room.Items.Add(item.Name);
         room.Conditions.Clear();
         foreach (var cond in Conditions)
             room.Conditions.Add(cond.Name);
@@ -179,12 +167,6 @@ public partial class RoomDescriptionEntry : ObservableObject
 
     [ObservableProperty]
     private string _condition = string.Empty;
-}
-
-public partial class ItemEntry : ObservableObject
-{
-    [ObservableProperty]
-    private string _name = string.Empty;
 }
 
 public partial class ConditionEntry : ObservableObject

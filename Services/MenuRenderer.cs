@@ -48,18 +48,6 @@ public class MenuRenderer
             currentRoom.InitialConditions.Clear();
         }
 
-        // Display items in room (only those still available)
-        var availableItems = currentRoom.Items;
-        if (availableItems.Count > 0)
-        {
-            Console.WriteLine("You see here:");
-            foreach (var item in availableItems)
-            {
-                Console.WriteLine($"  - {item}");
-            }
-            Console.WriteLine();
-        }
-
         // Build menu options
         var options = BuildMenuOptions(currentRoom, player);
 

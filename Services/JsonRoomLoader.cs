@@ -71,15 +71,6 @@ public class JsonRoomLoader : IJsonRoomLoader
             }
         }
 
-        // Items array (optional)
-        if (roomElem.TryGetProperty("items", out JsonElement itemsElem) && itemsElem.ValueKind == JsonValueKind.Array)
-        {
-            foreach (var itemElem in itemsElem.EnumerateArray())
-            {
-                room.Items.Add(itemElem.GetString() ?? "");
-            }
-        }
-
         // Actions dictionary
         if (roomElem.TryGetProperty("actions", out JsonElement actionsElem) && actionsElem.ValueKind == JsonValueKind.Object)
         {
@@ -89,6 +80,12 @@ public class JsonRoomLoader : IJsonRoomLoader
                 var actionDto = ParseActionDto(prop.Value);
                 var roomAction = ConvertToRoomAction(actionKey, actionDto);
                 room.Actions[actionKey] = roomAction;
+
+                // If it's a "take" action, add the item to room.Items automatically
+                if (actionKey.Equals("take", StringComparison.OrdinalIgnoreCase) && actionDto.Item != null)
+                {
+                    room.Items.Add(actionDto.Item);
+                }
             }
         }
 

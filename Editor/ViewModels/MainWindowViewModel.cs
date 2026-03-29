@@ -130,16 +130,6 @@ public partial class MainWindowViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void AddItem()
-    {
-        if (Editor != null)
-        {
-            Editor.Items.Add(new ItemEntry { Name = "new item" });
-            StatusMessage = "Added item";
-        }
-    }
-
-    [RelayCommand]
     private void AddCondition()
     {
         if (Editor != null)
@@ -191,18 +181,6 @@ public partial class MainWindowViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void RemoveItem()
-    {
-        if (Editor != null && Editor.SelectedItem != null)
-        {
-            var item = Editor.SelectedItem;
-            Editor.Items.Remove(item);
-            Editor.SelectedItem = null;
-            StatusMessage = $"Removed item: {item.Name}";
-        }
-    }
-
-    [RelayCommand]
     private void RemoveCondition()
     {
         if (Editor != null && Editor.SelectedCondition != null)
@@ -230,14 +208,6 @@ public partial class MainWindowViewModel : ObservableObject
                     Text = descItem.GetProperty("text").GetString() ?? "",
                     Condition = descItem.TryGetProperty("condition", out JsonElement cond) ? cond.GetString() : null
                 });
-            }
-        }
-
-        if (roomElem.TryGetProperty("items", out JsonElement itemsElem) && itemsElem.ValueKind == JsonValueKind.Array)
-        {
-            foreach (var item in itemsElem.EnumerateArray())
-            {
-                room.Items.Add(item.GetString() ?? "");
             }
         }
 
@@ -354,7 +324,6 @@ public partial class MainWindowViewModel : ObservableObject
                 text = d.Text,
                 condition = d.Condition
             }).ToList(),
-            items = room.Items.ToList(),
             conditions = room.Conditions.ToList(),
             actions = room.Actions.ToDictionary(kvp => kvp.Key, kvp => ConvertActionToJson(kvp.Value))
         };
