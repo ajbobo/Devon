@@ -92,7 +92,7 @@ public class MenuRenderer
         var options = new List<MenuOption>();
 
         // Direction exits
-        var directionKeys = new[] { "north", "south", "east", "west" };
+        var directionKeys = new[] { "north", "south", "east", "west", "up", "down" };
         foreach (var dir in directionKeys)
         {
             if (currentRoom.TryGetAction(dir, out var action) && IsActionAvailable(action, currentRoom, player))

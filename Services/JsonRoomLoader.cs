@@ -168,7 +168,9 @@ public class JsonRoomLoader : IJsonRoomLoader
         if (key.Equals("north", StringComparison.OrdinalIgnoreCase) ||
             key.Equals("south", StringComparison.OrdinalIgnoreCase) ||
             key.Equals("east", StringComparison.OrdinalIgnoreCase) ||
-            key.Equals("west", StringComparison.OrdinalIgnoreCase))
+            key.Equals("west", StringComparison.OrdinalIgnoreCase) ||
+            key.Equals("up", StringComparison.OrdinalIgnoreCase) ||
+            key.Equals("down", StringComparison.OrdinalIgnoreCase))
         {
             // Exit action
             action = new ExitAction

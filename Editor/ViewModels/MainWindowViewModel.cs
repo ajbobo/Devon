@@ -280,7 +280,7 @@ public partial class MainWindowViewModel : ObservableObject
 
         return key.ToLowerInvariant() switch
         {
-            "north" or "south" or "east" or "west" => new ExitAction
+            "north" or "south" or "east" or "west" or "up" or "down" => new ExitAction
             {
                 TargetRoom = targetRoom ?? "",
                 ResultText = resultText,

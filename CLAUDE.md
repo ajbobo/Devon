@@ -56,7 +56,7 @@ Rooms are defined with:
 - `name`: Room identifier
 - `description`: Array of `{text, condition}` entries shown when entering
 - `conditions`: Room conditions initially set
-- `actions`: Dictionary keyed by direction (`north`/`south`/`east`/`west`) or action type (`take`/`use`/`talk`)
+- `actions`: Dictionary keyed by direction (`north`/`south`/`east`/`west`/`up`/`down`) or action type (`take`/`use`/`talk`)
   - Exit actions: `{room, result_text, action, condition}`
   - Take actions: `{item, result_text, action, condition}` — defines an item
   - Use actions: `{item, target, result_text, action, condition}`

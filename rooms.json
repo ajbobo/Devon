@@ -72,7 +72,7 @@
           "condition": null
         },
         "east": {
-          "room": "Armory",
+          "room": "Armor Showroom",
           "result_text": null,
           "action": null,
           "condition": null
@@ -126,10 +126,10 @@
       }
     },
     {
-      "name": "Armory",
+      "name": "Armor Showroom",
       "description": [
         {
-          "text": "\u003Carmory\u003E",
+          "text": "\u003CArmor Showroom\u003E",
           "condition": null
         },
         {
@@ -256,6 +256,82 @@
         "take": {
           "item": "Horn",
           "result_text": "You pick up the hunting horn.",
+          "action": null,
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Stairs1",
+      "description": [
+        {
+          "text": "\u003CAt stairs\u003E",
+          "condition": null
+        }
+      ],
+      "conditions": [],
+      "actions": {
+        "up": {
+          "room": "Stairs2",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "west": {
+          "room": "Crypt",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Stairs2",
+      "description": [
+        {
+          "text": "\u003Cat stairs\u003E",
+          "condition": null
+        }
+      ],
+      "conditions": [],
+      "actions": {
+        "down": {
+          "room": "Stairs1",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "north": {
+          "room": "Armory",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Armory",
+      "description": [
+        {
+          "text": "\u003Carmory with weapons\u003E",
+          "condition": null
+        },
+        {
+          "text": "\u003Chas crossbow\u003E",
+          "condition": "RoomHasItem(crossbow)"
+        }
+      ],
+      "conditions": [],
+      "actions": {
+        "south": {
+          "room": "Stairs2",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "take": {
+          "item": "Crossbow",
+          "result_text": "You pick up the crossbow.",
           "action": null,
           "condition": null
         }

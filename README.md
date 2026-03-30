@@ -5,7 +5,7 @@ Devon is a C# text adventure game with an integrated room editor. The game is bu
 ## Features
 
 - **Text-based adventure gameplay** with menu-driven interaction
-- **Room-based exploration** with directional exits (north, south, east, west)
+- **Room-based exploration** with directional exits (north, south, east, west, up, down)
 - **Inventory system** for collecting and using items
 - **Condition system** for tracking player and room states
 - **Visual Editor** for designing rooms without hand-editing JSON
