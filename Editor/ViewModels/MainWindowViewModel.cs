@@ -18,7 +18,16 @@ public partial class MainWindowViewModel : ObservableObject
     private Room? _selectedRoom;
 
     [ObservableProperty]
-    private RoomEditorViewModel? _editor;
+    private ObservableCollection<Cutscene> _cutscenes = new();
+
+    [ObservableProperty]
+    private Cutscene? _selectedCutscene;
+
+    [ObservableProperty]
+    private RoomEditorViewModel? _roomEditor;
+
+    [ObservableProperty]
+    private CutsceneEditorViewModel? _cutsceneEditor;
 
     [ObservableProperty]
     private string _statusMessage = "Ready";
@@ -27,12 +36,27 @@ public partial class MainWindowViewModel : ObservableObject
     {
         if (value != null)
         {
-            Editor = new RoomEditorViewModel();
-            Editor.LoadFromRoom(value);
+            var editor = new RoomEditorViewModel();
+            editor.LoadFromRoom(value);
+            RoomEditor = editor;
         }
         else
         {
-            Editor = null;
+            RoomEditor = null;
+        }
+    }
+
+    partial void OnSelectedCutsceneChanged(Cutscene? value)
+    {
+        if (value != null)
+        {
+            var editor = new CutsceneEditorViewModel();
+            editor.LoadFromCutscene(value);
+            CutsceneEditor = editor;
+        }
+        else
+        {
+            CutsceneEditor = null;
         }
     }
 
@@ -53,18 +77,67 @@ public partial class MainWindowViewModel : ObservableObject
             var roomToDelete = SelectedRoom;
             Rooms.Remove(roomToDelete);
             SelectedRoom = null;
-            Editor = null;
+            RoomEditor = null;
             StatusMessage = $"Deleted room: {roomToDelete.Name}";
+        }
+    }
+
+    [RelayCommand]
+    private void NewCutscene()
+    {
+        var newCutscene = new Cutscene { Name = "New Cutscene" };
+        Cutscenes.Add(newCutscene);
+        SelectedCutscene = newCutscene;
+        StatusMessage = "Created new cutscene";
+    }
+
+    [RelayCommand]
+    private void DeleteCutscene()
+    {
+        if (SelectedCutscene != null)
+        {
+            var cutsceneToDelete = SelectedCutscene;
+            Cutscenes.Remove(cutsceneToDelete);
+            SelectedCutscene = null;
+            CutsceneEditor = null;
+            StatusMessage = $"Deleted cutscene: {cutsceneToDelete.Name}";
+        }
+    }
+
+    [RelayCommand]
+    private void AddCutsceneText()
+    {
+        if (CutsceneEditor != null)
+        {
+            CutsceneEditor.TextLines.Add(new CutsceneTextEntry { Text = "New line", Color = null, Wait = false, Clear = false });
+            StatusMessage = "Added text line";
+        }
+    }
+
+    [RelayCommand]
+    private void RemoveCutsceneText()
+    {
+        if (CutsceneEditor != null && CutsceneEditor.SelectedTextLine != null)
+        {
+            var line = CutsceneEditor.SelectedTextLine;
+            CutsceneEditor.TextLines.Remove(line);
+            CutsceneEditor.SelectedTextLine = null;
+            StatusMessage = "Removed text line";
         }
     }
 
     [RelayCommand]
     private void SaveChanges()
     {
-        if (Editor != null && SelectedRoom != null)
+        if (RoomEditor != null && SelectedRoom != null)
         {
-            Editor.ApplyToRoom(SelectedRoom);
+            RoomEditor.ApplyToRoom(SelectedRoom);
             StatusMessage = $"Saved changes to: {SelectedRoom.Name}";
+        }
+        else if (CutsceneEditor != null && SelectedCutscene != null)
+        {
+            CutsceneEditor.ApplyToCutscene(SelectedCutscene);
+            StatusMessage = $"Saved changes to cutscene: {SelectedCutscene.Name}";
         }
     }
 
@@ -73,11 +146,15 @@ public partial class MainWindowViewModel : ObservableObject
     {
         try
         {
-            var data = new { rooms = Rooms.Select(r => ConvertRoomToJson(r)).ToList() };
+            var data = new
+            {
+                rooms = Rooms.Select(r => ConvertRoomToJson(r)).ToList(),
+                cutscenes = Cutscenes.Select(c => ConvertCutsceneToJson(c)).ToList()
+            };
             var options = new JsonSerializerOptions { WriteIndented = true };
             var json = JsonSerializer.Serialize(data, options);
             await File.WriteAllTextAsync(_roomsJsonPath, json);
-            StatusMessage = $"Saved {Rooms.Count} rooms to {_roomsJsonPath}";
+            StatusMessage = $"Saved {Rooms.Count} rooms and {Cutscenes.Count} cutscenes to {_roomsJsonPath}";
         }
         catch (Exception ex)
         {
@@ -100,6 +177,7 @@ public partial class MainWindowViewModel : ObservableObject
             var doc = JsonDocument.Parse(json);
 
             Rooms.Clear();
+            Cutscenes.Clear();
 
             if (doc.RootElement.TryGetProperty("rooms", out JsonElement roomsElement))
             {
@@ -110,7 +188,16 @@ public partial class MainWindowViewModel : ObservableObject
                 }
             }
 
-            StatusMessage = $"Loaded {Rooms.Count} rooms from {_roomsJsonPath}";
+            if (doc.RootElement.TryGetProperty("cutscenes", out JsonElement cutscenesElement))
+            {
+                foreach (var cutsceneElem in cutscenesElement.EnumerateArray())
+                {
+                    var cutscene = ParseCutscene(cutsceneElem);
+                    Cutscenes.Add(cutscene);
+                }
+            }
+
+            StatusMessage = $"Loaded {Rooms.Count} rooms and {Cutscenes.Count} cutscenes from {_roomsJsonPath}";
         }
         catch (Exception ex)
         {
@@ -118,80 +205,46 @@ public partial class MainWindowViewModel : ObservableObject
         }
     }
 
-    // Collection modification commands that operate on the Editor
-    [RelayCommand]
-    private void AddDescription()
+    private Cutscene ParseCutscene(JsonElement cutsceneElem)
     {
-        if (Editor != null)
+        var cutscene = new Cutscene
         {
-            Editor.Descriptions.Add(new RoomDescriptionEntry { Text = "New description", Condition = "" });
-            StatusMessage = "Added description";
-        }
-    }
+            Name = cutsceneElem.GetProperty("name").GetString() ?? "Unnamed Cutscene"
+        };
 
-    [RelayCommand]
-    private void AddCondition()
-    {
-        if (Editor != null)
+        if (cutsceneElem.TryGetProperty("text", out JsonElement textElem) && textElem.ValueKind == JsonValueKind.Array)
         {
-            Editor.Conditions.Add(new ConditionEntry { Name = "new condition" });
-            StatusMessage = "Added condition";
-        }
-    }
-
-    [RelayCommand]
-    private void AddAction()
-    {
-        if (Editor != null)
-        {
-            var action = new RoomActionEntry
+            foreach (var textItem in textElem.EnumerateArray())
             {
-                Key = "north",
-                Type = RoomActionEntryType.Exit,
-                TargetRoom = "Target Room Name"
-            };
-            Editor.Actions.Add(action);
-            Editor.SelectedAction = action;
-            StatusMessage = "Added action";
+                cutscene.Text.Add(new CutsceneText
+                {
+                    Text = textItem.GetProperty("text").GetString() ?? "",
+                    Color = textItem.TryGetProperty("color", out JsonElement colorElem) ? colorElem.GetString() : null,
+                    Wait = textItem.TryGetProperty("wait", out JsonElement waitElem) && waitElem.ValueKind == JsonValueKind.True,
+                    Clear = textItem.TryGetProperty("clear", out JsonElement clearElem) && clearElem.ValueKind == JsonValueKind.True
+                });
+            }
         }
+
+        return cutscene;
     }
 
-    [RelayCommand]
-    private void RemoveAction()
+    private object ConvertCutsceneToJson(Cutscene cutscene)
     {
-        if (Editor != null && Editor.SelectedAction != null)
+        return new
         {
-            var action = Editor.SelectedAction;
-            Editor.Actions.Remove(action);
-            Editor.SelectedAction = null;
-            StatusMessage = $"Removed action: {action.Key}";
-        }
+            name = cutscene.Name,
+            text = cutscene.Text.Select(t => new
+            {
+                text = t.Text,
+                color = t.Color,
+                wait = t.Wait,
+                clear = t.Clear
+            }).ToList()
+        };
     }
 
-    [RelayCommand]
-    private void RemoveDescription()
-    {
-        if (Editor != null && Editor.SelectedDescription != null)
-        {
-            var desc = Editor.SelectedDescription;
-            Editor.Descriptions.Remove(desc);
-            Editor.SelectedDescription = null;
-            StatusMessage = "Removed description";
-        }
-    }
-
-    [RelayCommand]
-    private void RemoveCondition()
-    {
-        if (Editor != null && Editor.SelectedCondition != null)
-        {
-            var cond = Editor.SelectedCondition;
-            Editor.Conditions.Remove(cond);
-            Editor.SelectedCondition = null;
-            StatusMessage = $"Removed condition: {cond.Name}";
-        }
-    }
-
+    // Existing ParseRoom and ConvertRoomToJson methods remain unchanged
     private Room ParseRoom(JsonElement roomElem)
     {
         var room = new Room
