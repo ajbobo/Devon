@@ -113,11 +113,8 @@ public class MenuRenderer
             options.Add(new MenuOption("Use", "use"));
         }
 
-        // Talk action - always available if talk action exists and condition met
-        if (currentRoom.TryGetAction("talk", out var talkAction) && talkAction != null && IsActionAvailable(talkAction, currentRoom, player))
-        {
-            options.Add(new MenuOption("Talk", "talk"));
-        }
+        // Talk action - always available (like Inventory)
+        options.Add(new MenuOption("Talk", "talk"));
 
         // Inventory always available
         options.Add(new MenuOption("Inventory", "inventory"));

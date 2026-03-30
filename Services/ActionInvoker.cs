@@ -101,53 +101,56 @@ public class ActionInvoker
 
     /// <summary>
     /// Handles a Talk action - prompts for target and what to say
+    /// Always available, regardless of talk action definition in room
     /// </summary>
     public void HandleTalk(Room room, Player player)
     {
-        if (!room.TryGetAction("talk", out var talkAction) || talkAction is not TalkAction talk)
-        {
-            Console.WriteLine("There's nobody to talk to.");
-            WaitForKey();
-            return;
-        }
-
-        var state = new GameState { CurrentRoom = room, Player = player };
-        if (!_conditionEvaluator.Evaluate(talk.Condition ?? "true", state))
-        {
-            Console.WriteLine("You can't talk to that now.");
-            WaitForKey();
-            return;
-        }
-
-        // Prompt for target (who to talk to)
+        // Always prompt for target (who to talk to)
         Console.Write("Who would you like to talk to? ");
         var targetInput = Console.ReadLine()?.Trim();
 
-        if (!string.Equals(targetInput, talk.Target, StringComparison.OrdinalIgnoreCase))
+        // Check if there is a talk action for this target
+        if (room.TryGetAction("talk", out var talkAction) && talkAction is TalkAction talk)
         {
-            Console.WriteLine("That person isn't here.");
-            WaitForKey();
-            return;
+            var state = new GameState { CurrentRoom = room, Player = player };
+            if (!_conditionEvaluator.Evaluate(talk.Condition ?? "true", state))
+            {
+                Console.WriteLine("You can't talk to that now.");
+                WaitForKey();
+                return;
+            }
+
+            if (!string.Equals(targetInput, talk.Target, StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine("That person isn't here.");
+                WaitForKey();
+                return;
+            }
+
+            // Prompt for what to say
+            Console.Write("What would you like to say? ");
+            var saysInput = Console.ReadLine()?.Trim();
+
+            if (!string.Equals(saysInput, talk.Says, StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine("The NPC doesn't respond to that.");
+                WaitForKey();
+                return;
+            }
+
+            // Correct response
+            if (!string.IsNullOrEmpty(talk.ResultText))
+            {
+                Console.WriteLine(talk.ResultText);
+            }
+
+            _executor.Execute(talk.ActionCommands, state);
         }
-
-        // Prompt for what to say
-        Console.Write("What would you like to say? ");
-        var saysInput = Console.ReadLine()?.Trim();
-
-        if (!string.Equals(saysInput, talk.Says, StringComparison.OrdinalIgnoreCase))
+        else
         {
-            Console.WriteLine("The NPC doesn't respond to that.");
-            WaitForKey();
-            return;
+            // No talk action defined - generic response
+            Console.WriteLine($"You talk to {targetInput}, but there's no response.");
         }
-
-        // Correct response
-        if (!string.IsNullOrEmpty(talk.ResultText))
-        {
-            Console.WriteLine(talk.ResultText);
-        }
-
-        _executor.Execute(talk.ActionCommands, state);
 
         WaitForKey();
     }
