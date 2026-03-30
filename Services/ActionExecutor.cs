@@ -63,6 +63,9 @@ public class ActionExecutor : IActionExecutor
             case "Room":
                 ExecuteRoom(state.CurrentRoom, methodPart, arg);
                 break;
+            case "Game":
+                ExecuteGame(state, methodPart);
+                break;
             default:
                 throw new InvalidOperationException($"Unknown target class: {classPart}");
         }
@@ -127,6 +130,18 @@ public class ActionExecutor : IActionExecutor
         else
         {
             throw new InvalidOperationException($"Unknown Room method: {method}");
+        }
+    }
+
+    private void ExecuteGame(GameState state, string method)
+    {
+        if (method.Equals("gameOver", StringComparison.OrdinalIgnoreCase))
+        {
+            throw new GameOverException();
+        }
+        else
+        {
+            throw new InvalidOperationException($"Unknown Game method: {method}");
         }
     }
 }

@@ -28,17 +28,28 @@ public class Game
         bool quit = false;
         while (!quit)
         {
-            var actionKey = _menuRenderer!.GetActionFromPlayer(_state.CurrentRoom!, _state.Player);
+            try
+            {
+                var actionKey = _menuRenderer!.GetActionFromPlayer(_state.CurrentRoom!, _state.Player);
 
-            if (actionKey == "quit")
+                if (actionKey == "quit")
+                {
+                    quit = true;
+                    try { Console.Clear(); } catch { }
+                    Console.WriteLine("Thanks for playing!");
+                    break;
+                }
+
+                ProcessAction(actionKey);
+            }
+            catch (GameOverException)
             {
                 quit = true;
                 try { Console.Clear(); } catch { }
+                Console.WriteLine("Game Over!");
+                Console.WriteLine();
                 Console.WriteLine("Thanks for playing!");
-                break;
             }
-
-            ProcessAction(actionKey);
         }
     }
 

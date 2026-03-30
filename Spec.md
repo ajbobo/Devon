@@ -91,6 +91,7 @@ The "action" field in the JSON is a semicolon-separated list of the following co
 - Room.addCondition(<condition_name>)
 - Room.removeCondition(<condition_name>)
 - Room.startCutscene(<cutscene_name>)
+- Game.gameOver()
 Examples:
 - Inventory.add(knife)
 - Player.addCondition(has_armor)

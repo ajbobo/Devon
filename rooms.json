@@ -365,7 +365,7 @@
       ],
       "conditions": [],
       "onEntry": {
-        "action": "Room.startCutscene(Prison)"
+        "action": "Room.startCutscene(Prison); Game.gameOver()"
       },
       "actions": {}
     }
