@@ -1,12 +1,21 @@
-using Devon.Models;
-
 namespace Devon.Services;
+
+using Devon.Models;
 
 /// <summary>
 /// Parses and executes action command strings
 /// </summary>
 public class ActionExecutor : IActionExecutor
 {
+    private readonly ICutsceneRenderer _cutsceneRenderer;
+    private readonly Dictionary<string, Cutscene> _cutscenes;
+
+    public ActionExecutor(ICutsceneRenderer cutsceneRenderer, Dictionary<string, Cutscene> cutscenes)
+    {
+        _cutsceneRenderer = cutsceneRenderer ?? throw new ArgumentNullException(nameof(cutsceneRenderer));
+        _cutscenes = cutscenes ?? throw new ArgumentNullException(nameof(cutscenes));
+    }
+
     public void Execute(string? commands, GameState state)
     {
         if (string.IsNullOrWhiteSpace(commands))
@@ -103,6 +112,17 @@ public class ActionExecutor : IActionExecutor
         else if (method.Equals("removeCondition", StringComparison.OrdinalIgnoreCase))
         {
             room.Conditions.Remove(arg);
+        }
+        else if (method.Equals("startCutscene", StringComparison.OrdinalIgnoreCase))
+        {
+            if (_cutscenes.TryGetValue(arg, out var cutscene))
+            {
+                _cutsceneRenderer.PlayCutscene(cutscene);
+            }
+            else
+            {
+                throw new InvalidOperationException($"Cutscene '{arg}' not found");
+            }
         }
         else
         {

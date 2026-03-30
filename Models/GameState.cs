@@ -7,6 +7,7 @@ public class GameState
 {
     public Player Player { get; set; } = new();
     public Dictionary<string, Room> Rooms { get; } = new(StringComparer.OrdinalIgnoreCase);
+    public Dictionary<string, Cutscene> Cutscenes { get; } = new(StringComparer.OrdinalIgnoreCase);
     public Room? CurrentRoom { get; set; }
 
     /// <summary>

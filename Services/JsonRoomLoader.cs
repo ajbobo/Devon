@@ -19,6 +19,11 @@ public class JsonRoomLoader : IJsonRoomLoader
         _conditionEvaluator = conditionEvaluator ?? new ConditionEvaluator();
     }
 
+    /// <summary>
+    /// Gets the loaded cutscenes after LoadRoomsAsync has been called
+    /// </summary>
+    public Dictionary<string, Cutscene> Cutscenes { get; } = new(StringComparer.OrdinalIgnoreCase);
+
     public async Task<IReadOnlyDictionary<string, Room>> LoadRoomsAsync()
     {
         var assembly = Assembly.GetExecutingAssembly();
@@ -45,6 +50,17 @@ public class JsonRoomLoader : IJsonRoomLoader
         {
             var room = ParseRoom(roomElem);
             roomsDict[room.Name] = room;
+        }
+
+        // Parse cutscenes from the same JSON file
+        Cutscenes.Clear();
+        if (doc.RootElement.TryGetProperty("cutscenes", out JsonElement cutscenesElement) && cutscenesElement.ValueKind == JsonValueKind.Array)
+        {
+            foreach (var cutsceneElem in cutscenesElement.EnumerateArray())
+            {
+                var cutscene = ParseCutscene(cutsceneElem);
+                Cutscenes[cutscene.Name] = cutscene;
+            }
         }
 
         return roomsDict;
@@ -108,6 +124,31 @@ public class JsonRoomLoader : IJsonRoomLoader
         }
 
         return room;
+    }
+
+    private Cutscene ParseCutscene(JsonElement cutsceneElem)
+    {
+        var cutscene = new Cutscene
+        {
+            Name = cutsceneElem.GetProperty("name").GetString() ?? throw new InvalidOperationException("Cutscene missing name")
+        };
+
+        if (cutsceneElem.TryGetProperty("text", out JsonElement textElem) && textElem.ValueKind == JsonValueKind.Array)
+        {
+            foreach (var textItem in textElem.EnumerateArray())
+            {
+                var cutsceneText = new CutsceneText
+                {
+                    Text = textItem.GetProperty("text").GetString() ?? "",
+                    Color = textItem.TryGetProperty("color", out JsonElement colorElem) ? colorElem.GetString() : null,
+                    Wait = textItem.TryGetProperty("wait", out JsonElement waitElem) && waitElem.ValueKind == JsonValueKind.True,
+                    Clear = textItem.TryGetProperty("clear", out JsonElement clearElem) && clearElem.ValueKind == JsonValueKind.True
+                };
+                cutscene.Text.Add(cutsceneText);
+            }
+        }
+
+        return cutscene;
     }
 
     private record ActionDto(

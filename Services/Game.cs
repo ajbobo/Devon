@@ -9,9 +9,9 @@ public class Game
 {
     private readonly IConditionEvaluator _conditionEvaluator;
     private readonly IJsonRoomLoader _roomLoader;
-    private readonly MenuRenderer _menuRenderer;
-    private readonly ActionInvoker _actionInvoker;
-    private readonly IActionExecutor _actionExecutor;
+    private MenuRenderer? _menuRenderer;
+    private ActionInvoker? _actionInvoker;
+    private IActionExecutor? _actionExecutor;
 
     private GameState _state = new();
 
@@ -19,9 +19,6 @@ public class Game
     {
         _conditionEvaluator = new ConditionEvaluator();
         _roomLoader = new JsonRoomLoader("Devon.rooms.json", _conditionEvaluator);
-        _actionExecutor = new ActionExecutor();
-        _menuRenderer = new MenuRenderer(_conditionEvaluator);
-        _actionInvoker = new ActionInvoker(_actionExecutor, _conditionEvaluator);
     }
 
     public void Run()
@@ -31,7 +28,7 @@ public class Game
         bool quit = false;
         while (!quit)
         {
-            var actionKey = _menuRenderer.GetActionFromPlayer(_state.CurrentRoom!, _state.Player);
+            var actionKey = _menuRenderer!.GetActionFromPlayer(_state.CurrentRoom!, _state.Player);
 
             if (actionKey == "quit")
             {
@@ -56,10 +53,22 @@ public class Game
                 _state.Rooms[kvp.Key] = kvp.Value;
             }
 
+            // Load cutscenes from the loader into game state
+            foreach (var kvp in _roomLoader.Cutscenes)
+            {
+                _state.Cutscenes[kvp.Key] = kvp.Value;
+            }
+
             // Set starting room - first room in the dictionary (or could have "start" field in JSON)
             // For now, pick the one named "Entrance" or first
             _state.CurrentRoom = _state.Rooms.Values.FirstOrDefault(r => r.Name.Equals("Entrance", StringComparison.OrdinalIgnoreCase))
                               ?? _state.Rooms.Values.First();
+
+            // Initialize services that need cutscenes
+            var cutsceneRenderer = new CutsceneRenderer();
+            _actionExecutor = new ActionExecutor(cutsceneRenderer, _state.Cutscenes);
+            _menuRenderer = new MenuRenderer(_conditionEvaluator);
+            _actionInvoker = new ActionInvoker(_actionExecutor, _conditionEvaluator);
 
             // Execute onEntry for the starting room
             ExecuteRoomOnEntry(_state.CurrentRoom);
@@ -81,7 +90,7 @@ public class Game
         if (!string.IsNullOrEmpty(room.OnEntry) && !_state.Player.VisitedRooms.Contains(room.Name))
         {
             _state.Player.VisitedRooms.Add(room.Name);
-            _actionExecutor.Execute(room.OnEntry, _state);
+            _actionExecutor!.Execute(room.OnEntry, _state);
         }
     }
 
@@ -97,19 +106,19 @@ public class Game
                 break;
 
             case "take":
-                _actionInvoker.HandleTake(room, _state.Player);
+                _actionInvoker!.HandleTake(room, _state.Player);
                 break;
 
             case "use":
-                _actionInvoker.HandleUse(room, _state.Player);
+                _actionInvoker!.HandleUse(room, _state.Player);
                 break;
 
             case "talk":
-                _actionInvoker.HandleTalk(room, _state.Player);
+                _actionInvoker!.HandleTalk(room, _state.Player);
                 break;
 
             case "inventory":
-                _actionInvoker.ShowInventory(_state.Player);
+                _actionInvoker!.ShowInventory(_state.Player);
                 break;
         }
     }
@@ -143,7 +152,7 @@ public class Game
         }
 
         // Execute any associated commands (these might affect the current room before leaving or the new room)
-        _actionExecutor.Execute(exitAction.ActionCommands, state);
+        _actionExecutor!.Execute(exitAction.ActionCommands, state);
 
         // Find the target room
         var targetRoomName = exitAction.TargetRoom;

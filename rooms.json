@@ -24,7 +24,7 @@
         "knocker_fell"
       ],
       "onEntry": {
-        "action": "Inventory.add(Amulet)"
+        "action": "Inventory.add(Amulet);Room.startCutscene(intro)"
       },
       "actions": {
         "take": {
@@ -366,6 +366,28 @@
       "conditions": [],
       "onEntry": null,
       "actions": {}
+    }
+  ],
+  "cutscenes": [
+    {
+      "name": "intro",
+      "text": [
+        {
+          "text": "The screen fades to black...",
+          "color": "DarkBlue",
+          "wait": true,
+          "clear": true
+        },
+        {
+          "text": "A faint whispering emerges from the darkness...",
+          "color": "Gray"
+        },
+        {
+          "text": "You find yourself standing before an ancient gate.",
+          "color": "Yellow",
+          "wait": true
+        }
+      ]
     }
   ]
 }

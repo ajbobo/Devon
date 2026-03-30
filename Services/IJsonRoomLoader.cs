@@ -11,4 +11,9 @@ public interface IJsonRoomLoader
     /// Loads all rooms from the embedded resource
     /// </summary>
     Task<IReadOnlyDictionary<string, Room>> LoadRoomsAsync();
+
+    /// <summary>
+    /// Gets the cutscenes loaded from the JSON (populated after LoadRoomsAsync)
+    /// </summary>
+    Dictionary<string, Cutscene> Cutscenes { get; }
 }
