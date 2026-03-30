@@ -110,6 +110,12 @@
           "result_text": "You pick up the knife. It\u0027s rusty, but will still cut you. You carefully put it away.",
           "action": null,
           "condition": null
+        },
+        "west": {
+          "room": "Kitchen",
+          "result_text": null,
+          "action": null,
+          "condition": null
         }
       }
     },
@@ -138,6 +144,45 @@
           "result_text": "You pick up the armor and put it on. It is very cold at first, but feels comfortable quickly.",
           "action": null,
           "condition": null
+        }
+      }
+    },
+    {
+      "name": "Kitchen",
+      "description": [
+        {
+          "text": "\u003Cin kitchen\u003E",
+          "condition": null
+        },
+        {
+          "text": "\u003Chound is attacking\u003E",
+          "condition": "And(!RoomHasCondition(hound_attacked), !RoomHasCondition(hound_dead))"
+        },
+        {
+          "text": "\u003Chound is threatening\u003E",
+          "condition": "And(RoomHasCondition(hound_attacked), !RoomHasCondition(hound_dead))"
+        },
+        {
+          "text": "\u003Cdead hound\u003E",
+          "condition": "RoomHasCondition(hound_dead)"
+        }
+      ],
+      "conditions": [
+        "hound_attacked"
+      ],
+      "actions": {
+        "east": {
+          "room": "Dining Room",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "use": {
+          "item": "knife",
+          "target": "hound",
+          "result_text": "You kill the hound.",
+          "action": "Room.addCondition(hound_dead)",
+          "condition": "!Room.addCondition(hound_dead)"
         }
       }
     }
