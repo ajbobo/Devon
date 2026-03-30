@@ -334,8 +334,25 @@
           "result_text": "You pick up the crossbow.",
           "action": null,
           "condition": null
+        },
+        "west": {
+          "room": "Prison",
+          "result_text": null,
+          "action": null,
+          "condition": null
         }
       }
+    },
+    {
+      "name": "Prison",
+      "description": [
+        {
+          "text": "\u003Cprison\u003E",
+          "condition": null
+        }
+      ],
+      "conditions": [],
+      "actions": {}
     }
   ]
 }
