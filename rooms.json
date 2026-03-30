@@ -364,7 +364,9 @@
         }
       ],
       "conditions": [],
-      "onEntry": null,
+      "onEntry": {
+        "action": "Room.startCutscene(Prison)"
+      },
       "actions": {}
     }
   ],
@@ -380,12 +382,44 @@
         },
         {
           "text": "A faint whispering emerges from the darkness...",
-          "color": "Gray"
+          "color": "Gray",
+          "wait": false,
+          "clear": false
         },
         {
           "text": "You find yourself standing before an ancient gate.",
           "color": "Yellow",
-          "wait": true
+          "wait": true,
+          "clear": false
+        }
+      ]
+    },
+    {
+      "name": "Prison",
+      "text": [
+        {
+          "text": "You see the prison",
+          "color": null,
+          "wait": false,
+          "clear": false
+        },
+        {
+          "text": "You walk towards it",
+          "color": null,
+          "wait": false,
+          "clear": false
+        },
+        {
+          "text": "It slams closed behind you",
+          "color": null,
+          "wait": true,
+          "clear": false
+        },
+        {
+          "text": "You die here",
+          "color": null,
+          "wait": true,
+          "clear": false
         }
       ]
     }
