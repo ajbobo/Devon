@@ -28,6 +28,9 @@ Rooms are defined as entries in a JSON file:
                 "condition": "<check against the Room and/or player condition>" <-- optional
             }
         ],
+        "onEntry": {
+            "action": "<List of actions that occur the FIRST time a player enters a room>" <-- No result_text or conditions needed
+        }
         "actions": {
             "north": {
                 "room": "<the name of the room to the north>",

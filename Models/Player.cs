@@ -4,6 +4,7 @@ public class Player
 {
     public HashSet<string> Inventory { get; private set; } = new(StringComparer.OrdinalIgnoreCase);
     public HashSet<string> Conditions { get; private set; } = new(StringComparer.OrdinalIgnoreCase);
+    public HashSet<string> VisitedRooms { get; private set; } = new(StringComparer.OrdinalIgnoreCase); // Tracks rooms the player has entered
 
     public void AddItem(string item)
     {

@@ -23,6 +23,9 @@
       "conditions": [
         "knocker_fell"
       ],
+      "onEntry": {
+        "action": "Inventory.add(Amulet)"
+      },
       "actions": {
         "take": {
           "item": "Brass key",
@@ -58,6 +61,7 @@
         }
       ],
       "conditions": [],
+      "onEntry": null,
       "actions": {
         "south": {
           "room": "Gate",
@@ -98,6 +102,7 @@
         }
       ],
       "conditions": [],
+      "onEntry": null,
       "actions": {
         "south": {
           "room": "Hall",
@@ -138,6 +143,7 @@
         }
       ],
       "conditions": [],
+      "onEntry": null,
       "actions": {
         "west": {
           "room": "Hall",
@@ -176,6 +182,7 @@
       "conditions": [
         "hound_attacked"
       ],
+      "onEntry": null,
       "actions": {
         "east": {
           "room": "Dining Room",
@@ -205,6 +212,7 @@
         }
       ],
       "conditions": [],
+      "onEntry": null,
       "actions": {
         "talk": {
           "target": "Nobody",
@@ -246,6 +254,7 @@
         }
       ],
       "conditions": [],
+      "onEntry": null,
       "actions": {
         "south": {
           "room": "Crypt",
@@ -270,6 +279,7 @@
         }
       ],
       "conditions": [],
+      "onEntry": null,
       "actions": {
         "up": {
           "room": "Stairs2",
@@ -294,6 +304,7 @@
         }
       ],
       "conditions": [],
+      "onEntry": null,
       "actions": {
         "down": {
           "room": "Stairs1",
@@ -322,6 +333,7 @@
         }
       ],
       "conditions": [],
+      "onEntry": null,
       "actions": {
         "south": {
           "room": "Stairs2",
@@ -352,6 +364,7 @@
         }
       ],
       "conditions": [],
+      "onEntry": null,
       "actions": {}
     }
   ]

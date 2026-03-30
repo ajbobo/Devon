@@ -228,6 +228,14 @@ public partial class MainWindowViewModel : ObservableObject
             }
         }
 
+        if (roomElem.TryGetProperty("onEntry", out JsonElement onEntryElem) && onEntryElem.ValueKind == JsonValueKind.Object)
+        {
+            if (onEntryElem.TryGetProperty("action", out JsonElement actionElem))
+            {
+                room.OnEntry = actionElem.GetString();
+            }
+        }
+
         return room;
     }
 
@@ -325,6 +333,7 @@ public partial class MainWindowViewModel : ObservableObject
                 condition = d.Condition
             }).ToList(),
             conditions = room.Conditions.ToList(),
+            onEntry = room.OnEntry != null ? new { action = room.OnEntry } : null,
             actions = room.Actions.ToDictionary(kvp => kvp.Key, kvp => ConvertActionToJson(kvp.Value))
         };
     }

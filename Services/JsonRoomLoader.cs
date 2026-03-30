@@ -98,6 +98,15 @@ public class JsonRoomLoader : IJsonRoomLoader
             }
         }
 
+        // OnEntry action
+        if (roomElem.TryGetProperty("onEntry", out JsonElement onEntryElem) && onEntryElem.ValueKind == JsonValueKind.Object)
+        {
+            if (onEntryElem.TryGetProperty("action", out JsonElement actionElem))
+            {
+                room.OnEntry = actionElem.GetString();
+            }
+        }
+
         return room;
     }
 

@@ -103,6 +103,10 @@
                             <Button Content="Remove" Command="{Binding DataContext.RemoveConditionCommand, RelativeSource={RelativeSource AncestorType=Window}}" Padding="10,5"/>
                         </StackPanel>
 
+                        <!-- OnEntry Action -->
+                        <TextBlock Text="OnEntry Action:" FontWeight="Bold" Margin="0,10,0,0"/>
+                        <TextBox Text="{Binding OnEntry, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,0"/>
+
                         <!-- Actions -->
                         <TextBlock Text="Actions:" FontWeight="Bold" Margin="0,10,0,0"/>
                         <Border BorderBrush="LightGray" BorderThickness="1" Margin="0,5,0,0">

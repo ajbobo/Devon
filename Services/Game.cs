@@ -19,8 +19,8 @@ public class Game
     {
         _conditionEvaluator = new ConditionEvaluator();
         _roomLoader = new JsonRoomLoader("Devon.rooms.json", _conditionEvaluator);
-        _menuRenderer = new MenuRenderer(_conditionEvaluator);
         _actionExecutor = new ActionExecutor();
+        _menuRenderer = new MenuRenderer(_conditionEvaluator);
         _actionInvoker = new ActionInvoker(_actionExecutor, _conditionEvaluator);
     }
 
@@ -61,6 +61,9 @@ public class Game
             _state.CurrentRoom = _state.Rooms.Values.FirstOrDefault(r => r.Name.Equals("Entrance", StringComparison.OrdinalIgnoreCase))
                               ?? _state.Rooms.Values.First();
 
+            // Execute onEntry for the starting room
+            ExecuteRoomOnEntry(_state.CurrentRoom);
+
             Console.WriteLine("Devon - Text Adventure");
             Console.WriteLine("======================");
             Console.WriteLine();
@@ -70,6 +73,15 @@ public class Game
             Console.WriteLine($"Error loading game: {ex.Message}");
             Console.WriteLine(ex.StackTrace);
             Environment.Exit(1);
+        }
+    }
+
+    private void ExecuteRoomOnEntry(Room room)
+    {
+        if (!string.IsNullOrEmpty(room.OnEntry) && !_state.Player.VisitedRooms.Contains(room.Name))
+        {
+            _state.Player.VisitedRooms.Add(room.Name);
+            _actionExecutor.Execute(room.OnEntry, _state);
         }
     }
 
@@ -144,6 +156,7 @@ public class Game
         }
 
         _state.CurrentRoom = targetRoom;
+        ExecuteRoomOnEntry(targetRoom);
     }
 
     private static void WaitForKey()

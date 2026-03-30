@@ -61,6 +61,7 @@ public class Room
     public Dictionary<string, RoomAction> Actions { get; set; } = new(); // "north", "take", "use", "talk", etc.
     public HashSet<string> Conditions { get; set; } = new(StringComparer.OrdinalIgnoreCase); // Room's persistent conditions (active, case-insensitive)
     public HashSet<string> InitialConditions { get; set; } = new(StringComparer.OrdinalIgnoreCase); // Conditions to apply AFTER first description
+    public string? OnEntry { get; set; } // Semicolon-separated action commands to execute when player first enters this room
 
     /// <summary>
     /// Gets an action by its type key (e.g., "north", "take", "use", "talk")

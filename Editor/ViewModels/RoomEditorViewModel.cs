@@ -13,6 +13,9 @@ public partial class RoomEditorViewModel : ObservableObject
     private string _name = string.Empty;
 
     [ObservableProperty]
+    private string? _onEntry;
+
+    [ObservableProperty]
     private ObservableCollection<RoomDescriptionEntry> _descriptions = new();
 
     [ObservableProperty]
@@ -33,6 +36,7 @@ public partial class RoomEditorViewModel : ObservableObject
     public void LoadFromRoom(Room room)
     {
         Name = room.Name;
+        OnEntry = room.OnEntry;
         Descriptions.Clear();
         foreach (var d in room.Description)
         {
@@ -55,6 +59,7 @@ public partial class RoomEditorViewModel : ObservableObject
     public void ApplyToRoom(Room room)
     {
         room.Name = Name;
+        room.OnEntry = OnEntry;
         room.Description.Clear();
         foreach (var d in Descriptions)
         {
