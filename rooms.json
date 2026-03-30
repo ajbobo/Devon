@@ -116,6 +116,12 @@
           "result_text": null,
           "action": null,
           "condition": null
+        },
+        "north": {
+          "room": "Crypt",
+          "result_text": null,
+          "action": null,
+          "condition": null
         }
       }
     },
@@ -183,6 +189,75 @@
           "result_text": "You kill the hound.",
           "action": "Room.addCondition(hound_dead)",
           "condition": "!RoomHasCondition(hound_dead)"
+        }
+      }
+    },
+    {
+      "name": "Crypt",
+      "description": [
+        {
+          "text": "\u003Croom is dark\u003E",
+          "condition": "!RoomHasCondition(room_lit)"
+        },
+        {
+          "text": "\u003Cin crypt\u003E",
+          "condition": "RoomHasCondition(room_lit)"
+        }
+      ],
+      "conditions": [],
+      "actions": {
+        "talk": {
+          "target": "Nobody",
+          "says": "Light",
+          "result_text": "The lights turn on and you can see",
+          "action": "Room.addCondition(room_lit)",
+          "condition": "!RoomHasCondition(room_lit)"
+        },
+        "east": {
+          "room": "Stairs1",
+          "result_text": null,
+          "action": null,
+          "condition": "RoomHasCondition(room_lit)"
+        },
+        "north": {
+          "room": "Trophy Room",
+          "result_text": null,
+          "action": null,
+          "condition": "RoomHasCondition(room_lit)"
+        },
+        "south": {
+          "room": "Dining Room",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Trophy Room",
+      "description": [
+        {
+          "text": "\u003Ctrophy room\u003E",
+          "condition": null
+        },
+        {
+          "text": "\u003Cis horn\u003E",
+          "condition": "RoomHasItem(horn)"
+        }
+      ],
+      "conditions": [],
+      "actions": {
+        "south": {
+          "room": "Crypt",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "take": {
+          "item": "Horn",
+          "result_text": "You pick up the hunting horn.",
+          "action": null,
+          "condition": null
         }
       }
     }
