@@ -68,6 +68,15 @@ public class ActionInvoker
             return;
         }
 
+        // Check if the use action's condition is satisfied
+        var state = new GameState { CurrentRoom = room, Player = player };
+        if (!_conditionEvaluator.Evaluate(use.Condition ?? "true", state))
+        {
+            Console.WriteLine("You can't use that now.");
+            WaitForKey();
+            return;
+        }
+
         // if (!player.HasItem(use.Item))
         // {
         //     Console.WriteLine($"You don't have a {use.Item}.");
@@ -93,7 +102,7 @@ public class ActionInvoker
             Console.WriteLine(use.ResultText);
         }
 
-        var state = new GameState { CurrentRoom = room, Player = player };
+        state = new GameState { CurrentRoom = room, Player = player };
         _executor.Execute(use.ActionCommands, state);
 
         WaitForKey();

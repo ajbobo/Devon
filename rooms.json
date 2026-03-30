@@ -182,7 +182,7 @@
           "target": "hound",
           "result_text": "You kill the hound.",
           "action": "Room.addCondition(hound_dead)",
-          "condition": "!Room.addCondition(hound_dead)"
+          "condition": "!RoomHasCondition(hound_dead)"
         }
       }
     }
