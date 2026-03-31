@@ -1,6 +1,6 @@
-using Devon.Models;
-
 namespace Devon.Services;
+
+using Devon.Models;
 
 /// <summary>
 /// Main game controller
@@ -14,11 +14,17 @@ public class Game
     private IActionExecutor? _actionExecutor;
 
     private GameState _state = new();
+    private readonly IConsole _console;
 
-    public Game()
+    public Game() : this(new SystemConsole())
+    {
+    }
+
+    public Game(IConsole console)
     {
         _conditionEvaluator = new ConditionEvaluator();
         _roomLoader = new JsonRoomLoader("Devon.rooms.json", _conditionEvaluator);
+        _console = console ?? throw new System.ArgumentNullException(nameof(console));
     }
 
     public void Run()
@@ -35,8 +41,8 @@ public class Game
                 if (actionKey == "quit")
                 {
                     quit = true;
-                    try { Console.Clear(); } catch { }
-                    Console.WriteLine("Thanks for playing!");
+                    try { _console.Clear(); } catch { }
+                    _console.WriteLine("Thanks for playing!");
                     break;
                 }
 
@@ -45,10 +51,10 @@ public class Game
             catch (GameOverException)
             {
                 quit = true;
-                try { Console.Clear(); } catch { }
-                Console.WriteLine("Game Over!");
-                Console.WriteLine();
-                Console.WriteLine("Thanks for playing!");
+                try { _console.Clear(); } catch { }
+                _console.WriteLine("Game Over!");
+                _console.WriteLine();
+                _console.WriteLine("Thanks for playing!");
             }
         }
     }
@@ -76,22 +82,22 @@ public class Game
                               ?? _state.Rooms.Values.First();
 
             // Initialize services that need cutscenes
-            var cutsceneRenderer = new CutsceneRenderer();
+            var cutsceneRenderer = new CutsceneRenderer(_console);
             _actionExecutor = new ActionExecutor(cutsceneRenderer, _state.Cutscenes);
-            _menuRenderer = new MenuRenderer(_conditionEvaluator);
-            _actionInvoker = new ActionInvoker(_actionExecutor, _conditionEvaluator);
+            _menuRenderer = new MenuRenderer(_conditionEvaluator, _console);
+            _actionInvoker = new ActionInvoker(_actionExecutor, _conditionEvaluator, _console);
 
             // Execute onEntry for the starting room
             ExecuteRoomOnEntry(_state.CurrentRoom);
 
-            Console.WriteLine("Devon - Text Adventure");
-            Console.WriteLine("======================");
-            Console.WriteLine();
+            _console.WriteLine("Devon - Text Adventure");
+            _console.WriteLine("======================");
+            _console.WriteLine();
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error loading game: {ex.Message}");
-            Console.WriteLine(ex.StackTrace);
+            _console.WriteLine($"Error loading game: {ex.Message}");
+            _console.WriteLine(ex.StackTrace);
             Environment.Exit(1);
         }
     }
@@ -138,7 +144,7 @@ public class Game
     {
         if (!currentRoom.TryGetAction(direction, out var action) || action is not ExitAction exitAction)
         {
-            Console.WriteLine("You can't go that way.");
+            _console.WriteLine("You can't go that way.");
             WaitForKey();
             return;
         }
@@ -149,7 +155,7 @@ public class Game
         {
             if (!_conditionEvaluator.Evaluate(exitAction.Condition, state))
             {
-                Console.WriteLine("You can't go that way.");
+                _console.WriteLine("You can't go that way.");
                 WaitForKey();
                 return;
             }
@@ -159,7 +165,7 @@ public class Game
         // The result_text is displayed to the user; we can show it before changing rooms
         if (!string.IsNullOrEmpty(exitAction.ResultText))
         {
-            Console.WriteLine(exitAction.ResultText);
+            _console.WriteLine(exitAction.ResultText);
         }
 
         // Execute any associated commands (these might affect the current room before leaving or the new room)
@@ -170,18 +176,19 @@ public class Game
         var targetRoom = _state.GetRoom(targetRoomName);
         if (targetRoom == null)
         {
-            Console.WriteLine($"ERROR: Room '{targetRoomName}' not found.");
+            _console.WriteLine($"ERROR: Room '{targetRoomName}' not found.");
             WaitForKey();
             return;
         }
 
+        // Switch to target room
         _state.CurrentRoom = targetRoom;
         ExecuteRoomOnEntry(targetRoom);
     }
 
-    private static void WaitForKey()
+    private void WaitForKey()
     {
-        Console.WriteLine();
-        Console.ReadKey(true);
+        _console.WriteLine();
+        _console.ReadKey(true);
     }
 }

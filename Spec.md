@@ -122,6 +122,8 @@ When the Room.startCutscene() action is performed, the screen is cleared and the
 Each line of text can be a different color. Some lines of text may require the user to press a button to continue it is displayed.
 It is also possible to define lines of text that require the screen to be cleared before they are displayed (this is implicitly true for the first text in a cutscene).
 
+During any cutscene, the user can press Esc at any prompt to skip the remainder of the cutscene.
+
 ## Interface
 When the player enters a room, the screen is cleared and the description of the room is shown. The player is then given a menu and they can select
 the action that they want to take

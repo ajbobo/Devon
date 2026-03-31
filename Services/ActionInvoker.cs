@@ -9,11 +9,13 @@ public class ActionInvoker
 {
     private readonly IActionExecutor _executor;
     private readonly IConditionEvaluator _conditionEvaluator;
+    private readonly IConsole _console;
 
-    public ActionInvoker(IActionExecutor executor, IConditionEvaluator conditionEvaluator)
+    public ActionInvoker(IActionExecutor executor, IConditionEvaluator conditionEvaluator, IConsole console)
     {
         _executor = executor;
         _conditionEvaluator = conditionEvaluator;
+        _console = console;
     }
 
     /// <summary>
@@ -23,7 +25,7 @@ public class ActionInvoker
     {
         if (!room.TryGetAction("take", out var takeAction) || takeAction is not TakeAction take)
         {
-            Console.WriteLine("There's nothing to take here.");
+            _console.WriteLine("There's nothing to take here.");
             WaitForKey();
             return;
         }
@@ -31,7 +33,7 @@ public class ActionInvoker
         var item = take.Item;
         if (!room.Items.Contains(item))
         {
-            Console.WriteLine("That item is no longer available.");
+            _console.WriteLine("That item is no longer available.");
             WaitForKey();
             return;
         }
@@ -42,7 +44,7 @@ public class ActionInvoker
 
         if (!string.IsNullOrEmpty(take.ResultText))
         {
-            Console.WriteLine(take.ResultText);
+            _console.WriteLine(take.ResultText);
         }
 
         // Execute any additional commands (could modify conditions, etc.)
@@ -57,13 +59,13 @@ public class ActionInvoker
     public void HandleUse(Room room, Player player)
     {
         // Always prompt for which item to use
-        Console.Write("What would you like to use? ");
-        var itemInput = Console.ReadLine()?.Trim();
+        _console.Write("What would you like to use? ");
+        var itemInput = _console.ReadLine()?.Trim(); // Using Console.ReadLine directly as it's not easily mockable
 
         // Validate that the room has a use action and the input matches the required item
         if (!room.TryGetAction("use", out var useAction) || useAction is not UseAction use || !string.Equals(itemInput, use.Item, StringComparison.OrdinalIgnoreCase))
         {
-            Console.WriteLine("That's not something you can use here.");
+            _console.WriteLine("That's not something you can use here.");
             WaitForKey();
             return;
         }
@@ -72,7 +74,7 @@ public class ActionInvoker
         var state = new GameState { CurrentRoom = room, Player = player };
         if (!_conditionEvaluator.Evaluate(use.Condition ?? "true", state))
         {
-            Console.WriteLine("You can't use that now.");
+            _console.WriteLine("You can't use that now.");
             WaitForKey();
             return;
         }
@@ -80,19 +82,19 @@ public class ActionInvoker
         // Check that the player actually has the item in inventory
         if (!player.HasItem(use.Item))
         {
-            Console.WriteLine($"You don't have a {use.Item}.");
+            _console.WriteLine($"You don't have a {use.Item}.");
             WaitForKey();
             return;
         }
 
         // Prompt for target
-        Console.Write($"What would you like to use it on? ");
-        var targetInput = Console.ReadLine()?.Trim();
+        _console.Write($"What would you like to use it on? ");
+        var targetInput = _console.ReadLine()?.Trim();
 
         // If the action specifies a target, it must match exactly
         if (!string.IsNullOrEmpty(use.Target) && !string.Equals(targetInput, use.Target, StringComparison.OrdinalIgnoreCase))
         {
-            Console.WriteLine($"That doesn't work.");
+            _console.WriteLine($"That doesn't work.");
             WaitForKey();
             return;
         }
@@ -100,7 +102,7 @@ public class ActionInvoker
         // Execute the action
         if (!string.IsNullOrEmpty(use.ResultText))
         {
-            Console.WriteLine(use.ResultText);
+            _console.WriteLine(use.ResultText);
         }
 
         state = new GameState { CurrentRoom = room, Player = player };
@@ -116,8 +118,8 @@ public class ActionInvoker
     public void HandleTalk(Room room, Player player)
     {
         // Always prompt for target (who to talk to)
-        Console.Write("Who would you like to talk to? ");
-        var targetInput = Console.ReadLine()?.Trim();
+        _console.Write("Who would you like to talk to? ");
+        var targetInput = _console.ReadLine()?.Trim();
 
         // Check if there is a talk action for this target
         if (room.TryGetAction("talk", out var talkAction) && talkAction is TalkAction talk)
@@ -125,25 +127,25 @@ public class ActionInvoker
             var state = new GameState { CurrentRoom = room, Player = player };
             if (!_conditionEvaluator.Evaluate(talk.Condition ?? "true", state))
             {
-                Console.WriteLine("You can't talk to that now.");
+                _console.WriteLine("You can't talk to that now.");
                 WaitForKey();
                 return;
             }
 
             if (!string.Equals(targetInput, talk.Target, StringComparison.OrdinalIgnoreCase))
             {
-                Console.WriteLine("That person isn't here.");
+                _console.WriteLine("That person isn't here.");
                 WaitForKey();
                 return;
             }
 
             // Prompt for what to say
-            Console.Write("What would you like to say? ");
-            var saysInput = Console.ReadLine()?.Trim();
+            _console.Write("What would you like to say? ");
+            var saysInput = _console.ReadLine()?.Trim();
 
             if (!string.Equals(saysInput, talk.Says, StringComparison.OrdinalIgnoreCase))
             {
-                Console.WriteLine("The NPC doesn't respond to that.");
+                _console.WriteLine("The NPC doesn't respond to that.");
                 WaitForKey();
                 return;
             }
@@ -151,7 +153,7 @@ public class ActionInvoker
             // Correct response
             if (!string.IsNullOrEmpty(talk.ResultText))
             {
-                Console.WriteLine(talk.ResultText);
+                _console.WriteLine(talk.ResultText);
             }
 
             _executor.Execute(talk.ActionCommands, state);
@@ -159,7 +161,7 @@ public class ActionInvoker
         else
         {
             // No talk action defined - generic response
-            Console.WriteLine($"You talk to {targetInput}, but there's no response.");
+            _console.WriteLine($"You talk to {targetInput}, but there's no response.");
         }
 
         WaitForKey();
@@ -170,20 +172,20 @@ public class ActionInvoker
     /// </summary>
     public void ShowInventory(Player player)
     {
-        Console.Clear();
-        Console.WriteLine("You are carrying:");
+        _console.Clear();
+        _console.WriteLine("You are carrying:");
         if (player.Inventory.Count == 0)
         {
-            Console.WriteLine("  Nothing.");
+            _console.WriteLine("  Nothing.");
         }
         else
         {
             foreach (var item in player.Inventory)
             {
-                Console.WriteLine($"  - {item}");
+                _console.WriteLine($"  - {item}");
             }
         }
-        Console.WriteLine();
+        _console.WriteLine();
         WaitForKey();
     }
 
@@ -199,7 +201,7 @@ public class ActionInvoker
 
         if (!string.IsNullOrEmpty(exitAction.ResultText))
         {
-            Console.WriteLine(exitAction.ResultText);
+            _console.WriteLine(exitAction.ResultText);
             WaitForKey();
         }
 
@@ -213,9 +215,9 @@ public class ActionInvoker
         // WaitForKey occurs after displaying result text, but we may also want to show the new room next.
     }
 
-    private static void WaitForKey()
+    private void WaitForKey()
     {
-        Console.WriteLine();
-        Console.ReadKey(true);
+        _console.WriteLine();
+        _console.ReadKey(true);
     }
 }

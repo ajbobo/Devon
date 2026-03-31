@@ -8,10 +8,12 @@ namespace Devon.Services;
 public class MenuRenderer
 {
     private readonly IConditionEvaluator _conditionEvaluator;
+    private readonly IConsole _console;
 
-    public MenuRenderer(IConditionEvaluator conditionEvaluator)
+    public MenuRenderer(IConditionEvaluator conditionEvaluator, IConsole console)
     {
         _conditionEvaluator = conditionEvaluator;
+        _console = console;
     }
 
     /// <summary>
@@ -21,22 +23,22 @@ public class MenuRenderer
     {
         try
         {
-            Console.Clear();
+            _console.Clear();
         }
         catch { /* Ignore if console not available */ }
 
         // Display room description
-        Console.WriteLine($"== {currentRoom.Name} ==");
-        Console.WriteLine();
+        _console.WriteLine($"== {currentRoom.Name} ==");
+        _console.WriteLine();
 
         foreach (var desc in currentRoom.Description)
         {
             if (_conditionEvaluator.Evaluate(desc.Condition ?? "true", new GameState { CurrentRoom = currentRoom, Player = player }))
             {
-                Console.WriteLine(desc.Text);
+                _console.WriteLine(desc.Text);
             }
         }
-        Console.WriteLine();
+        _console.WriteLine();
 
         // Apply initial conditions after first description is shown
         if (currentRoom.InitialConditions.Count > 0)
@@ -53,22 +55,22 @@ public class MenuRenderer
 
         if (options.Count == 0)
         {
-            Console.WriteLine("There are no available actions. (Press any key to continue, or Esc to quit)");
-            var key = Console.ReadKey(true);
+            _console.WriteLine("There are no available actions. (Press any key to continue, or Esc to quit)");
+            var key = _console.ReadKey(true);
             if (key.Key == ConsoleKey.Escape) return "quit";
             return "quit"; // No actions means no progress, exit
         }
 
         // Get selection via arrow keys
         int selectedIndex = 0;
-        int menuStartRow = Console.CursorTop;
+        int menuStartRow = _console.CursorTop;
 
         while (true)
         {
             // Render the menu with current selection
             RenderMenu(options, selectedIndex, menuStartRow);
 
-            var keyInfo = Console.ReadKey(true);
+            var keyInfo = _console.ReadKey(true);
             var key = keyInfo.Key;
 
             switch (key)
@@ -124,18 +126,18 @@ public class MenuRenderer
 
     private void RenderMenu(List<MenuOption> options, int selectedIndex, int startRow)
     {
-        Console.SetCursorPosition(0, startRow);
-        Console.WriteLine("What would you like to do?");
+        _console.SetCursorPosition(0, startRow);
+        _console.WriteLine("What would you like to do?");
         for (int i = 0; i < options.Count; i++)
         {
             bool isSelected = (i == selectedIndex);
             var prefix = isSelected ? "> " : "  ";
             var suffix = isSelected ? " <" : "  ";
             var line = $"  {prefix}{options[i].Label}{suffix}";
-            Console.WriteLine(line);
+            _console.WriteLine(line);
         }
         // Clear any leftover lines if options decreased
-        int currentRow = Console.CursorTop;
+        int currentRow = _console.CursorTop;
         // (Simplified: no explicit clear of old lines, okay for now)
     }
 
