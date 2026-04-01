@@ -1,0 +1,56 @@
+{
+  "cutscenes": [
+    {
+      "name": "intro",
+      "text": [
+        {
+          "text": "The screen fades to black...",
+          "color": "DarkBlue",
+          "wait": true,
+          "clear": true
+        },
+        {
+          "text": "A faint whispering emerges from the darkness...",
+          "color": "Gray",
+          "wait": false,
+          "clear": false
+        },
+        {
+          "text": "You find yourself standing before an ancient gate.",
+          "color": "Yellow",
+          "wait": true,
+          "clear": false
+        }
+      ]
+    },
+    {
+      "name": "Prison",
+      "text": [
+        {
+          "text": "You see the prison",
+          "color": null,
+          "wait": false,
+          "clear": false
+        },
+        {
+          "text": "You walk towards it",
+          "color": null,
+          "wait": false,
+          "clear": false
+        },
+        {
+          "text": "It slams closed behind you",
+          "color": null,
+          "wait": true,
+          "clear": false
+        },
+        {
+          "text": "You die here",
+          "color": null,
+          "wait": true,
+          "clear": false
+        }
+      ]
+    }
+  ]
+}

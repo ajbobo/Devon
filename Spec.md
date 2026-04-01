@@ -62,6 +62,13 @@ Rooms are defined as entries in a JSON file:
             }
         }
     ],
+}
+```
+
+## Cutscenes
+Cutscenes are defined in a JSON file, separate from the Rooms
+```json
+{
     "cutscenes": [
         {
             "name": "<the name of the cutscene>",

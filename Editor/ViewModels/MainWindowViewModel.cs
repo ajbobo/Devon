@@ -10,6 +10,7 @@ namespace Devon.Editor.ViewModels;
 public partial class MainWindowViewModel : ObservableObject
 {
     private string _roomsJsonPath = "rooms.json";
+    private string _cutscenesJsonPath = "cutscenes.json";
 
     [ObservableProperty]
     private ObservableCollection<Room> _rooms = new();
@@ -222,15 +223,19 @@ public partial class MainWindowViewModel : ObservableObject
     {
         try
         {
-            var data = new
-            {
-                rooms = Rooms.Select(r => ConvertRoomToJson(r)).ToList(),
-                cutscenes = Cutscenes.Select(c => ConvertCutsceneToJson(c)).ToList()
-            };
             var options = new JsonSerializerOptions { WriteIndented = true };
-            var json = JsonSerializer.Serialize(data, options);
-            await File.WriteAllTextAsync(_roomsJsonPath, json);
-            StatusMessage = $"Saved {Rooms.Count} rooms and {Cutscenes.Count} cutscenes to {_roomsJsonPath}";
+
+            // Save rooms to rooms.json
+            var roomsData = new { rooms = Rooms.Select(r => ConvertRoomToJson(r)).ToList() };
+            var roomsJson = JsonSerializer.Serialize(roomsData, options);
+            await File.WriteAllTextAsync(_roomsJsonPath, roomsJson);
+
+            // Save cutscenes to cutscenes.json
+            var cutscenesData = new { cutscenes = Cutscenes.Select(c => ConvertCutsceneToJson(c)).ToList() };
+            var cutscenesJson = JsonSerializer.Serialize(cutscenesData, options);
+            await File.WriteAllTextAsync(_cutscenesJsonPath, cutscenesJson);
+
+            StatusMessage = $"Saved {Rooms.Count} rooms to {_roomsJsonPath} and {Cutscenes.Count} cutscenes to {_cutscenesJsonPath}";
         }
         catch (Exception ex)
         {
@@ -253,7 +258,6 @@ public partial class MainWindowViewModel : ObservableObject
             var doc = JsonDocument.Parse(json);
 
             Rooms.Clear();
-            Cutscenes.Clear();
 
             if (doc.RootElement.TryGetProperty("rooms", out JsonElement roomsElement))
             {
@@ -264,20 +268,35 @@ public partial class MainWindowViewModel : ObservableObject
                 }
             }
 
-            if (doc.RootElement.TryGetProperty("cutscenes", out JsonElement cutscenesElement))
-            {
-                foreach (var cutsceneElem in cutscenesElement.EnumerateArray())
-                {
-                    var cutscene = ParseCutscene(cutsceneElem);
-                    Cutscenes.Add(cutscene);
-                }
-            }
+            LoadCutscenesFromJson();
 
-            StatusMessage = $"Loaded {Rooms.Count} rooms and {Cutscenes.Count} cutscenes from {_roomsJsonPath}";
+            StatusMessage = $"Loaded {Rooms.Count} rooms from {_roomsJsonPath} and {Cutscenes.Count} cutscenes from {_cutscenesJsonPath}";
         }
         catch (Exception ex)
         {
             StatusMessage = $"Error loading: {ex.Message}";
+        }
+    }
+
+    private void LoadCutscenesFromJson()
+    {
+        Cutscenes.Clear();
+
+        if (!File.Exists(_cutscenesJsonPath))
+        {
+            return;
+        }
+
+        var json = File.ReadAllText(_cutscenesJsonPath);
+        var doc = JsonDocument.Parse(json);
+
+        if (doc.RootElement.TryGetProperty("cutscenes", out JsonElement cutscenesElement))
+        {
+            foreach (var cutsceneElem in cutscenesElement.EnumerateArray())
+            {
+                var cutscene = ParseCutscene(cutsceneElem);
+                Cutscenes.Add(cutscene);
+            }
         }
     }
 

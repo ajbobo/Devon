@@ -11,6 +11,9 @@
     <EmbeddedResource Include="rooms.json">
       <LogicalName>Devon.rooms.json</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="cutscenes.json">
+      <LogicalName>Devon.cutscenes.json</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
   <!-- Exclude test files from main project -->

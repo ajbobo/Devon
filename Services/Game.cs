@@ -9,6 +9,7 @@ public class Game
 {
     private readonly IConditionEvaluator _conditionEvaluator;
     private readonly IJsonRoomLoader _roomLoader;
+    private readonly ICutsceneLoader _cutsceneLoader;
     private MenuRenderer? _menuRenderer;
     private ActionInvoker? _actionInvoker;
     private IActionExecutor? _actionExecutor;
@@ -24,6 +25,7 @@ public class Game
     {
         _conditionEvaluator = new ConditionEvaluator();
         _roomLoader = new JsonRoomLoader("Devon.rooms.json", _conditionEvaluator);
+        _cutsceneLoader = new JsonCutsceneLoader();
         _console = console ?? throw new System.ArgumentNullException(nameof(console));
     }
 
@@ -70,8 +72,9 @@ public class Game
                 _state.Rooms[kvp.Key] = kvp.Value;
             }
 
-            // Load cutscenes from the loader into game state
-            foreach (var kvp in _roomLoader.Cutscenes)
+            // Load cutscenes from the cutscene loader
+            var cutscenes = _cutsceneLoader.LoadCutscenesAsync().GetAwaiter().GetResult();
+            foreach (var kvp in cutscenes)
             {
                 _state.Cutscenes[kvp.Key] = kvp.Value;
             }
