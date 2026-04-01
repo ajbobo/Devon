@@ -127,6 +127,82 @@ public partial class MainWindowViewModel : ObservableObject
     }
 
     [RelayCommand]
+    private void AddDescription()
+    {
+        if (RoomEditor != null)
+        {
+            RoomEditor.Descriptions.Add(new RoomDescriptionEntry { Text = "New description", Condition = "" });
+            StatusMessage = "Added description";
+        }
+    }
+
+    [RelayCommand]
+    private void RemoveDescription()
+    {
+        if (RoomEditor != null && RoomEditor.SelectedDescription != null)
+        {
+            var desc = RoomEditor.SelectedDescription;
+            RoomEditor.Descriptions.Remove(desc);
+            RoomEditor.SelectedDescription = null;
+            StatusMessage = "Removed description";
+        }
+    }
+
+    [RelayCommand]
+    private void AddCondition()
+    {
+        if (RoomEditor != null)
+        {
+            RoomEditor.Conditions.Add(new ConditionEntry { Name = "new_condition" });
+            StatusMessage = "Added condition";
+        }
+    }
+
+    [RelayCommand]
+    private void RemoveCondition()
+    {
+        if (RoomEditor != null && RoomEditor.SelectedCondition != null)
+        {
+            var cond = RoomEditor.SelectedCondition;
+            RoomEditor.Conditions.Remove(cond);
+            RoomEditor.SelectedCondition = null;
+            StatusMessage = "Removed condition";
+        }
+    }
+
+    [RelayCommand]
+    private void AddAction()
+    {
+        if (RoomEditor != null)
+        {
+            var action = new RoomActionEntry
+            {
+                Key = "north",
+                Type = RoomActionEntryType.Exit,
+                TargetRoom = "",
+                ResultText = null,
+                ActionCommands = null,
+                Condition = null
+            };
+            RoomEditor.Actions.Add(action);
+            RoomEditor.SelectedAction = action;
+            StatusMessage = "Added action";
+        }
+    }
+
+    [RelayCommand]
+    private void RemoveAction()
+    {
+        if (RoomEditor != null && RoomEditor.SelectedAction != null)
+        {
+            var action = RoomEditor.SelectedAction;
+            RoomEditor.Actions.Remove(action);
+            RoomEditor.SelectedAction = null;
+            StatusMessage = "Removed action";
+        }
+    }
+
+    [RelayCommand]
     private void SaveChanges()
     {
         if (RoomEditor != null && SelectedRoom != null)
