@@ -220,7 +220,10 @@ public class JsonRoomLoader : IJsonRoomLoader
             key.Equals("east", StringComparison.OrdinalIgnoreCase) ||
             key.Equals("west", StringComparison.OrdinalIgnoreCase) ||
             key.Equals("up", StringComparison.OrdinalIgnoreCase) ||
-            key.Equals("down", StringComparison.OrdinalIgnoreCase))
+            key.Equals("down", StringComparison.OrdinalIgnoreCase) ||
+            key.Equals("left", StringComparison.OrdinalIgnoreCase) ||
+            key.Equals("center", StringComparison.OrdinalIgnoreCase) ||
+            key.Equals("right", StringComparison.OrdinalIgnoreCase))
         {
             // Exit action
             action = new ExitAction

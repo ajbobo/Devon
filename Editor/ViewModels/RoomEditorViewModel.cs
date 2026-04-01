@@ -225,7 +225,7 @@ public partial class RoomActionEntry : ObservableObject
     // Collection of valid action keys for dropdown binding
     public ObservableCollection<string> ValidKeys { get; } = new()
     {
-        "north", "south", "east", "west", "up", "down",
+        "north", "south", "east", "west", "up", "down", "left", "center", "right",
         "take", "use", "talk"
     };
 
@@ -234,7 +234,7 @@ public partial class RoomActionEntry : ObservableObject
         // Auto-update Type based on the selected action key
         Type = value switch
         {
-            "north" or "south" or "east" or "west" or "up" or "down" => RoomActionEntryType.Exit,
+            "north" or "south" or "east" or "west" or "up" or "down" or "left" or "center" or "right" => RoomActionEntryType.Exit,
             "take" => RoomActionEntryType.Take,
             "use" => RoomActionEntryType.Use,
             "talk" => RoomActionEntryType.Talk,

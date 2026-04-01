@@ -118,7 +118,7 @@ public class Game
 
         switch (actionKey.ToLowerInvariant())
         {
-            case "north" or "south" or "east" or "west" or "up" or "down":
+            case "north" or "south" or "east" or "west" or "up" or "down" or "left" or "center" or "right":
                 HandleExit(actionKey, room);
                 break;
 
