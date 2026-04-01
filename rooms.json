@@ -352,6 +352,12 @@
           "result_text": null,
           "action": null,
           "condition": null
+        },
+        "east": {
+          "room": "Mirrors",
+          "result_text": null,
+          "action": null,
+          "condition": null
         }
       }
     },
@@ -368,6 +374,389 @@
         "action": "Room.startCutscene(Prison); Game.gameOver()"
       },
       "actions": {}
+    },
+    {
+      "name": "Mirrors",
+      "description": [
+        {
+          "text": "\u003C3 mirrors\u003E",
+          "condition": null
+        }
+      ],
+      "conditions": [],
+      "onEntry": null,
+      "actions": {
+        "left": {
+          "room": "Mirrors",
+          "result_text": null,
+          "action": "Room.startCutScene(LeftMirror); Game.gameOver();",
+          "condition": null
+        },
+        "center": {
+          "room": "Mirrors",
+          "result_text": null,
+          "action": "Room.startCutscene(CenterMirror); Game.gameOver();",
+          "condition": null
+        },
+        "right": {
+          "room": "Demon",
+          "result_text": "\u003CYou go through the mirror\u003E",
+          "action": "",
+          "condition": null
+        },
+        "west": {
+          "room": "Armory",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Demon",
+      "description": [
+        {
+          "text": "\u003CIs Demon\u003E",
+          "condition": "!RoomHasCondition(demon_gone)"
+        },
+        {
+          "text": "\u003CNo more demon\u003E",
+          "condition": "RoomHasCondition(demon_gone)"
+        }
+      ],
+      "conditions": [],
+      "onEntry": null,
+      "actions": {
+        "south": {
+          "room": "Music Room",
+          "result_text": null,
+          "action": null,
+          "condition": "RoomHasCondition(demon_gone)"
+        },
+        "north": {
+          "room": "Fake King",
+          "result_text": null,
+          "action": null,
+          "condition": "RoomHasCondition(demon_gone)"
+        },
+        "west": {
+          "room": "Mirrors",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "talk": {
+          "target": "Demon",
+          "says": "Bless You",
+          "result_text": "The demon disappears",
+          "action": "Room.addCondition(demon_gone)",
+          "condition": "!RoomHasCondition(demon_gone)"
+        }
+      }
+    },
+    {
+      "name": "Fake King",
+      "description": [
+        {
+          "text": "\u003CEmpty room\u003E",
+          "condition": null
+        }
+      ],
+      "conditions": [],
+      "onEntry": {
+        "action": "Room.startCutscene(FakeKing)"
+      },
+      "actions": {
+        "south": {
+          "room": "Demon",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Music Room",
+      "description": [
+        {
+          "text": "\u003CMusic Room\u003E",
+          "condition": null
+        },
+        {
+          "text": "\u003Cis lute\u003E",
+          "condition": "RoomHasItem(Lute)"
+        }
+      ],
+      "conditions": [],
+      "onEntry": null,
+      "actions": {
+        "north": {
+          "room": "Demon",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "south": {
+          "room": "Ballroom",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "take": {
+          "item": "Lute",
+          "result_text": "You pick up the lute.",
+          "action": null,
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Ballroom",
+      "description": [
+        {
+          "text": "\u003CBallroom\u003E",
+          "condition": null
+        },
+        {
+          "text": "\u003CGhost orchestra filling the room\u003E",
+          "condition": "!RoomHasCondition(orchestra_gone)"
+        }
+      ],
+      "conditions": [],
+      "onEntry": null,
+      "actions": {
+        "use": {
+          "item": "Lute",
+          "target": "Orchestra",
+          "result_text": "Orchestra disappears",
+          "action": "Room.addCondition(orchestra_gone)",
+          "condition": "!RoomHasCondition(orchestra_gone)"
+        },
+        "north": {
+          "room": "Music Room",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "west": {
+          "room": "Concert Room",
+          "result_text": null,
+          "action": null,
+          "condition": "RoomHasCondition(orchestra_gone)"
+        }
+      }
+    },
+    {
+      "name": "Concert Room",
+      "description": [
+        {
+          "text": "\u003Cconcert room\u003E",
+          "condition": null
+        }
+      ],
+      "conditions": [],
+      "onEntry": null,
+      "actions": {
+        "north": {
+          "room": "Stairs3",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "east": {
+          "room": "Ballroom",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Stairs3",
+      "description": [
+        {
+          "text": "\u003Cat stairs\u003E",
+          "condition": null
+        }
+      ],
+      "conditions": [],
+      "onEntry": null,
+      "actions": {
+        "up": {
+          "room": "Bedroom",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "south": {
+          "room": "Concert Room",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Bedroom",
+      "description": [
+        {
+          "text": "\u003CBedroom\u003E",
+          "condition": null
+        },
+        {
+          "text": "\u003CIs rock\u003E",
+          "condition": "RoomHasItem(rock)"
+        }
+      ],
+      "conditions": [],
+      "onEntry": null,
+      "actions": {
+        "down": {
+          "room": "Stairs3",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "east": {
+          "room": "Stairs4",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "south": {
+          "room": "Library",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "take": {
+          "item": "Rock",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Library",
+      "description": [
+        {
+          "text": "\u003CIn library\u003E",
+          "condition": null
+        },
+        {
+          "text": "\u003CIs OpenMe\u003E",
+          "condition": "RoomHasItem(OpenMe)"
+        },
+        {
+          "text": "\u003Cpassage is open\u003E",
+          "condition": "!RoomHasItem(OpenMe)"
+        }
+      ],
+      "conditions": [],
+      "onEntry": null,
+      "actions": {
+        "north": {
+          "room": "Bedroom",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "east": {
+          "room": "Study",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "west": {
+          "room": "Lab",
+          "result_text": null,
+          "action": null,
+          "condition": "!RoomHasItem(OpenMe)"
+        },
+        "take": {
+          "item": "OpenMe",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Study",
+      "description": [
+        {
+          "text": "\u003CIn study\u003E",
+          "condition": null
+        }
+      ],
+      "conditions": [],
+      "onEntry": {
+        "action": "Room.startCutscene(Study)"
+      },
+      "actions": {
+        "west": {
+          "room": "Library",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Lab",
+      "description": [
+        {
+          "text": "\u003CIn lab\u003E",
+          "condition": null
+        },
+        {
+          "text": "\u003CMortar is on the table\u003E",
+          "condition": null
+        }
+      ],
+      "conditions": [],
+      "onEntry": null,
+      "actions": {
+        "east": {
+          "room": "Library",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "use": {
+          "item": "Mortar",
+          "target": "Rock",
+          "result_text": "The rock breaks open revealing a strange ring.",
+          "action": "Player.removeItem(rock); Player.addItem(Ring)",
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Stairs4",
+      "description": [
+        {
+          "text": "\u003Cat stairs\u003E",
+          "condition": null
+        }
+      ],
+      "conditions": [],
+      "onEntry": null,
+      "actions": {
+        "west": {
+          "room": "Bedroom",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "up": {
+          "room": "Stairs5",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        }
+      }
     }
   ]
 }

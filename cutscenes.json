@@ -51,6 +51,80 @@
           "clear": false
         }
       ]
+    },
+    {
+      "name": "LeftMirror",
+      "text": [
+        {
+          "text": "\u003CEaten by griffin\u003E",
+          "color": null,
+          "wait": true,
+          "clear": false
+        },
+        {
+          "text": "\u003CYou die\u003E",
+          "color": null,
+          "wait": true,
+          "clear": false
+        }
+      ]
+    },
+    {
+      "name": "CenterMirror",
+      "text": [
+        {
+          "text": "\u003COut in space\u003E",
+          "color": null,
+          "wait": true,
+          "clear": false
+        },
+        {
+          "text": "\u003CYou die\u003E",
+          "color": null,
+          "wait": true,
+          "clear": false
+        }
+      ]
+    },
+    {
+      "name": "FakeKing",
+      "text": [
+        {
+          "text": "\u003CDrake appears\u003E",
+          "color": null,
+          "wait": false,
+          "clear": false
+        },
+        {
+          "text": "\u003CDrake disappears\u003E",
+          "color": null,
+          "wait": true,
+          "clear": false
+        }
+      ]
+    },
+    {
+      "name": "Study",
+      "text": [
+        {
+          "text": "\u003CVentok appears\u003E",
+          "color": null,
+          "wait": false,
+          "clear": false
+        },
+        {
+          "text": "\u003CThrows fire\u003E",
+          "color": null,
+          "wait": true,
+          "clear": false
+        },
+        {
+          "text": "\u003CYou live or die - finish me\u003E",
+          "color": null,
+          "wait": true,
+          "clear": false
+        }
+      ]
     }
   ]
 }
