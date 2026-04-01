@@ -254,8 +254,8 @@
                                                     <StackPanel Margin="5">
                                                         <TextBox Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" FontWeight="SemiBold" TextWrapping="Wrap" BorderThickness="0" Background="Transparent"/>
                                                         <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
-                                                            <CheckBox Content="Wait" IsChecked="{Binding Wait}" Margin="0,0,10,0"/>
-                                                            <CheckBox Content="Clear" IsChecked="{Binding Clear}" Margin="0,0,10,0"/>
+                                                            <CheckBox Content="Wait" IsChecked="{Binding Wait, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,10,0"/>
+                                                            <CheckBox Content="Clear" IsChecked="{Binding Clear, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,10,0"/>
                                                             <TextBlock Text="Color:" VerticalAlignment="Center"/>
                                                             <TextBox Text="{Binding Color}" Width="80" Margin="2,0,0,0"/>
                                                         </StackPanel>

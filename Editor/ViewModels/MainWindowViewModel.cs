@@ -206,15 +206,36 @@ public partial class MainWindowViewModel : ObservableObject
     [RelayCommand]
     private void SaveChanges()
     {
+        bool savedRoom = false;
+        bool savedCutscene = false;
+
         if (RoomEditor != null && SelectedRoom != null)
         {
             RoomEditor.ApplyToRoom(SelectedRoom);
-            StatusMessage = $"Saved changes to: {SelectedRoom.Name}";
+            savedRoom = true;
         }
-        else if (CutsceneEditor != null && SelectedCutscene != null)
+
+        if (CutsceneEditor != null && SelectedCutscene != null)
         {
             CutsceneEditor.ApplyToCutscene(SelectedCutscene);
-            StatusMessage = $"Saved changes to cutscene: {SelectedCutscene.Name}";
+            savedCutscene = true;
+        }
+
+        if (savedRoom && savedCutscene)
+        {
+            StatusMessage = $"Saved changes to: {SelectedRoom!.Name} and cutscene: {SelectedCutscene!.Name}";
+        }
+        else if (savedRoom)
+        {
+            StatusMessage = $"Saved changes to: {SelectedRoom!.Name}";
+        }
+        else if (savedCutscene)
+        {
+            StatusMessage = $"Saved changes to cutscene: {SelectedCutscene!.Name}";
+        }
+        else
+        {
+            StatusMessage = "No changes to save";
         }
     }
 
