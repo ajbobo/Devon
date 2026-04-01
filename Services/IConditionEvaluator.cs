@@ -6,7 +6,7 @@ namespace Devon.Services;
 public interface IConditionEvaluator
 {
     /// <summary>
-    /// Evaluates a condition expression string (e.g., "HasItem(\"key\")") against the given game state
+    /// Evaluates a condition expression string (e.g., "Player.hasItem(\"key\")") against the given game state
     /// </summary>
     bool Evaluate(string expression, Devon.Models.GameState state);
 }

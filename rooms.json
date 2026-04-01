@@ -9,15 +9,15 @@
         },
         {
           "text": "\u003Cknocker fall\u003E",
-          "condition": "!RoomHasCondition(knocker_fell)"
+          "condition": "!Room.hasCondition(knocker_fell)"
         },
         {
           "text": "\u003Cgate unlocked\u003E",
-          "condition": "RoomHasCondition(gate_unlocked)"
+          "condition": "Room.hasCondition(gate_unlocked)"
         },
         {
           "text": "\u003Chas Key\u003E",
-          "condition": "RoomHasItem(brass key)"
+          "condition": "Room.hasItem(brass key)"
         }
       ],
       "conditions": [
@@ -38,13 +38,13 @@
           "target": "gate",
           "result_text": "You unlock the gate with the key",
           "action": "Room.addCondition(gate_unlocked)",
-          "condition": "!RoomHasCondition(gate_unlocked)"
+          "condition": "!Room.hasCondition(gate_unlocked)"
         },
         "north": {
           "room": "Hall",
           "result_text": null,
           "action": null,
-          "condition": "RoomHasCondition(gate_unlocked)"
+          "condition": "Room.hasCondition(gate_unlocked)"
         }
       }
     },
@@ -57,7 +57,7 @@
         },
         {
           "text": "\u003Cblue sword\u003E",
-          "condition": "RoomHasItem(sword)"
+          "condition": "Room.hasItem(sword)"
         }
       ],
       "conditions": [],
@@ -98,7 +98,7 @@
         },
         {
           "text": "\u003Chas knife\u003E",
-          "condition": "RoomHasItem(knife)"
+          "condition": "Room.hasItem(knife)"
         }
       ],
       "conditions": [],
@@ -139,7 +139,7 @@
         },
         {
           "text": "\u003Cice armor\u003E",
-          "condition": "RoomHasItem(armor)"
+          "condition": "Room.hasItem(armor)"
         }
       ],
       "conditions": [],
@@ -168,15 +168,15 @@
         },
         {
           "text": "\u003Chound is attacking\u003E",
-          "condition": "And(!RoomHasCondition(hound_attacked), !RoomHasCondition(hound_dead))"
+          "condition": "And(!Room.hasCondition(hound_attacked), !Room.hasCondition(hound_dead))"
         },
         {
           "text": "\u003Chound is threatening\u003E",
-          "condition": "And(RoomHasCondition(hound_attacked), !RoomHasCondition(hound_dead))"
+          "condition": "And(Room.hasCondition(hound_attacked), !Room.hasCondition(hound_dead))"
         },
         {
           "text": "\u003Cdead hound\u003E",
-          "condition": "RoomHasCondition(hound_dead)"
+          "condition": "Room.hasCondition(hound_dead)"
         }
       ],
       "conditions": [
@@ -195,7 +195,7 @@
           "target": "hound",
           "result_text": "You kill the hound.",
           "action": "Room.addCondition(hound_dead)",
-          "condition": "!RoomHasCondition(hound_dead)"
+          "condition": "!Room.hasCondition(hound_dead)"
         }
       }
     },
@@ -204,11 +204,11 @@
       "description": [
         {
           "text": "\u003Croom is dark\u003E",
-          "condition": "!RoomHasCondition(room_lit)"
+          "condition": "!Room.hasCondition(room_lit)"
         },
         {
           "text": "\u003Cin crypt\u003E",
-          "condition": "RoomHasCondition(room_lit)"
+          "condition": "Room.hasCondition(room_lit)"
         }
       ],
       "conditions": [],
@@ -219,19 +219,19 @@
           "says": "Light",
           "result_text": "The lights turn on and you can see",
           "action": "Room.addCondition(room_lit)",
-          "condition": "!RoomHasCondition(room_lit)"
+          "condition": "!Room.hasCondition(room_lit)"
         },
         "east": {
           "room": "Stairs1",
           "result_text": null,
           "action": null,
-          "condition": "RoomHasCondition(room_lit)"
+          "condition": "Room.hasCondition(room_lit)"
         },
         "north": {
           "room": "Trophy Room",
           "result_text": null,
           "action": null,
-          "condition": "RoomHasCondition(room_lit)"
+          "condition": "Room.hasCondition(room_lit)"
         },
         "south": {
           "room": "Dining Room",
@@ -250,7 +250,7 @@
         },
         {
           "text": "\u003Cis horn\u003E",
-          "condition": "RoomHasItem(horn)"
+          "condition": "Room.hasItem(horn)"
         }
       ],
       "conditions": [],
@@ -329,7 +329,7 @@
         },
         {
           "text": "\u003Chas crossbow\u003E",
-          "condition": "RoomHasItem(crossbow)"
+          "condition": "Room.hasItem(crossbow)"
         }
       ],
       "conditions": [],
@@ -417,11 +417,11 @@
       "description": [
         {
           "text": "\u003CIs Demon\u003E",
-          "condition": "!RoomHasCondition(demon_gone)"
+          "condition": "!Room.hasCondition(demon_gone)"
         },
         {
           "text": "\u003CNo more demon\u003E",
-          "condition": "RoomHasCondition(demon_gone)"
+          "condition": "Room.hasCondition(demon_gone)"
         }
       ],
       "conditions": [],
@@ -431,13 +431,13 @@
           "room": "Music Room",
           "result_text": null,
           "action": null,
-          "condition": "RoomHasCondition(demon_gone)"
+          "condition": "Room.hasCondition(demon_gone)"
         },
         "north": {
           "room": "Fake King",
           "result_text": null,
           "action": null,
-          "condition": "RoomHasCondition(demon_gone)"
+          "condition": "Room.hasCondition(demon_gone)"
         },
         "west": {
           "room": "Mirrors",
@@ -450,7 +450,7 @@
           "says": "Bless You",
           "result_text": "The demon disappears",
           "action": "Room.addCondition(demon_gone)",
-          "condition": "!RoomHasCondition(demon_gone)"
+          "condition": "!Room.hasCondition(demon_gone)"
         }
       }
     },
@@ -484,7 +484,7 @@
         },
         {
           "text": "\u003Cis lute\u003E",
-          "condition": "RoomHasItem(Lute)"
+          "condition": "Room.hasItem(Lute)"
         }
       ],
       "conditions": [],
@@ -519,7 +519,7 @@
         },
         {
           "text": "\u003CGhost orchestra filling the room\u003E",
-          "condition": "!RoomHasCondition(orchestra_gone)"
+          "condition": "!Room.hasCondition(orchestra_gone)"
         }
       ],
       "conditions": [],
@@ -530,7 +530,7 @@
           "target": "Orchestra",
           "result_text": "Orchestra disappears",
           "action": "Room.addCondition(orchestra_gone)",
-          "condition": "!RoomHasCondition(orchestra_gone)"
+          "condition": "!Room.hasCondition(orchestra_gone)"
         },
         "north": {
           "room": "Music Room",
@@ -542,7 +542,7 @@
           "room": "Concert Room",
           "result_text": null,
           "action": null,
-          "condition": "RoomHasCondition(orchestra_gone)"
+          "condition": "Room.hasCondition(orchestra_gone)"
         }
       }
     },
@@ -605,7 +605,7 @@
         },
         {
           "text": "\u003CIs rock\u003E",
-          "condition": "RoomHasItem(rock)"
+          "condition": "Room.hasItem(rock)"
         }
       ],
       "conditions": [],
@@ -631,7 +631,7 @@
         },
         "take": {
           "item": "Rock",
-          "result_text": null,
+          "result_text": "You pick up the strange rock.",
           "action": null,
           "condition": null
         }
@@ -646,11 +646,11 @@
         },
         {
           "text": "\u003CIs OpenMe\u003E",
-          "condition": "RoomHasItem(OpenMe)"
+          "condition": "Room.hasItem(OpenMe)"
         },
         {
           "text": "\u003Cpassage is open\u003E",
-          "condition": "!RoomHasItem(OpenMe)"
+          "condition": "!Room.hasItem(OpenMe)"
         }
       ],
       "conditions": [],
@@ -672,11 +672,11 @@
           "room": "Lab",
           "result_text": null,
           "action": null,
-          "condition": "!RoomHasItem(OpenMe)"
+          "condition": "!Room.hasItem(OpenMe)"
         },
         "take": {
           "item": "OpenMe",
-          "result_text": null,
+          "result_text": "You take the book. A secret passage opens up.",
           "action": null,
           "condition": null
         }
@@ -712,7 +712,7 @@
         },
         {
           "text": "\u003CMortar is on the table\u003E",
-          "condition": null
+          "condition": "Room.hasItem(mortar)"
         }
       ],
       "conditions": [],
@@ -728,7 +728,13 @@
           "item": "Mortar",
           "target": "Rock",
           "result_text": "The rock breaks open revealing a strange ring.",
-          "action": "Player.removeItem(rock); Player.addItem(Ring)",
+          "action": "Inventory.remove(rock); Inventory.add(Ring)",
+          "condition": null
+        },
+        "take": {
+          "item": "Mortar",
+          "result_text": "You pick up the mortar.",
+          "action": null,
           "condition": null
         }
       }

@@ -38,7 +38,7 @@ public class ConditionEvaluatorTests
         var player = new Player();
         player.AddItem("key");
         var state = new GameState { Player = player };
-        bool result = _evaluator.Evaluate("HasItem(\"key\")", state);
+        bool result = _evaluator.Evaluate("Player.hasItem(key)", state);
         Assert.True(result);
     }
 
@@ -47,7 +47,7 @@ public class ConditionEvaluatorTests
     {
         var player = new Player();
         var state = new GameState { Player = player };
-        bool result = _evaluator.Evaluate("HasItem(\"sword\")", state);
+        bool result = _evaluator.Evaluate("Player.hasItem(sword)", state);
         Assert.False(result);
     }
 
@@ -57,7 +57,7 @@ public class ConditionEvaluatorTests
         var player = new Player();
         player.AddCondition("has_armor");
         var state = new GameState { Player = player };
-        bool result = _evaluator.Evaluate("HasCondition(\"has_armor\")", state);
+        bool result = _evaluator.Evaluate("Player.hasCondition(has_armor)", state);
         Assert.True(result);
     }
 
@@ -67,7 +67,7 @@ public class ConditionEvaluatorTests
         var player = new Player();
         player.AddCondition("has_armor");
         var state = new GameState { Player = player };
-        bool result = _evaluator.Evaluate("Not(HasCondition(\"has_armor\"))", state);
+        bool result = _evaluator.Evaluate("NOT(Player.hasCondition(has_armor))", state);
         Assert.False(result);
     }
 
@@ -78,7 +78,7 @@ public class ConditionEvaluatorTests
         room.Conditions.Add("lit");
         var player = new Player();
         var state = new GameState { Player = player, CurrentRoom = room };
-        bool result = _evaluator.Evaluate("RoomHasCondition(\"lit\")", state);
+        bool result = _evaluator.Evaluate("Room.hasCondition(lit)", state);
         Assert.True(result);
     }
 
@@ -91,7 +91,7 @@ public class ConditionEvaluatorTests
         var room = new Room { Conditions = new() };
         room.Conditions.Add("lit");
         var state = new GameState { Player = player, CurrentRoom = room };
-        bool result = _evaluator.Evaluate("And(HasItem(\"key\"), HasCondition(\"has_armor\"))", state);
+        bool result = _evaluator.Evaluate("AND(Player.hasItem(key), Player.hasCondition(has_armor))", state);
         Assert.True(result);
     }
 
@@ -103,7 +103,7 @@ public class ConditionEvaluatorTests
         var room = new Room { Conditions = new() };
         room.Conditions.Add("lit");
         var state = new GameState { Player = player, CurrentRoom = room };
-        bool result = _evaluator.Evaluate("And(HasItem(\"key\"), HasCondition(\"has_armor\"))", state);
+        bool result = _evaluator.Evaluate("AND(Player.hasItem(key), Player.hasCondition(has_armor))", state);
         Assert.False(result); // has_armor not set
     }
 
@@ -115,7 +115,7 @@ public class ConditionEvaluatorTests
         var room = new Room { Conditions = new() };
         room.Conditions.Add("lit");
         var state = new GameState { Player = player, CurrentRoom = room };
-        bool result = _evaluator.Evaluate("Or(HasItem(\"sword\"), RoomHasCondition(\"lit\"))", state);
+        bool result = _evaluator.Evaluate("OR(Player.hasItem(sword), Room.hasCondition(lit))", state);
         Assert.True(result); // room has lit
     }
 
@@ -125,7 +125,7 @@ public class ConditionEvaluatorTests
         var player = new Player();
         var room = new Room { Conditions = new() };
         var state = new GameState { Player = player, CurrentRoom = room };
-        bool result = _evaluator.Evaluate("Or(HasItem(\"sword\"), RoomHasCondition(\"lit\"))", state);
+        bool result = _evaluator.Evaluate("OR(Player.hasItem(sword), Room.hasCondition(lit))", state);
         Assert.False(result);
     }
 
@@ -139,8 +139,8 @@ public class ConditionEvaluatorTests
         room.Conditions.Add("lit");
         var state = new GameState { Player = player, CurrentRoom = room };
 
-        // Not(And(HasItem("key"), HasCondition("has_armor")))
-        bool result = _evaluator.Evaluate("Not(And(HasItem(\"key\"), HasCondition(\"has_armor\")))", state);
+        // NOT(AND(Player.hasItem(key), Player.hasCondition(has_armor)))
+        bool result = _evaluator.Evaluate("NOT(AND(Player.hasItem(key), Player.hasCondition(has_armor)))", state);
         Assert.False(result); // both are true, so Not(true) = false
     }
 
@@ -181,7 +181,7 @@ public class ConditionEvaluatorTests
         room.Items.Add("key");
         var player = new Player();
         var state = new GameState { Player = player, CurrentRoom = room };
-        bool result = _evaluator.Evaluate("RoomHasItem(\"key\")", state);
+        bool result = _evaluator.Evaluate("Room.hasItem(key)", state);
         Assert.True(result);
     }
 
@@ -191,7 +191,7 @@ public class ConditionEvaluatorTests
         var room = new Room { Items = new() };
         var player = new Player();
         var state = new GameState { Player = player, CurrentRoom = room };
-        bool result = _evaluator.Evaluate("RoomHasItem(\"sword\")", state);
+        bool result = _evaluator.Evaluate("Room.hasItem(sword)", state);
         Assert.False(result);
     }
 
@@ -202,7 +202,7 @@ public class ConditionEvaluatorTests
         room.Items.Add("brass key");
         var player = new Player();
         var state = new GameState { Player = player, CurrentRoom = room };
-        bool result = _evaluator.Evaluate("RoomHasItem(brass key)", state);
+        bool result = _evaluator.Evaluate("Room.hasItem(brass key)", state);
         Assert.True(result);
     }
 
@@ -213,7 +213,7 @@ public class ConditionEvaluatorTests
         room.Items.Add(" brass key "); // With spaces (trimmed on add)
         var player = new Player();
         var state = new GameState { Player = player, CurrentRoom = room };
-        bool result = _evaluator.Evaluate("RoomHasItem(brass key)", state);
-        Assert.False(result); // " brass key " != "brass key" due to spaces
+        bool result = _evaluator.Evaluate("Room.hasItem(brass key)", state);
+        Assert.False(result); // "brass key" is the name after trim
     }
 }

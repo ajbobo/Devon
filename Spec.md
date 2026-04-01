@@ -105,6 +105,19 @@ Examples:
 - Inventory.remove(rock);Inventory.add(ring)
 - Room.addCondition(knocker_fell)
 
+## Conditions
+The "condition" field in the JSON is an expression that checks the player and room and evaluates to true or false
+- Room.hasCondition(<condition_name>)
+- Room.hasItem(<item_name>)
+- Player.hasCondition(<condition_name>)
+- Player.hasItem(<item_name>)
+Conditions can be combined, or negated:
+Examples: 
+- AND(Room.hasCondition(is_dark), Player.hasItem(lamp))
+- OR(Room.hasCondition(lights_on), Player.hasItem(lamp))
+- NOT(Room.hasItem(rock))
+- !Room.hasItem(rock)
+
 ## Inventory
 The user has an inventory that contains every item they have picked up so far in the game. Actions can be used to add or remove items to/from the inventory.
 At any point in the game, the user can look at their inventory.

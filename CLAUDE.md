@@ -48,7 +48,7 @@ dotnet test --filter "FullyQualifiedName~TestName"
 - **MenuRenderer**: Displays room description, builds action menu, handles user selection
 - **ActionInvoker**: Executes Take/Use/Talk/Inventory actions
 - **ActionExecutor**: Parses and executes command strings (e.g., `Inventory.add(item);Room.addCondition(cond)`)
-- **ConditionEvaluator**: Evaluates condition expressions (e.g., `HasItem(key) && RoomHasCondition(door_open)`)
+- **ConditionEvaluator**: Evaluates condition expressions (e.g., `AND(Player.hasItem(key), Room.hasCondition(door_open))`)
 - **JsonRoomLoader**: Loads rooms from embedded `rooms.json` resource
 
 ### JSON Room Format (`rooms.json`)
@@ -70,10 +70,10 @@ WPF MVVM application for visually editing `rooms.json`. The Items section was re
 ### Key Design Points
 
 - **Case-insensitive**: Collections use `StringComparer.OrdinalIgnoreCase` (Inventory, Conditions, Room.Items, etc.)
-- **Condition evaluation**: Functions like `HasItem(item)`, `RoomHasCondition(cond)`, `PlayerHasCondition(cond)` used in JSON condition strings
+- **Condition evaluation**: Functions like `Player.hasItem(item)`, `Player.hasCondition(cond)`, `Room.hasCondition(cond)`, `Room.hasItem(item)` used in JSON condition strings
 - **Action menu**: Built dynamically based on available exits, take/use/talk actions, and player state
 - **Take validation**: A take action only appears in the menu if the referenced item is in `room.Items`
-- **Item display**: Items are NOT listed separately; they are shown through conditional description entries (e.g., `"<blue sword>"` with condition `!HasItem(sword)`)
+- **Item display**: Items are NOT listed separately; they are shown through conditional description entries (e.g., `"<blue sword>"` with condition `!Player.hasItem(sword)`)
 
 ### Testing
 Tests use xUnit. Primary coverage is in `Tests/ConditionEvaluatorTests.cs`. Run all tests with `dotnet test`.

@@ -33,7 +33,7 @@ public class ConditionEvaluator : IConditionEvaluator
     {
         private readonly string _functionName;
         private readonly List<ConditionNode> _args;
-        private readonly string? _stringArg; // For HasItem, HasCondition, RoomHasCondition
+        private readonly string? _stringArg; // For Player.hasItem, Player.hasCondition, Room.hasCondition, Room.hasItem
 
         public FunctionNode(string functionName, List<ConditionNode>? args, string? stringArg = null)
         {
@@ -46,14 +46,14 @@ public class ConditionEvaluator : IConditionEvaluator
         {
             return _functionName switch
             {
-                "HasItem" => _stringArg != null && state.Player.HasItem(_stringArg),
-                "HasCondition" or "PlayerHasCondition" => _stringArg != null && state.Player.HasCondition(_stringArg),
-                "RoomHasCondition" => _stringArg != null && state.CurrentRoom != null && state.CurrentRoom.Conditions.Contains(_stringArg),
-                "RoomHasItem" => _stringArg != null && state.CurrentRoom != null && state.CurrentRoom.Items.Contains(_stringArg),
+                "Player.hasItem" => _stringArg != null && state.Player.HasItem(_stringArg),
+                "Player.hasCondition" => _stringArg != null && state.Player.HasCondition(_stringArg),
+                "Room.hasCondition" => _stringArg != null && state.CurrentRoom != null && state.CurrentRoom.Conditions.Contains(_stringArg),
+                "Room.hasItem" => _stringArg != null && state.CurrentRoom != null && state.CurrentRoom.Items.Contains(_stringArg),
                 // Combinators: these evaluate their condition arguments (only one arg for Not, two+ for And/Or)
-                "Not" => _args.Count == 1 && !_args[0].Evaluate(state),
-                "And" => _args.All(arg => arg.Evaluate(state)),
-                "Or" => _args.Any(arg => arg.Evaluate(state)),
+                "NOT" or "Not" => _args.Count == 1 && !_args[0].Evaluate(state),
+                "AND" or "And" => _args.All(arg => arg.Evaluate(state)),
+                "OR" or "Or" => _args.Any(arg => arg.Evaluate(state)),
                 _ => throw new InvalidOperationException($"Unknown condition function: {_functionName}")
             };
         }
@@ -84,7 +84,7 @@ public class ConditionEvaluator : IConditionEvaluator
             string? stringArg = null;
 
             // Check if the function expects a single string argument (the built-in checks)
-            bool expectsStringArg = funcName is "HasItem" or "HasCondition" or "PlayerHasCondition" or "RoomHasCondition" or "RoomHasItem";
+            bool expectsStringArg = funcName is "Player.hasItem" or "Player.hasCondition" or "Room.hasCondition" or "Room.hasItem";
 
             if (expectsStringArg)
             {

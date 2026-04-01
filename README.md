@@ -78,7 +78,7 @@ Rooms are defined in `rooms.json` with the following structure:
       "name": "Room Name",
       "description": [
         { "text": "You see a dark cave.", "condition": null },
-        { "text": "<glowing sword>", "condition": "!HasItem(sword)" }
+        { "text": "<glowing sword>", "condition": "!Player.hasItem(sword)" }
       ],
       "conditions": ["room_condition_name"],
       "actions": {
@@ -86,7 +86,7 @@ Rooms are defined in `rooms.json` with the following structure:
           "room": "Next Room",
           "result_text": "You walk north.",
           "action": "Room.addCondition(entered_north)",
-          "condition": "RoomHasCondition(gate_unlocked)"
+          "condition": "Room.hasCondition(gate_unlocked)"
         },
         "take": {
           "item": "Sword",
@@ -139,15 +139,20 @@ Inventory.remove(rock);Inventory.add(ring);Room.addCondition(transformed)
 
 Condition expressions support these functions:
 
-- `HasItem(item)` - Player has the specified item
-- `PlayerHasCondition(cond)` - Player has the specified condition
-- `RoomHasCondition(cond)` - Current room has the specified condition
-- `RoomHasItem(item)` - Current room contains the specified item
+- `Player.hasItem(item)` - Player has the specified item
+- `Player.hasCondition(cond)` - Player has the specified condition
+- `Room.hasCondition(cond)` - Current room has the specified condition
+- `Room.hasItem(item)` - Current room contains the specified item
 
-Examples:
+Conditions can be combined using `AND()`, `OR()`, `NOT()`, or negated with `!`:
 ```
-!HasItem(sword)
-HasItem(key) && RoomHasCondition(door_unlocked)
+!Player.hasItem(sword)
+AND(Player.hasItem(key), Room.hasCondition(door_unlocked))
+```
+
+The `NOT()` combinator is also available:
+```
+NOT(Player.hasItem(sword))
 ```
 
 ## Gameplay
