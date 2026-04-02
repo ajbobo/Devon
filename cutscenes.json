@@ -125,6 +125,86 @@
           "clear": false
         }
       ]
+    },
+    {
+      "name": "Treasury",
+      "text": [
+        {
+          "text": "\u003CLots of gold\u003E",
+          "color": null,
+          "wait": false,
+          "clear": false
+        },
+        {
+          "text": "\u003CTreasure chest\u003E",
+          "color": null,
+          "wait": false,
+          "clear": false
+        },
+        {
+          "text": "You are eaten by the Luggage",
+          "color": null,
+          "wait": true,
+          "clear": false
+        }
+      ]
+    },
+    {
+      "name": "Ventok",
+      "text": [
+        {
+          "text": "\u003CVentok shoots you with lightning\u003E",
+          "color": null,
+          "wait": false,
+          "clear": false
+        },
+        {
+          "text": "\u003CCatch the lightning in the ring\u003E",
+          "color": null,
+          "wait": false,
+          "clear": false
+        },
+        {
+          "text": "\u003CRing is full of lightning\u003E",
+          "color": null,
+          "wait": true,
+          "clear": false
+        }
+      ]
+    },
+    {
+      "name": "Worst Fear",
+      "text": [
+        {
+          "text": "\u003CSee old Devon\u003E",
+          "color": null,
+          "wait": false,
+          "clear": false
+        },
+        {
+          "text": "\u003COld Devon dies\u003E",
+          "color": null,
+          "wait": true,
+          "clear": false
+        }
+      ]
+    },
+    {
+      "name": "Saved Drake",
+      "text": [
+        {
+          "text": "\u003CSaved Drake\u003E",
+          "color": null,
+          "wait": false,
+          "clear": false
+        },
+        {
+          "text": "\u003CYou win!\u003E",
+          "color": null,
+          "wait": true,
+          "clear": false
+        }
+      ]
     }
   ]
 }

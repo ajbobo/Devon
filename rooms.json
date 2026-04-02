@@ -763,6 +763,292 @@
           "condition": null
         }
       }
+    },
+    {
+      "name": "Stairs5",
+      "description": [
+        {
+          "text": "\u003Cat stairs\u003E",
+          "condition": null
+        }
+      ],
+      "conditions": [],
+      "onEntry": null,
+      "actions": {
+        "north": {
+          "room": "Treasury",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "south": {
+          "room": "Dragon",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "down": {
+          "room": "Stairs4",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Treasury",
+      "description": [
+        {
+          "text": "\u003Ctreasury\u003E",
+          "condition": null
+        }
+      ],
+      "conditions": [],
+      "onEntry": {
+        "action": "Room.startCutscene(Treasury); Game.gameOver()"
+      },
+      "actions": {
+        "south": {
+          "room": "Stairs5",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Dragon",
+      "description": [
+        {
+          "text": "\u003Cdead dragon\u003E",
+          "condition": "Room.hasCondition(dead_dragon)"
+        },
+        {
+          "text": "\u003Cstone dragon\u003E",
+          "condition": "AND(!Room.hasCondition(dead_dragon), !Room.hasCondition(live_dragon))"
+        },
+        {
+          "text": "\u003Clive dragon\u003E",
+          "condition": "AND(Room.hasCondition(live_dragon), !Room.hasCondition(dead_dragon))"
+        }
+      ],
+      "conditions": [],
+      "onEntry": null,
+      "actions": {
+        "north": {
+          "room": "Stairs5",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "south": {
+          "room": "Ventok",
+          "result_text": null,
+          "action": null,
+          "condition": "Room.hasCondition(dead_dragon)"
+        },
+        "talk": {
+          "target": "Dragon",
+          "says": "Move",
+          "result_text": "The stone dragon becomes real.",
+          "action": "Room.addCondition(live_dragon)",
+          "condition": "AND(!Room.hasCondition(live_dragon), !Room.hasCondition(dead_dragon))"
+        },
+        "use": {
+          "item": "Crossbow",
+          "target": "Dragon",
+          "result_text": "You shoot the dragon and it dies!",
+          "action": "Room.addCondition(dead_dragon)",
+          "condition": "AND(Room.hasCondition(live_dragon), !Room.hasCondition(dead_dragon))"
+        }
+      }
+    },
+    {
+      "name": "Ventok",
+      "description": [
+        {
+          "text": "\u003Cis ventok\u003E",
+          "condition": "!Room.hasCondition(dead_ventok)"
+        },
+        {
+          "text": "\u003Cempty room with lightning marks\u003E",
+          "condition": "Room.hasCondition(dead_ventok)"
+        }
+      ],
+      "conditions": [],
+      "onEntry": {
+        "action": "Room.startCutscene(Ventok)"
+      },
+      "actions": {
+        "north": {
+          "room": "Dragon",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "east": {
+          "room": "Stairs6",
+          "result_text": null,
+          "action": null,
+          "condition": "Room.hasCondition(dead_ventok)"
+        },
+        "use": {
+          "item": "Ring",
+          "target": "Ventok",
+          "result_text": "You shoot Ventok with lightning. He dies!",
+          "action": "Room.addCondition(dead_ventok)",
+          "condition": "!Room.hasCondition(dead_ventok)"
+        }
+      }
+    },
+    {
+      "name": "Stairs6",
+      "description": [
+        {
+          "text": "\u003Cmore stairs\u003E",
+          "condition": null
+        }
+      ],
+      "conditions": [],
+      "onEntry": null,
+      "actions": {
+        "west": {
+          "room": "Ventok",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "up": {
+          "room": "Stairs7",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Stairs7",
+      "description": [
+        {
+          "text": "\u003Cthe last stairs\u003E",
+          "condition": null
+        }
+      ],
+      "conditions": [],
+      "onEntry": null,
+      "actions": {
+        "down": {
+          "room": "Stairs6",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "east": {
+          "room": "Worst Fear",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Worst Fear",
+      "description": [
+        {
+          "text": "\u003Cempty room\u003E",
+          "condition": "Room.hasCondition(fear_gone)"
+        },
+        {
+          "text": "\u003Cold Devon\u003E",
+          "condition": "!Room.hasCondition(fear_gone)"
+        }
+      ],
+      "conditions": [],
+      "onEntry": {
+        "action": "Room.startCutscene(Worst Fear)"
+      },
+      "actions": {
+        "west": {
+          "room": "Stairs7",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "south": {
+          "room": "Sphinx",
+          "result_text": null,
+          "action": null,
+          "condition": "Room.hasCondition(fear_gone)"
+        },
+        "use": {
+          "item": "Amulet",
+          "target": "Self",
+          "result_text": "You squeeze the amulet. The vision goes away.",
+          "action": "Room.addCondition(fear_gone)",
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Sphinx",
+      "description": [
+        {
+          "text": "\u003CSphinx is watching\u003E",
+          "condition": "!Room.hasCondition(cleared_sphinx)"
+        },
+        {
+          "text": "\u003CSphinx is out of the way\u003E",
+          "condition": "Room.hasCondition(cleared_sphinx)"
+        }
+      ],
+      "conditions": [],
+      "onEntry": {
+        "action": "Room.addCondition(cleared_sphinx)"
+      },
+      "actions": {
+        "north": {
+          "room": "Worst Fear",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "south": {
+          "room": "Drake",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        }
+      }
+    },
+    {
+      "name": "Drake",
+      "description": [
+        {
+          "text": "\u003CDrake in chair\u003E",
+          "condition": null
+        },
+        {
+          "text": "\u003CWrapped in flaming ropes\u003E",
+          "condition": null
+        }
+      ],
+      "conditions": [],
+      "onEntry": null,
+      "actions": {
+        "north": {
+          "room": "Sphinx",
+          "result_text": null,
+          "action": null,
+          "condition": null
+        },
+        "use": {
+          "item": "Sword",
+          "target": "Ropes",
+          "result_text": null,
+          "action": "Room.startCutscene(Saved Drake); Game.gameOver()",
+          "condition": null
+        }
+      }
     }
   ]
 }
