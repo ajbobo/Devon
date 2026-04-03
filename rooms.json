@@ -381,6 +381,10 @@
         {
           "text": "\u003C3 mirrors\u003E",
           "condition": null
+        },
+        {
+          "text": "\u003Cis witch\u003E",
+          "condition": "!Room.hasCondition(witch_gone)"
         }
       ],
       "conditions": [],
@@ -390,25 +394,32 @@
           "room": "Mirrors",
           "result_text": null,
           "action": "Room.startCutScene(LeftMirror); Game.gameOver();",
-          "condition": null
+          "condition": "Room.hasCondition(witch_gone)"
         },
         "center": {
           "room": "Mirrors",
           "result_text": null,
           "action": "Room.startCutscene(CenterMirror); Game.gameOver();",
-          "condition": null
+          "condition": "Room.hasCondition(witch_gone)"
         },
         "right": {
           "room": "Demon",
           "result_text": "\u003CYou go through the mirror\u003E",
           "action": "",
-          "condition": null
+          "condition": "Room.hasCondition(witch_gone)"
         },
         "west": {
           "room": "Armory",
           "result_text": null,
           "action": null,
           "condition": null
+        },
+        "use": {
+          "item": "Horn",
+          "target": "Witch",
+          "result_text": "The witch flies away",
+          "action": "Room.addCondition(witch_gone)",
+          "condition": "!Room.hasCondition(witch_gone)"
         }
       }
     },
