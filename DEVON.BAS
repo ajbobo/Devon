@@ -1,0 +1,1705 @@
+'Devon:Quest for Knighthood is designed by A.J. Bobo & Stephen Bevan
+
+'Variables
+DIM SHARED Choice, dragonstone
+DIM SHARED quit, dragonlive
+DIM SHARED ishere, ventokdead
+DIM SHARED slot, seenfear
+DIM SHARED look, wallgone
+DIM SHARED Talkspot, closehdoor
+DIM SHARED Hitspot, before$
+DIM SHARED getspot, option$
+DIM SHARED Usespot, talkto$
+DIM SHARED fell, say$
+DIM SHARED suiton, get$
+DIM SHARED suittaken, punch$
+DIM SHARED dogdead, equip$
+DIM SHARED orchgone, useon$
+DIM SHARED wallopen, up$
+DIM SHARED mortarinhand, pickmirror$
+DIM SHARED ringon, combo$
+DIM SHARED rock, inventory$(12)
+DIM SHARED neverbeenhere, getable$(11)
+DIM SHARED talkable$(4), hitable$(2)
+DIM SHARED useable$(7), X
+DIM SHARED lightout, demongone
+DIM SHARED passedcombo, passedriddles
+DIM SHARED seenbed
+
+'Subroutines
+DECLARE SUB gate ()
+DECLARE SUB hall ()
+DECLARE SUB armorshow ()
+DECLARE SUB kitchen ()
+DECLARE SUB crypt ()
+DECLARE SUB stairs1 ()
+DECLARE SUB trophy ()
+DECLARE SUB stairs2 ()
+DECLARE SUB armory ()
+DECLARE SUB prison ()
+DECLARE SUB mirror ()
+DECLARE SUB music ()
+DECLARE SUB arthur1 ()
+DECLARE SUB ballroom ()
+DECLARE SUB concertroom ()
+DECLARE SUB stairs3 ()
+DECLARE SUB bedroom ()
+DECLARE SUB library ()
+DECLARE SUB lab ()
+DECLARE SUB study ()
+DECLARE SUB stairs4 ()
+DECLARE SUB stairs5 ()
+DECLARE SUB tresury ()
+DECLARE SUB dragon ()
+DECLARE SUB ventok ()
+DECLARE SUB stairs6 ()
+DECLARE SUB stairs7 ()
+DECLARE SUB worstfear ()
+DECLARE SUB riddle ()
+DECLARE SUB arthur2 ()
+DECLARE SUB credits ()
+DECLARE SUB menu ()
+DECLARE SUB omega ()
+DECLARE SUB setup ()
+DECLARE SUB commands ()
+DECLARE SUB intro ()
+DECLARE SUB nomore ()
+DECLARE SUB start ()
+DECLARE SUB nocando ()
+DECLARE SUB talk ()
+DECLARE SUB take ()
+DECLARE SUB hit ()
+DECLARE SUB use ()
+DECLARE SUB carrying ()
+DECLARE SUB wanttodo ()
+DECLARE SUB findopenslot ()
+DECLARE SUB pickup ()
+DECLARE SUB diningroom ()
+DECLARE SUB caps ()
+DECLARE SUB alpha ()
+DECLARE SUB treasury ()
+DECLARE SUB replacerock ()
+DECLARE SUB demon ()
+DECLARE SUB choosemirror ()
+
+'Real program
+IF quit <> 1 THEN
+   CALL start
+END IF
+END
+
+SUB alpha
+'The begining of the story
+CLS
+COLOR 7: PRINT "HIGH ON A CASTLE TOWER, A LONE FIGURE APPEARS."
+         PRINT "DOWN IN THE COURTYARD, A MAJASTIC FIGURE WALKS ALONE."
+         PRINT "AS THE MAN ON THE TOWER SURVEYS THE AREA AROUND HIM..."
+         PRINT "HE MENTALY GOES OVER HIS PLANS."
+COLOR 4: PRINT "YES, VERY GOOD. JUST A LITTLE BIT CLOSER."
+COLOR 7: PRINT "JUST AS THE MAN BELOW MOVES TOWARD THE SELECTED PLACE..."
+COLOR 4: PRINT "YOU THERE! DRAKE! LOOK UPON ME!"
+COLOR 7: PRINT "DRAKE TURNS HIS HEAD AND SEES HIGH ABOVE HIM..."
+COLOR 5: PRINT "VENTOK. WHAT ARE YOU DOING HERE?"
+COLOR 7: PRINT "THE ONLY RESPONCE IS A WAVE OF VENTOK'S HAND."
+         PRINT "A DARK CLOUD OF SMOKE BEGINS TO COVER THE CASTLE."
+         PRINT "WITHIN MINUTES, EVERYONE IS ASLEEP."
+DO: LOOP UNTIL INKEY$ <> ""
+CLS
+COLOR 2: PRINT "DEVON, ALL OF THE KING'S MEN ARE OUT COLD AND YOU ARE OUR ONLY HOPE."
+COLOR 1: PRINT "WHAT HAPPENED?"
+COLOR 2: PRINT "A WIZARD NAMED VENTOK CAME WHILE YOU WERE OUT AND PUT THE CASTLE TO SLEEP."
+         PRINT "I AVOIDED IT THANKS TO THE MAGIC SHIELD AROUND MY CHAMBERS."
+COLOR 1: PRINT "I AVOIDED IT BECAUSE I WAS ON A WALK WITH AMELIA, RIGHT?"
+COLOR 2: PRINT "RIGHT. AFTER PUTTING THE CASTLE TO SLEEP, HE STOLE OUR KING DRAKE."
+COLOR 1: PRINT "OH, NO!!"
+COLOR 2: PRINT "I'M AFRAID SO. AFTER SAVING DRAKE I'LL SEE TO IT THAT YOU WILL BE KNIGHTED."
+COLOR 1: PRINT "TO BE KNIGHTED AT LAST! I'LL LEAVE AS SOON AS I CAN."
+COLOR 2: PRINT "GOOD. I CAN ONLY TELL YOU THIS, BE CAREFULL."
+         PRINT "VENTOK'S CASTLE WILL BE FULL OF TRAPS. TAKE CARE."
+COLOR 1: PRINT "I WILL. I MUST GO TELL AMELIA. FAREWELL, GUINDIR."
+COLOR 2: PRINT "FAREWELL, DEVON."
+DO: LOOP UNTIL INKEY$ <> ""
+CLS
+COLOR 3: PRINT "DEVON! WHY ARE YOU IN A RUSH?"
+COLOR 1: PRINT "AS YOU KNOW THE CASTLE IS ASLEEP."
+         PRINT "WHEN THIS HAPPENED, KING DRAKE WAS KIDNAPPED!"
+         PRINT "I HAVE TO SAVE HIM AND FREE THE CASTLE."
+COLOR 3: PRINT "DOES THIS MEAN YOU WILL BE KNIGHTED AND THEN WE CAN MARRY?!"
+COLOR 1: PRINT "IT MEANS JUST THAT!"
+COLOR 3: PRINT "OH, DEAR! BUT WON'T IT BE DANGEROUS?"
+COLOR 1: PRINT "I'M AFRAID SO. BUT DON'T WORRY, I'LL BE O.K."
+COLOR 3: PRINT "I HOPE SO."
+         PRINT "STILL THE SAME, TAKE THIS."
+COLOR 7: PRINT "AMELIA HANDS YOU A HEART SHAPED AMULET."
+COLOR 3: PRINT "IF YOU ARE IN SERIOUS TROUBLE, I'LL BE WITH YOU."
+         PRINT "ALWAYS."
+COLOR 1: PRINT "I WILL REMEMBER. I MUST GO NOW."
+         PRINT "I LOVE YOU."
+DO: LOOP UNTIL INKEY$ <> ""
+CLS
+COLOR 7: PRINT "YOU NOW STAND AT THE FRONT GATE OF THE CASTLE."
+         PRINT "YOUR HEART BEATS LOUDLY IN YOUR CHEST."
+         PRINT "ARE YOU READY FOR THE TEST?"
+         PRINT "YOU REMEMBER AMELIA'S PARTING WORDS TO YOU..."
+COLOR 3: PRINT "I'LL BE WITH YOU... ALWAYS"
+COLOR 7: PRINT "YOU SWALLOW, TAKE A DEEP BREATH, AND SAY..."
+COLOR 1: PRINT "I'M READY."
+DO: LOOP UNTIL INKEY$ <> ""
+
+END SUB
+
+SUB armorshow
+'The armor display room
+LET getspot = 4
+LET Usespot = 1
+LET Hitspot = 1
+LET Talkspot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "AS YOU ENTER THE ROOM YOU NOTICE THAT THE TEMPERATURE SEEMS VERY LOW."
+     PRINT "LINED UP IN ROWS ON BOTH SIDES OF YOU, ARE HUNDREDS OF SUITS OF ARMOR."
+     IF getable$(getspot) <> "" THEN
+        PRINT "AT THE FAR END OF THE HALL IS A SUIT THAT CATCHES YOUR EYE."
+        PRINT "IT APPEARS TO BE MADE OF ICE."
+     END IF
+     PRINT "THE ONLY DOOR IS TO THE WEST."
+     CALL wanttodo
+      IF option$ = "W" THEN
+         IF suittaken = 1 AND suiton <> 1 THEN
+            PRINT "AS YOU CHANGS ROOMS, THE ICE ARMOR YOU ARE CARRYING MELTS."
+            LET getable$(getspot) = "SUIT"
+            FOR X = 1 TO 11
+                IF inventory$(X) = "SUIT" THEN
+                   LET inventory$(X) = ""
+                END IF
+            NEXT X
+            DO: LOOP UNTIL INKEY$ <> ""
+         END IF
+         CALL hall
+      ELSEIF option$ = "USE" AND equip$ = "SUIT" AND useon$ = "SELF" THEN
+         PRINT "YOU PUT THE SUIT ON."
+         PRINT "AT FIRST IT FEELS VERY COLD. BUT AFTER A FEW MINUTES IT FEELS COMFORTABLE."
+         LET suiton = 1
+         DO: LOOP UNTIL INKEY$ <> ""
+      ELSEIF option$ = "TAKE" AND get$ = "SUIT" THEN
+         CALL pickup
+         LET suittaken = 1
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL option$ = "W" OR quit = 1
+END IF
+
+END SUB
+
+SUB armory
+'The castle armory
+LET getspot = 7
+LET Usespot = 1
+LET Hitspot = 1
+LET Talkspot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "THIS ROOM MUST BE VENTOK'S ARMORY."
+     PRINT "WEAPONS OF EVERY SHAPE AND SIZE ARE IN HERE."
+     PRINT "AFTER WORKING IN DRAKE'S ARMORY FOR YEARS YOU THOUGHT YOU NEW JUST "
+     PRINT "EVERY WEAPON EVER MADE."
+     PRINT "MOST OF THESE YOU HAVE NEVER SEEN BEFORE."
+     PRINT "YOU WONDER IF THEY MAY BE MAGIC."
+     IF getable$(getspot) <> "" THEN
+        PRINT "THE ONLY WEAPON THAT YOU CAN USE AND THAT LOOKS USEABLE IS A CROSSBOW."
+     END IF
+     CALL wanttodo
+      IF option$ = "W" THEN
+         CALL prison
+      ELSEIF option$ = "E" THEN
+         CALL mirror
+      ELSEIF option$ = "S" THEN
+         CALL stairs2
+      ELSEIF option$ = "TAKE" AND get$ = "CROSSBOW" AND getable$(getspot) <> "" THEN
+         CALL pickup
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL option$ = "S" OR option$ = "W" OR option$ = "E" OR quit = 1
+END IF
+
+END SUB
+
+SUB arthur1
+'A false Drake
+LET getspot = 1
+LET Hitspot = 1
+LET Talkspot = 1
+LET Usespot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     IF seendrake <> 1 THEN
+        PRINT "IN THE MIDDLE OF THE ROOM TIED TO A CHAIR IS DRAKE!"
+        DO: LOOP UNTIL INKEY$ <> ""
+        PRINT "YOU RUN TO HIS SIDE TO UNTIE HIM, BUT BEFORE YOU REACH HIM..."
+        PRINT "HE EXPLODES IN A BALL OF GREEN FLAME!"
+        PRINT "THE ONLY DOOR IS TO THE SOUTH."
+     ELSE
+        PRINT "THE ROOM IS EMPTY EXCEPT FOR THE CHAIR DRAKE WAS IN."
+        PRINT "THE ONLY DOOR IS TO THE SOUTH."
+     END IF
+     CALL wanttodo
+      IF option$ = "S" THEN
+         CALL demon
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL option$ = "S" OR quit = 1
+END IF
+
+END SUB
+
+SUB arthur2
+'Drake at last!!!!
+LET getspot = 1
+LET Usespot = 6
+LET Hitspot = 2
+LET Talkspot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     IF wallgone <> 1 THEN
+        PRINT "ON THE OTHER SIDE OF THE DOOR IS A SOLID WALL."
+        PRINT "YOU NOTICE THAT ON THE WALL THERE IS A HAIRLINE CRACK."
+     ELSEIF wallgone = 1 AND passedcombo <> 1 THEN
+        PRINT "ON THE OTHER SIDE IS A METAL DOOR WITH A LARGE LOCK ON IT."
+        PRINT "ABOVE THE LOCK IS A CARVING THAT SAYS `Pass Through Wall'."
+        PRINT "Enter combo:"
+        LINE INPUT combo$
+        IF combo$ = "16 20 23" THEN
+           PRINT "YOU TURN THE LOCK THE THIRD TIME, AND HEAR A CLICK."
+           PRINT "SLOWLY THE METAL DOOR SWINGS OPEN TO REVEAL..."
+           LET passedcombo = 1
+           DO: LOOP UNTIL INKEY$ <> ""
+           CLS
+           PRINT "DRAKE!"
+           PRINT "HE IS SITTING IN THE CENTER OF THE ROOM, TIED TO A CHAIR BY ROPES OF FLAME."
+           PRINT "SURROUNDING HIM IS RING OF FIRE. THE RING IS SLOWLY CLOSING ON HIM!"
+           COLOR 1: PRINT "KING DRAKE!"
+           COLOR 5: PRINT "HELP ME!"
+           COLOR 1: PRINT "YES SIRE!"
+           COLOR 7
+        END IF
+     ELSE
+        PRINT "IN THE CENTER OF THE ROOM SITS KING DRAKE, TIED WITH FLAMING ROPES TO A CHAIR."
+        PRINT "THE RING OF FIRE IS CLOSING ON HIM FASTER NOW!"
+     END IF
+     CALL wanttodo
+      IF option$ = "HIT" AND punch$ = "CRACK" AND wallgone <> 1 THEN
+         PRINT "YOU HIT THE WALL AS HARD AS YOU CAN AND WATCH AS IT FALLS APART!"
+         LET wallgone = 1
+         DO: LOOP UNTIL INKEY$ <> ""
+      ELSEIF passedcombo = 1 AND wallgone = 1 AND option$ = "USE" AND equip$ = "SWORD" AND useon$ = "ROPES" THEN
+         LET quit = 1
+         CALL omega
+      ELSEIF option$ = "E" THEN
+         CALL riddle
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL option$ = "E" OR quit = 1
+END IF
+
+END SUB
+
+SUB ballroom
+' The castle ballroom
+LET getspot = 1
+LET Hitspot = 1
+LET Talkspot = 1
+LET Usespot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "YOU ARE IN A LARGE, GEORGEOUS BALL ROOM."
+     PRINT "A BROKEN CHANDELIER HANGS OVERHEAD, THREATENING TO FALL."
+     IF orchgone <> 1 THEN
+        PRINT "BLOCKING ONE OF THE TWO DOORS IN THE ROOM, IS AN ORCHESTRA."
+        PRINT "YOU SEEM TO BE ABLE TO SEE THROUGH THE ORCHESTRA!"
+        PRINT "THE ONLY DOOR YOU CAN GET TO IS TO THE NORTH."
+     ELSE
+        PRINT "DOORS ARE TO THE NORTH AND TO THE WEST."
+     END IF
+     CALL wanttodo
+      IF option$ = "N" THEN
+         CALL music
+      ELSEIF option$ = "W" AND orchgone <> 1 THEN
+         PRINT "THE CONDUCTER OF THE ORCHESTRA TURNS AROUND..."
+         PRINT "AND YOU SEE THAT HE IS A SKELETON!"
+         PRINT "HIS BONY HAND REACHES OUT TO YOU AND PEELS YOUR FACE FROM YOU!"
+         DO: LOOP UNTIL INKEY$ <> ""
+         LET quit = 1
+         CALL credits
+      ELSEIF option$ = "USE" AND orchgone <> 1 AND equip$ = "LUTE" AND useon$ = "SELF" THEN
+         PRINT "AS YOU PLAY, THE ORCHESTRA SLOWLY FADES AWAY."
+         DO: LOOP UNTIL INKEY$ <> ""
+         LET orchgone = 1
+      ELSEIF option$ = "W" AND orchgone = 1 THEN
+         CALL concertroom
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL quit = 1 OR (option$ = "W" AND (orchgone = 1 OR orchgone <> 1))
+END IF
+
+END SUB
+
+SUB bedroom
+'Ventok's bedroom
+LET getspot = 9
+LET Usespot = 1
+LET Hitspot = 1
+LET Talkspot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "YOU ARE NOW IN VENTOK'S BEDROOM."
+     PRINT "THERE IS A MASSIVE CANOPY BED SITTING IN THE MIDDLE OF THE ROOM."
+     PRINT "ALL THE SHEETS AND BLANKETS AND THE CANOPY LOOK LIKE THEY ARE MADE OF SILK."
+     PRINT "ON THE BEDSPREAD IS ARE HUNDREDS OF ARCANE AND EVIL SIGNS AND SYMBOLS."
+     PRINT "THERE ARE DOORS TO THE SOUTH AND EAST, AND STAIRS TO THE NORTH."
+     IF seenbed <> 1 THEN
+        DO: LOOP UNTIL INKEY$ <> ""
+        CLS
+        COLOR 1: PRINT "WHAT KIND OF WIZARD NEEDS SPELLS TO PROTECT HIM WHEN HE SLEEPS?"
+        COLOR 7: PRINT "NO SOONER HAVE YOU MUMBLED THIS THAN A VOICE COMES OUT OF NOWHERE!"
+        COLOR 4: PRINT "COME TO ME AND YOU SHALL SEE. HA..HA...HA...."
+        COLOR 1: PRINT "VENTOK?"
+        COLOR 4: PRINT "HOW VERY OBSERVANT YOU ARE MY FINE FRIEND!"
+        COLOR 1: PRINT "YOU SHALL SOON SEE HOW FINE!"
+        COLOR 4: PRINT "OH I DO HOPE SO."
+                 PRINT "IT WOULD BE SO DISAPOINTING TO HAVE WATCHED YOU COME THIS FAR..."
+                 PRINT "AND THEN NOT KILL YOU MYSELF!"
+        COLOR 1: PRINT "I HOPE YOU GET TO SEE ME TOO."
+                 PRINT "FOR IT WILL BE THE LAST THING YOU SEE!"
+        COLOR 7
+        DO: LOOP UNTIL INKEY$ <> ""
+        CLS
+        LET seenbed = 1
+     END IF
+     IF getable$(getspot) <> "" THEN
+        PRINT "ON A SMALL TABLE BY THE BED YOU SEE A SMALL, BROWN ROCK."
+     END IF
+     CALL wanttodo
+      IF option$ = "S" THEN
+         CALL library
+      ELSEIF option$ = "E" THEN
+         CALL stairs4
+      ELSEIF option$ = "TAKE" AND get$ = "ROCK" AND getable$(getspot) <> "" THEN
+         CALL pickup
+      ELSEIF option$ = "N" THEN
+         CALL stairs3
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL option$ = "E" OR option$ = "S" OR quit = 1
+END IF
+
+END SUB
+
+SUB caps
+'Reminds you to turn on CAPS LOCK
+CLS
+PRINT "Be sure CAPS LOCK is on."
+FOR z = 1 TO 1000: NEXT z
+END SUB
+
+SUB carrying
+'Displays Devon's inventory
+IF quit <> 1 THEN
+   CLS
+   PRINT "YOU ARE CARRYING:"
+   FOR X = 1 TO 4
+       PRINT TAB(5); inventory$(X), inventory$(X + 4), inventory$(X + 8)
+   NEXT X
+   DO: LOOP UNTIL INKEY$ <> ""
+END IF
+END SUB
+
+SUB choosemirror
+'Asks which mirror Devon will go through
+IF quit <> 1 THEN
+   DO
+     PRINT "THERE ARE THREE MIRRORS. ONE ON EACH WALL."
+     PRINT "WHICH? (RIGHT,LEFT,CENTER)"
+     INPUT pickmirror$
+     IF pickmirror$ = "R" OR pickmirror$ = "RIGHT" THEN
+        PRINT "YOU STEP THROUGH THE MIRROR."
+        PRINT "TO YOUR AMAZMENT, NOTHING HAPPED TO YOU."
+        DO: LOOP UNTIL INKEY$ <> ""
+        CALL demon
+     ELSEIF pickmirror$ = "L" OR pickmirror$ = "LEFT" THEN
+        PRINT "ON THE OTHER SIDE OF THE MIRROR IS A LARGE GRIFFON."
+        PRINT "YOU ARE SMALL, BUT MAKE A NOCE SNACK FOR HIM."
+        DO: LOOP UNTIL INKEY$ <> ""
+        LET quit = 1
+        CALL credits
+     ELSEIF pickmirror$ = "C" OR pickmirror$ = "CENTER" THEN
+        PRINT "YOU STEP OUT INTO SPACE, SEVERAL HUNDRED MILES ABOVE THE PLANET!"
+        PRINT "YOU ARE FORCED TO SPEND YOUR REMAINING LIFE IN SPACE WITHOUT AIR!"
+        DO: LOOP UNTIL INKEY$ <> ""
+        LET quit = 1
+        CALL credits
+     ELSE
+        PRINT "TRY AGAIN"
+     END IF
+    LOOP UNTIL pickmirror$ = "C" OR pickmirror$ = "CENTER" OR pickmirror$ = "L" OR pickmirror$ = "LEFT" OR pickmirror$ = "R" OR pickmirror$ = "RIGHT"
+END IF
+
+END SUB
+
+SUB commands
+'Displays the list of commands
+CLS
+PRINT "HIT- Devon hits an object in the room"
+PRINT "USE- Devon uses an object he is carrying"
+PRINT "TALK- Devon talks to something in the room"
+PRINT "TAKE- Devon picks up something in the room"
+PRINT "INVENTORY- Displays what Devon is carrying"
+PRINT "HELP- Displays the command list"
+PRINT "QUIT- Exits the game"
+PRINT "Press any key to continue..."
+DO
+LOOP UNTIL INKEY$ <> ""
+
+END SUB
+
+SUB concertroom
+'The concert hall
+LET getspot = 1
+LET Hitspot = 1
+LET Talkspot = 1
+LET Usespot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "YOU ARE STANDING ON THE CONCERT HALL STAGE."
+     PRINT "THERE ALL SEVERAL RUSTY MUSIC STANDS, SOME YELLOWED SHEET MUSIC,"
+     PRINT "AND A VIOLIN WITH ONE STRING AND A LARGE HOLE PUNCHED IN THE BACK OF IT."
+     PRINT "THERE ARE DOORS TO THE NORTH AND EAST."
+     CALL wanttodo
+      IF option$ = "E" THEN
+         CALL ballroom
+      ELSEIF option$ = "N" THEN
+         CALL stairs3
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL quit = 1 OR option$ = "E" OR option$ = "N"
+END IF
+
+END SUB
+
+SUB credits
+CLS
+PRINT "THANK YOU FOR PLAYING DEVON: QUEST FOR KNIGHTHOOD"
+PRINT
+PRINT TAB(5); "DESIGNED BY:"; TAB(30); "A.J. BOBO & STEPHEN BEVAN"
+PRINT TAB(5); "CREATED BY:"; TAB(30); "A.J. BOBO"
+PRINT TAB(5); "PROGRAMED BY:"; TAB(30); "A.J. BOBO"
+PRINT
+PRINT "SPECIAL THANKS TO:"
+PRINT TAB(5); "MATT EAGIN FOR PROVIDING THE LANGUAGE TO WORK WITH"
+PRINT TAB(5); "MATT GOODE FOR PUSHING ME TO FINISH THE ORIGINAL GAME"
+PRINT TAB(5); "EMILY TIEN FOR A FEW PROGRAMMING HINTS (VERY FEW)"
+PRINT TAB(5); "DONOVAN CHASE FOR INTODUCING ME TO QBASIC"
+PRINT TAB(5); "RICK MARTELL FOR ABSOLUTLY NOTHING"
+PRINT
+PRINT "TO ALL THE OTHER GUYS AT TRI-NOVA (I.E. STEVE):"
+PRINT TAB(5); "MUCHAS GRACIAS DUDES!!"
+DO
+LOOP UNTIL INKEY$ <> ""
+END SUB
+
+SUB crypt
+'The crypt of the castle
+LET getspot = 1
+LET Usespot = 1
+LET Hitspot = 1
+LET Talkspot = 2
+IF quit <> 1 THEN
+   DO
+     CLS
+     IF lightout = 0 THEN
+        PRINT "YOU ARE STANDING IN A ROOM THAT IS PITCH BLACK."
+     ELSE
+        PRINT "YOU ARE IN SOME SORT OF CRYPT."
+        PRINT "ALONG ALL THE WALLS OF THE ROOM ARE DOZENS OF COFFINS."
+        PRINT "SOME OF THEM ARE PARTLY OPEN AND YOU SEE DECAYING BODIES."
+        PRINT "ONE OF THE COFFINS TO THE EAST STANDS WIDE OPEN."
+        PRINT "BEYOND IT, YOU SEE ANOTHER ROOM."
+        PRINT "TO THE NORTH IS ANOTHER DOOR."
+     END IF
+     CALL wanttodo
+      IF lightout = 0 AND (option$ = "N" OR option$ = "W" OR option$ = "E") THEN
+         PRINT "YOU STUMBLE AROUND FOR A MINUTE WHEN YOU TRIP AND FALL."
+         PRINT "REGRETTABLY, YOUR BROKE YOUR LEG AND LIE ON THE FLOOR BLEEDING TO DEATH."
+         DO: LOOP UNTIL INKEY$ <> ""
+         quit = 1
+         CALL credits
+      ELSEIF lightout = 1 AND option$ = "N" THEN
+         CALL trophy
+      ELSEIF lightout = 1 AND option$ = "E" THEN
+         CALL stairs1
+      ELSEIF lightout = 1 AND option$ = "S" THEN
+         CALL diningroom
+      ELSEIF option$ = "TALK" AND talkto$ = "NOBODY" AND say$ = "LIGHT" THEN
+         PRINT "ALL OF A SUDDEN, THE ROOM LIGHTS UP AND YOU SEE WHERE YOU ARE..."
+         DO: LOOP UNTIL INKEY$ <> ""
+         LET lightout = 1
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL quit = 1 OR (lightout = 1 AND option$ = "N") OR (lightout = 1 AND option$ = "E")
+END IF
+
+END SUB
+
+SUB demon
+'The room 13 demon
+LET getspot = 1
+LET Usespot = 1
+LET Hitspot = 1
+LET Talkspot = 3
+IF quit <> 1 THEN
+   DO
+     CLS
+     IF demongone <> 1 THEN
+        PRINT "IN THE ROOM IS A LARGE, RED, EVIL DEMON."
+        PRINT "HE FILLS THE ROOM WITH HIS EVIL PRESENCE."
+     ELSE
+        PRINT "YOU ARE IN THE HALLWAY WHERE THE DEMON WAS."
+        PRINT "DOORS ARE EVERYWHERE, EXEPT EAST."
+     END IF
+     CALL wanttodo
+      IF option$ = "W" THEN
+         CALL mirror
+      ELSEIF (option$ = "N" OR option$ = "S" OR option$ = "E") AND demongone <> 1 THEN
+         PRINT "THE DEMON MERELY TOUCHES YOU, WHEN YOUR SKIN CACHES ON FIRE!"
+         PRINT "WITHIN MINUTES, YOU ARE DEAD."
+         DO: LOOP UNTIL INKEY$ <> ""
+         LET quit = 1
+         CALL credits
+      ELSEIF option$ = "N" AND demongone = 1 THEN
+         CALL arthur1
+      ELSEIF option$ = "S" AND demongone = 1 THEN
+         CALL music
+      ELSEIF option$ = "TALK" AND say$ = "BLESS YOU" AND talkto$ = "DEMON" AND demongone <> 1 THEN
+         PRINT "THE DEMON SHRIEKS AND SHRIVELS INTO NOTHINGNESS."
+         PRINT "THAT WAS A POWERFULL PHRASE!"
+         LET demongone = 1
+         DO: LOOP UNTIL INKEY$ <> ""
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL quit = 1 OR (demongone = 1 AND (option$ = "N" OR option$ = "S"))
+END IF
+
+END SUB
+
+SUB diningroom
+'The dining room
+LET getspot = 5
+LET Usespot = 1
+LET Hitspot = 1
+LET Talkspot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "YOU ARE IN THE DINING ROOM."
+     PRINT "THERE IS A LONG TABLE SET WITH OLD FOOD THAT LOOKS OLDER THAN THE KINGDOM."
+     PRINT "YOU CAN GO NORTH OR WEST."
+     IF getable$(getspot) <> "" THEN
+        PRINT "ON THE TABLE IS A KNIFE THAT LOOKS USEABLE."
+     END IF
+     CALL wanttodo
+      IF option$ = "N" THEN
+         CALL crypt
+      ELSEIF option$ = "W" THEN
+         CALL kitchen
+      ELSEIF option$ = "TAKE" AND get$ = "KNIFE" THEN
+         CALL pickup
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL option$ = "N" OR option$ = "W" OR quit = 1
+END IF
+
+END SUB
+
+SUB dragon
+'The dragon guarding Ventok
+LET getspot = 1
+LET Hitspot = 1
+LET Talkspot = 4
+LET Usespot = 5
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "YOU ARE STANDING IN A LONG, WIDE HALLWAY."
+     IF dragondead <> 1 AND dragonstone = 0 THEN
+        PRINT "AT THE END OF THE HALL IS A HUGE STONE DRAGON."
+        PRINT "ITS HEAD IS ABOUT AS TALL AS YOU ARE AND GIVES A FEELING OF TRUE AWE."
+     ELSEIF dragondead <> 1 AND dragonstone <> 0 THEN
+        PRINT "WHERE THE STONE DRAGON WAS IS NOW A REAL RED DRAGON."
+        PRINT "THE FEELING OF AWE HAS ALSO BEEN REPLACED BY A FEELING OF HORROR."
+     ELSE
+        PRINT "THERE ARE DOORS TO THE NORTH AND SOUTH."
+     END IF
+     CALL wanttodo
+      IF option$ = "S" AND dragonstone = 1 AND dragondead <> 1 THEN
+         PRINT "YOU BEGIN TO WALK TO THE SOUTH WHEN THE DRAGON BITES YOU IN HALF."
+         PRINT "AT LEAST YOU DIED QUICKLY."
+         DO: LOOP UNTIL UNKEY$ <> ""
+         LET quit = 1
+         CALL credits
+      ELSEIF option$ = "TALK" AND talkto$ = "DRAGON" AND say$ = "MOVE" AND dragonstone = 0 THEN
+         PRINT "THE STONE DRAGON BEGINS OF SHAKE AND TREMBLE VIOLENTLY."
+         PRINT "THE STONE BEGINS TO FLAKE OFF, REVEALING SHINY, RED SCALES BENEATH."
+         DO: LOOP UNTIL INKEY$ <> ""
+         LET dragonstone = 1
+      ELSEIF option$ = "USE" AND equip$ = "CROSSBOW" AND useon$ = "DRAGON" AND dragonstone = 1 AND dragondead <> 1 THEN
+         PRINT "YOU ONLY HAVE ONE ARROW, SO YOU AIM CAREFULLY."
+         PRINT "WHEN YOU ARE COMFORTABLE WITH YOUR AIM, YOU FIRE!"
+         PRINT "THE BOLT FLIES CLEAN AND TRUE INTO THE DRAGON'S EYE!"
+         PRINT "IT WRITHES IN PAIN, AND THEN EXPLODES."
+         DO: LOOP UNTIL INKEY$ <> ""
+         LET dragondead = 1
+      ELSEIF option$ = "S" AND dragondead = 1 THEN
+         CALL ventok
+      ELSEIF option$ = "N" THEN
+         CALL stairs5
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL (dragondead = 1 AND option$ = "S") OR quit = 1
+END IF
+
+END SUB
+
+SUB findopenslot
+'Looks for the place to put picked up items in the inventory
+LET slot = 0
+LET look = 0
+DO
+  look = look + 1
+  IF inventory$(look) = "" THEN
+     slot = look
+  END IF
+LOOP UNTIL look = 12 OR slot <> 0
+
+END SUB
+
+SUB gate
+'The castle gate
+LET getspot = 2
+LET Usespot = 2
+LET Hitspot = 1
+LET Talkspot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "BEFORE YOU LOOMS THE GREAT, HORRID GATE LEADING INTO VENTOK'S CASTLE."
+     PRINT "IT IS COVERED WITH EVIL-LOOKING RUNES AND EVEN WORSE CARVINGS."
+     PRINT "YOU SHUDDER JUST LOOKING AT IT."
+     IF fell = 0 THEN
+        PRINT "ON THE DOOR IS A LARGE KNOCKER IN THE FORM OF A WOLF'S HEAD."
+        PRINT "AS YOU REACH OUT TO TOUCH IT, IT FALLS TO THE GROUND."
+        LET fell = 1
+     END IF
+     IF getable$(getspot) <> "" AND fell = 1 THEN
+        PRINT "IN THE PLACE WHERE THE KNOCKER ONCE WAS, IS A GOLD KEY."
+     END IF
+     CALL wanttodo
+      IF option$ = "TAKE" AND get$ = "KEY" AND getable$(getspot) <> "" THEN
+         CALL pickup
+      ELSEIF option$ = "USE" AND equip$ = "KEY" AND useon$ = "GATE" AND getable$(getspot) = "" THEN
+         PRINT "YOU SLIDE THE KEY INTO THE DOORWAY AND TURN IT."
+         PRINT "THE DOOR OPENS EASILY."
+         DO: LOOP UNTIL INKEY$ <> ""
+         CALL hall
+      ELSEIF option$ = "N" THEN
+         PRINT "THE GATE IS LOCKED."
+         DO: LOOP UNTIL INKEY$ <> ""
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL (option$ = "USE" AND equip$ = "KEY" AND useon$ = "GATE") OR quit = 1
+END IF
+END SUB
+
+SUB hall
+'The main hallway
+LET getspot = 3
+LET Usespot = 1
+LET Hitspot = 1
+LET Talkspot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "YOU ARE STANDING IN THE MAIN HALLWAY."
+     PRINT "A LONG, RED CARPET RUNS DOWN THE HALL IN FRONT OF YOU."
+     PRINT "THERE ARE DOORS TO THE NORTH AND EAST."
+     IF getable$(getspot) <> "" THEN
+        PRINT "IN THE HANDS OF ONE OF THE SUITS OF ARMOR STANDING BY THE EAST"
+        PRINT "DOOR YOU SEE A LARGE, PALE BLUE SWORD."
+     END IF
+     CALL wanttodo
+      IF option$ = "E" THEN
+         CALL armorshow
+      ELSEIF option$ = "N" THEN
+         CALL diningroom
+      ELSEIF option$ = "TAKE" AND get$ = "SWORD" AND getable$(getspot) <> "" THEN
+         CALL pickup
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL option$ = "N" OR option$ = "E" OR quit = 1
+END IF
+
+END SUB
+
+SUB hit
+'Lets Devon hit an item in the room
+PRINT "WHAT WOULD YOU LIKE TO HIT?"
+INPUT punch$
+IF punch$ <> hitable$(Hitspot) THEN
+   PRINT
+END IF
+
+END SUB
+
+SUB intro
+'Asks if you've played before
+CLS
+INPUT ; "Have you ever played Devon before"; before$
+IF before$ = "N" OR before$ = "NO" THEN
+   CALL alpha
+END IF
+COLOR 7
+CALL gate
+
+END SUB
+
+SUB kitchen
+'The kitchen
+LET getspot = 1
+LET Usespot = 3
+LET Hitspot = 1
+LET Talkspot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "YOU ARE STANDING IN THE CASTLE KITCHEN."
+     PRINT "FROM THE SMELL OF ROTTEN MEAT YOU GUESS THAT IT HASN'T BEEN USED LATELY."
+     IF dogdead <> 1 THEN
+        PRINT "AS YOU ENTER, TWO LARGE HELL HOUNDS TURN AND FACE YOU."
+        PRINT "THEY LOOK LIKE THEY WANT YOU FOR LUNCH."
+     END IF
+     CALL wanttodo
+      IF option$ = "E" THEN
+         CALL diningroom
+      ELSEIF option$ = "N" OR option$ = "S" OR option$ = "W" THEN
+         PRINT "BEFORE YOU CAN MOVE THE HOUNDS POUNCE ON YOU."
+         PRINT "YOU ARE RIPPED INTO HUNDREDS OF PIECES BEFORE YOU CAN BLINK."
+         LET quit = 1
+         CALL credits
+      ELSEIF option$ = "USE" AND useon$ = "HOUNDS" AND equip$ = "KNIFE" THEN
+         PRINT "THE HOUNDS COME AT YOU ONE AT A TIME."
+         PRINT "WHEN THEY GET TO YOU, YOU THRUST THE KNIFE INTO THEM."
+         PRINT "MUCH TO YOUR RELIEF, THEY ARE FULLY DEAD."
+         LET dogdead = 1
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL option$ = "E" OR quit = 1
+END IF
+
+END SUB
+
+SUB lab
+'Ventok's lab
+LET getspot = 11
+LET Usespot = 4
+LET Hitspot = 1
+LET Talkspot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "YOU ARE STANDING IN VENTOK'S LAB."
+     PRINT "BUBBLING BOTTLES AND POTIONS ARE SITTING OUT."
+     PRINT "PENCILS ARE TAKING NOTES ON NOTEPADS, WITHOUT THE HELP OF PEOPLE."
+     PRINT "ALL OF A SUDDEN ONE OF THE POTIONS EXPLODES!"
+     PRINT "YOU DUCK OUT OF THE WAY, NARROWLY BEING MISSED BY FLYING GLASS."
+     IF getable$(getspot) <> "" THEN
+        PRINT "ON A TABLE IN A DARK CORNER THERE SITS AN OLD MORTAR."
+     END IF
+     CALL wanttodo
+      IF option$ = "E" THEN
+         CALL library
+      ELSEIF option$ = "TAKE" AND get$ = "MORTAR" AND getable$(getspot) <> "" THEN
+         pickup
+         PRINT "YOU LOOK AT IT FOR A MINUTE, THEN INSTEAD OF PUTTING IT IN YOUR PACK,"
+         PRINT "YOU HOLD ONTO IT."
+         DO: LOOP UNTIL INKEY$ <> ""
+         LET mortarinhand = 1
+      ELSEIF option$ = "USE" AND equip$ = "MORTAR" AND getable$(getspot) = "" AND useon$ = "ROCK" THEN
+         PRINT "YOU GRIND THE ROCK WITH ALL YOUR MIGHT."
+         PRINT "AFTER A FEW MINUTES OF STEADY CRUSHING, A LARGE CHIP BREAKS OFF."
+         PRINT "UNDER THE CHIP YOU SEE A SMALL DIAMOND RING."
+         PRINT "THE DIAMOND HAS BEEN SET STRANGLY, "
+         PRINT "A LITTLE OFF CENTER AND SLIGHTLY OFF THE FINGER."
+         DO: LOOP UNTIL INKEY$ <> ""
+         CALL replacerock
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL option$ = "E" OR quit = 1
+END IF
+
+END SUB
+
+SUB library
+'Ventok's library
+LET getspot = 10
+LET Usespot = 1
+LET Hitspot = 1
+LET Talkspot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "YOU ARE IN VENTOK'S LIBRARY."
+     PRINT "BOOKSHELVES RUN FROM WALL TO WALL AND FROM CIELING TO FLOOR."
+     PRINT "THERE ARE MORE BOOKS HERE THEN YOU READ IN A LIFETIME."
+     PRINT "YOU WONDER IF GUINDIR HAS A LIBRARY THIS SIZE."
+     IF getable$(getspot) <> "" THEN
+        PRINT "YOU LOOK ALONG THE SHELVES, LOOKING AT TITLES."
+        PRINT "THERE ARE BOOKS CALLED `MAGIC', `Õ»Ò∆º≥¥', `OPEN ME' AND HUNDEREDS OF OTHERS."
+     END IF
+     IF wallopen = 1 THEN
+        PRINT "THERE ARE DOORS TO THE EAST, WEST, AND NORTH."
+     ELSE
+        PRINT "THERE ARE DOORS TO THE EAST, AND NORTH."
+     END IF
+     CALL wanttodo
+      IF option$ = "N" THEN
+         CALL bedroom
+      ELSEIF option$ = "E" THEN
+         CALL study
+      ELSEIF option$ = "W" AND wallopen = 1 THEN
+         CALL lab
+      ELSEIF option$ = "TAKE" AND get$ = "OPEN ME" AND getable$(getspot) <> "" THEN
+         CALL pickup
+         PRINT "WHEN YOU PULL THE BOOK OUT OF THE SHELF A LARGE PANEL SIDES TO ONE SIDE."
+         PRINT "A SECRET DOOR!"
+         DO: LOOP UNTIL INKEY$ <> ""
+         LET wallopen = 1
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL quit = 1 OR option$ = "N" OR option$ = "E" OR (option$ = "W" AND wallopen = 1)
+END IF
+
+END SUB
+
+SUB menu
+'Asks if you want commands, to quit or to play
+CALL caps
+DO
+   CLS
+   PRINT "Would you like to:"
+   PRINT TAB(7); "1) Play Devon"
+   PRINT TAB(7); "2) See commmand list"
+   PRINT TAB(7); "3) Exit"
+   PRINT
+   PRINT "Your selection ";
+   INPUT Choice
+   SELECT CASE Choice
+   CASE 1
+     Choice = 0
+     CALL intro
+   CASE 2
+     Choice = 0
+     CALL commands
+   CASE 3
+     Choice = 0
+     CALL nomore
+   CASE ELSE
+     PRINT "Try again"
+   END SELECT
+LOOP UNTIL (Choice > 0 AND Choice < 1) OR quit = 1
+
+END SUB
+
+SUB mirror
+'The mirror room
+LET getspot = 1
+LET Talkspot = 1
+LET Hitspot = 1
+LET Usespot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     IF witchgone <> 1 THEN
+        PRINT "IN THE MIDDLE OF THE ROOM IS A WITCH HOVERING OVER A POT OF SOMETHING."
+        PRINT "SHE LOOKS UP AT YOU AND BEGINS TO LAUGH."
+     ELSE
+        PRINT "TO THE EAST ARE THREE MIRRORS ON THE WALL."
+     END IF
+     CALL wanttodo
+      IF option$ = "W" THEN
+         CALL armory
+      ELSEIF option$ = "E" AND witchgone = 0 THEN
+         PRINT "THE WITCH GRABS YOU WITH ONE OF HERE TALON-LIKE HANDS"
+         PRINT "AND THROWS YOU INTO HER POT!"
+         DO: LOOP UNTIL INKEY$ <> ""
+         LET quit = 1
+         CALL credits
+      ELSEIF option$ = "E" AND witchgone = 1 THEN
+         CALL choosemirror
+      ELSEIF option$ = "USE" AND equip$ = "HORN" AND useon$ = "SELF" AND witchgone <> 1 THEN
+         PRINT "THE SOUND OF THE NOTE YOU PLAY SCARES THE WITCH, AND SHE RUSHES OFF."
+         PRINT "RIGHT THROUGH THE MIDDLE MIRROR!"
+         LET witchgone = 1
+         DO: LOOP UNTIL INKEY$ <> ""
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL option$ = "E" OR quit = 1 OR pickmirror$ = "R"
+END IF
+
+END SUB
+
+SUB music
+'The music room
+LET getspot = 8
+LET Hitspot = 1
+LET Talkspot = 1
+LET Usespot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "THIS MUST HAVE BEEN A MUSIC ROOM ONCE."
+     PRINT "NOW ALL THE INSTRUMENTS ARE WARPED AND BROKEN."
+     IF getable$(getspot) <> "" THEN
+        PRINT "THERE IS A LUTE THAT LOOKS LIKE IT MIGHT STILL WORK DECENTLY."
+     END IF
+     PRINT "THERE ARE DOORS TO THE NORTH AND SOUTH."
+     CALL wanttodo
+      IF option$ = "N" THEN
+         CALL demon
+      ELSEIF option$ = "S" THEN
+         CALL ballroom
+      ELSEIF option$ = "TAKE" AND get$ = "LUTE" AND getable$(getspot) <> "" THEN
+         CALL pickup
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL option$ = "N" OR option$ = "S" OR quit = 1
+END IF
+
+END SUB
+
+SUB nocando
+'Tells you that you can't do that
+IF quit <> 1 THEN
+   IF option$ <> "INVENTORY" AND option$ <> "HELP" THEN
+      PRINT "Sorry, I can't do that"
+      DO
+      LOOP UNTIL INKEY$ <> ""
+   END IF
+END IF
+END SUB
+
+SUB nomore
+'Exits the game
+PRINT "O.K. You're the boss."
+LET quit = 1
+DO
+LOOP UNTIL INKEY$ <> ""
+CALL credits
+END SUB
+
+SUB omega
+'The end of the story
+CLS
+COLOR 7: PRINT "YOU THRUST THE SWORD THOUGH THE FLAMES TN AN ATEMPT TO CUT THE ROPES."
+         PRINT "THE SWORD PASSES EASILY THROUGH THE FLAMES AND YOU PRY IT UNDER THE ROPES."
+         PRINT "VERY QUICKLY, YOU PULL THE SWORD OUT, CUTTING THE ROPES IN SEVERAL PIECES."
+         PRINT "AS SOON AS THE ROPES ARE CUT, THE FLAMES CLOSE IN ON DRAKE LIGHTING HIM!"
+COLOR 5: PRINT "AHHH!! HELP ME!"
+COLOR 1: PRINT "YES, SIRE!"
+COLOR 7: PRINT "BEFORE YOU CAN ACT, THE FLAMES AROUND DRAKE EXPLODE AND BEFORE YOU RELIZE IT"
+         PRINT "DRAKE AND YOU ARE SAFE!"
+COLOR 5: PRINT "THANK YOU DEVON. NOW, LET'S GO HOME!"
+COLOR 1: PRINT "I'M WITH YOU!"
+DO: LOOP UNTIL INKEY$ <> ""
+CLS
+COLOR 5: PRINT "DEVON, COME KNEEL BEFORE ME."
+         PRINT "FOR OUTSTANDING COURAGE AND ABILITY TO OVERCOME CHALLENGES..."
+         PRINT "I DUB THEE..."
+         PRINT "SIR DEVON."
+         PRINT "PLEASE RISE."
+COLOR 1: PRINT "THANK YOU, SIRE."
+COLOR 7: PRINT "AS YOU TURN AROUND, THE CROWD GATHERED HERE BEGINS TO CHANT."
+DO: LOOP UNTIL INKEY$ <> ""
+COLOR 25: PRINT "SIR DEVON! SIR DEVON!"
+COLOR 5: PRINT "DEVON, YOU ARE A KNIGHT NOW."
+         PRINT "THIS IS A LARGE BURDEN, BUT YOU CAN HANDLE IT."
+COLOR 1: PRINT "THANK YOU SIRE."
+DO: LOOP UNTIL INKEY$ <> ""
+CLS
+COLOR 8: PRINT "DO YOU, AMELIA, TAKE THIS MAN, DEVON, TO BE YOUR HESBAND?"
+COLOR 3: PRINT "I DO."
+COLOR 8: PRINT "DO YOU, DEVON, TAKE THIS WOMAN, AMELIA TO BE YOUR WIFE?"
+COLOR 1: PRINT "I DO."
+COLOR 8: PRINT "I KNOW PRONOUNCE YOU MAN AND WIFE. YOU MAY KISS THE BRIDE."
+COLOR 7: PRINT "YOU DO JUST THAT."
+         PRINT "BEFORE YOU FINISH, A MESSENGER RUSHES UP TO YOU."
+COLOR 10: PRINT "<HUFF PUFF> THE KING NEEDS YOU SIR!"
+COLOR 1: PRINT "WHY?"
+COLOR 10: PRINT "HE WILL TELL YOU SIR."
+COLOR 1: PRINT "THANK YOU."
+DO: LOOP UNTIL INKEY$ <> ""
+CLS
+COLOR 5: PRINT "AH..DEVON. GOOD. WE HAVE ANOTHER PRESSING PROBLEM."
+COLOR 1: PRINT "SO I HEARD."
+COLOR 5: PRINT "YOU SEE DEVON..."
+COLOR 7: PRINT "DRAKE TELLS YOUR THE STORY OF YOUR NEXT QUEST."
+         PRINT "BUT THAT..."
+DO: LOOP UNTIL INKEY$ <> ""
+         PRINT "IS DEVON II."
+DO: LOOP UNTIL INKEY$ <> ""
+CALL credits
+
+END SUB
+
+SUB pickup
+'Puts an item in Devon's inventory
+PRINT "YOU PICK IT UP"
+FOR X = 1 TO 150: NEXT X
+CALL findopenslot
+LET inventory$(slot) = get$
+getable$(getspot) = ""
+
+END SUB
+
+SUB prison
+'The prison of the castle
+CLS
+PRINT "YOU STEP INTO THE ROOM AND HERE A DOOR SLAM BEHIND YOU."
+PRINT "YOU TURN AROUND AND SEE THAT YOU HAVE BEEN LOCKED INTO A PRISON CELL."
+PRINT "AS YOU SHAKE AND POUND THE BARS YOU HEAR A SCREAM..."
+COLOR 5: PRINT "NO DON'T! AHHHHH!"
+COLOR 4: PRINT "THIS IS FOR ALL THOSE YEARS OF PAIN! HA HA HA!"
+COLOR 1: PRINT "DRAKE! NO!"
+COLOR 7: PRINT "YOU SCREAM UNTIL YOU LOSE YOUR VOICE."
+PRINT "FOR THE REST OF YOUR LIFE, YOU HEAR THAT LAUGH."
+PRINT "YOU CONTINUE TO SHAKE THE BARS, BUT KNOW YOU ARE TO DIE IN HERE."
+DO: LOOP UNTIL INKEY$ <> ""
+LET quit = 1
+CALL credits
+
+END SUB
+
+SUB replacerock
+'Changes the ROCK to the RING in the inventory
+IF quit <> 1 THEN
+   FOR X = 1 TO 12
+       IF inventory$(X) = "ROCK" THEN
+          LET inventory$(X) = "RING"
+          LET ringon = 1
+       END IF
+   NEXT X
+END IF
+
+END SUB
+
+SUB riddle
+'The riddle master
+LET getspot = 1
+LET Usespot = 1
+LET Hitspot = 1
+LET Talkspot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "YOU ARE IN AN EMPTY ROOM WITH DOORS TO THE WEST AND NORTH."
+     PRINT "OVER THE WESTERN DOOR IS A CARVING OF A SPHINX'S HEAD."
+     CALL wanttodo
+      IF option$ = "N" THEN
+         CALL worstfear
+      ELSEIF option$ = "W" AND passedriddles <> 1 THEN
+         PRINT "AS YOU WALK TO THE DOOR, THE SPHINX BEGINS TO SPEAK."
+         COLOR 14: PRINT "YOU WILL HAVE TO ANSWER THREE RIDDLES BEFORE GOING ON."
+         DO: LOOP UNTIL INKEY$ <> ""
+         CLS
+         COLOR 14: PRINT "WHAT POINT HAS NO POINT?"
+         COLOR 1: LINE INPUT ans$
+         IF ans$ = "A POINT IN TIME" THEN
+            COLOR 14: PRINT "VERY GOOD. ON TO NUMBER TWO."
+            CLS
+            PRINT "WHEN DO DREAMS BECOME NIGHTMARES?"
+            COLOR 1: LINE INPUT ans$
+            IF ans$ = "13" THEN
+               COLOR 14: PRINT "EXCELLENT."
+               PRINT "NOW, THE LAST QUESTION"
+               CLS
+               PRINT "WHAT IS THE MEANING OF LIFE?"
+               COLOR 1: LINE INPUT ans$
+               IF ans$ = "DEATH" THEN
+                  COLOR 14: PRINT "YOU PASSED. GO FREE DRAKE!"; ""
+                  COLOR 7
+                  DO: LOOP UNTIL INKEY$ <> ""
+                  LET passedriddles = 1
+                  CALL arthur2
+               ELSE
+                  PRINT "THAT WAS NOT RIGHT."
+                  PRINT "GOODBYE."
+                  LET quit = 1
+                  CALL credits
+               END IF
+            ELSE
+               PRINT "I'M AFRAID NOT."
+               LET quit = 1
+               CALL credits
+            END IF
+         ELSE
+            PRINT "SO CLOSE, BUT SO FAR."
+            LET quit = 1
+            CALL credits
+         END IF
+      ELSEIF option$ = "S" AND passedriddles = 1 THEN
+         CALL arthur2
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL (option$ = "W" AND passedriddles = 1) OR quit = 1
+END IF
+
+END SUB
+
+SUB setup
+'Fills arrays
+getable$(1) = "":          talkable$(1) = ""
+getable$(2) = "KEY":       talkable$(2) = "NOBODY"
+getable$(3) = "SWORD":     talkable$(3) = "DEMON"
+getable$(4) = "SUIT":      talkable$(4) = "DRAGON"
+getable$(5) = "KNIFE":     hitable$(1) = ""
+getable$(6) = "HORN":      hitable$(2) = "CRACK"
+getable$(7) = "CROSSBOW":  useable$(1) = "SELF"
+getable$(8) = "LUTE":      useable$(2) = "GATE"
+getable$(9) = "ROCK":      useable$(3) = "HOUNDS"
+getable$(10) = "OPEN ME":     useable$(4) = "ROCK"
+getable$(11) = "MORTAR":   useable$(5) = "DRAGON"
+quit = 0:                  useable$(6) = "ROPES"
+inventory$(1) = "AMULET":  useable$(7) = "VENTOK"
+END SUB
+
+SUB stairs1
+'The first set of stairs
+LET getspot = 1
+LET Hitspot = 1
+LET Talkspot = 1
+LET Usespot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "YOU ARE AT A SET OF STAIRS."
+     PRINT "WOULD YOU LIKE TO UP?"
+     INPUT up$
+     IF up$ = "Y" OR up$ = "YES" THEN
+        CALL stairs2
+     ELSE
+        CLS
+        PRINT "YOU ARE AT A STAIRCASE LEADING UP."
+        PRINT "YOU CAN GO UP OR WEST."
+        CALL wanttodo
+         IF option$ = "W" THEN
+            CALL crypt
+         ELSE
+            CALL nocando
+         END IF
+     END IF
+   LOOP UNTIL option$ = "W" OR quit = 1 OR up$ = "Y" OR up$ = "YES"
+END IF
+
+END SUB
+
+SUB stairs2
+'The second set of stairs
+LET getspot = 1
+LET Hitspot = 1
+LET Usespot = 1
+LET Talkspot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "YOU ARE AT A SET OF STAIRS."
+     PRINT "DO YOU WANT TO GO DOWN?"
+     INPUT up$
+     IF up$ = "Y" OR up$ = "YES" THEN
+        CALL stairs1
+     ELSE
+         CLS
+         PRINT "YOU ARE AT A SET OF STAIRS LEADING DOWN."
+         PRINT "THE ONLY DOOR IS TO THE NORTH."
+         CALL wanttodo
+          IF option$ = "N" THEN
+             CALL armory
+          ELSE
+             CALL nocando
+          END IF
+     END IF
+   LOOP UNTIL option$ = "N" OR up$ = "Y" OR up$ = "YES" OR quit = 1
+END IF
+
+END SUB
+
+SUB stairs3
+'The third set of stairs
+LET getspot = 1
+LET Hitspot = 1
+LET Talkspot = 1
+LET Usespot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "YOU ARE AT A STAIRCASE LEADING UP."
+     PRINT "DO YOU WANT TO TAKE THEM?"
+     INPUT up$
+     IF up$ = "Y" OR up$ = "YES" THEN
+        CALL bedroom
+     ELSE
+        CLS
+        PRINT "YOU ARE AT A STAIRCASE LEADING UP."
+        PRINT "THE ONLY DOOR IS TO THE SOUTH."
+        CALL wanttodo
+         IF option$ = "S" THEN
+            CALL concertroom
+         ELSE
+            CALL nocando
+         END IF
+     END IF
+   LOOP UNTIL option$ = "S" OR quit = 1 OR up$ = "Y" OR up$ = "YES"
+END IF
+
+END SUB
+
+SUB stairs4
+'The fourth set of stairs
+LET getspot = 1
+LET Hitspot = 1
+LET Talkspot = 1
+LET Usespot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "YOU ARE AT A STAIRCASE LEADING UP."
+     PRINT "WOULD YOU LIKE TO GO UP?"
+     INPUT up$
+     IF up$ = "Y" OR up$ = "YES" THEN
+        CALL stairs5
+     ELSE
+        CLS
+        PRINT "YOU ARE AT A STAIRCASE LEADING UP."
+        PRINT "THE ONLY DOOR LEADS TO THE WEST."
+        CALL wanttodo
+         IF option$ = "W" THEN
+            CALL bedroom
+         ELSE
+            CALL nocando
+         END IF
+     END IF
+   LOOP UNTIL option$ = "W" OR quit = 1 OR up$ = "Y" OR up$ = "YES"
+END IF
+
+END SUB
+
+SUB stairs5
+'The fifth set of stairs
+LET getspot = 1
+LET Hitspot = 1
+LET Talkspot = 1
+LET Usespot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "YOU ARE AT STAIRS LEADING DOWN."
+     PRINT "GO BACK DOWN?"
+     INPUT up$
+     IF up$ = "Y" OR up$ = "YES" THEN
+        CALL stairs4
+     ELSE
+        CLS
+        PRINT "YOU ARE AT A STAIRCASE LEADING DOWN."
+        PRINT "THE ONLY DOORS ARE TO THE NORTH AND SOUTH."
+        CALL wanttodo
+         IF option$ = "N" THEN
+            CALL treasury
+         ELSEIF option$ = "S" THEN
+            CALL dragon
+         ELSE
+            CALL nocando
+         END IF
+     END IF
+   LOOP UNTIL option$ = "N" OR option$ = "S" OR quit = 1 OR up$ = "Y" OR up$ = "YES"
+END IF
+
+END SUB
+
+SUB stairs6
+'The sixth set of stairs
+LET getspot = 1
+LET Hitspot = 1
+LET Talkspot = 1
+LET Usespot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "YOU ARE AT A STAIRCASE LEADING UP."
+     PRINT "GO UP?"
+     INPUT up$
+     IF up$ = "Y" OR up$ = "YES" THEN
+        CALL stairs7
+     ELSE
+        CLS
+        PRINT "YOU ARE AT A STAIRCASE LEADING UP."
+        PRINT "THE ONLY DOOR IS TO THE WEST."
+        CALL wanttodo
+         IF option$ = "W" THEN
+            CALL ventok
+         ELSE
+            CALL nocando
+         END IF
+     END IF
+   LOOP UNTIL option$ = "W" OR quit = 1 OR up$ = "Y" OR up$ = "YES"
+END IF
+
+END SUB
+
+SUB stairs7
+'The last set of stairs
+LET getspot = 1
+LET Hitspot = 1
+LET Talkspot = 1
+LET Usespot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "YOU ARE AT A STAIRCASE LEADING DOWN."
+     PRINT "DO YOU WANT TO GO BACK DOWN?"
+     INPUT up$
+     IF up$ = "Y" OR up$ = "YES" THEN
+        CALL stairs6
+     ELSE
+        CLS
+        PRINT "YOU ARE AT A STAIRCASE LEADING DOWN."
+        PRINT "THE ONLY DOOR IS TO THE EAST."
+        CALL wanttodo
+         IF option$ = "E" THEN
+            CALL worstfear
+         ELSE
+            CALL nocando
+         END IF
+     END IF
+   LOOP UNTIL option$ = "E" OR quit = 1 OR up$ = "Y" OR up$ = "YES"
+END IF
+
+END SUB
+
+SUB start
+'Gets things rolling
+CALL setup
+IF quit = 0 THEN
+    CALL menu
+END IF
+
+END SUB
+
+SUB study
+'Ventok's study
+LET getspot = 1
+LET Usespot = 1
+LET Hitspot = 1
+LET Talkspot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     IF neverbeenhere <> 1 THEN
+        PRINT "AS YOU ENTER, VENTOK STANDS UP FROM BEHIND THE DESK IN THE ROOM."
+        COLOR 1: PRINT "AT LAST, I AM HERE."
+        COLOR 4: PRINT "YES, BUT REMEMBER, LIFE HERE IS DEATH!"
+        COLOR 7: PRINT "AS HE SAYS THIS, A SPURT OF FLAME FLIES FROM HIS FINGERTIPS!"
+        IF suiton = 1 THEN
+           PRINT "THE FLAME IS ABSORBED BY YOUR SUIT OF ICE."
+           PRINT "FOR A SECOND YOU THINK THE SUIT HAS MELTED, BUT THEN YOU FEEL IT SOLIDIFY."
+           PRINT "AFTER HIS SPELL IS DEFEATED, A LOOK OF RAGE CROSSES VENTOK'S FACE."
+           COLOR 4: PRINT "WE SHALL MEET AGAIN!"
+           COLOR 1: PRINT "I DO HOPE SO!"
+           COLOR 7: PRINT "WITH THAT, VENTOK DISAPEARS."
+           LET neverbeenhere = 1
+        ELSE
+           PRINT "BECAUSE YOU HAVE NOTHING TO PROTECT YOU, THE FLAME HITS YOUR BODY! "
+           PRINT "IN SECONDS, YOU ARE COVERED AND BURNING."
+           PRINT "IN THE LAST SECONDS BEFORE YOU DIE YOU SEE VENTOK LOOMING OVER YOU..."
+           PRINT "AND LAUGHING."
+           COLOR 4: PRINT "HA.HA..HA...HA...."
+           LET quit = 1
+           CALL credits
+        END IF
+     ELSE
+        PRINT "YOU ARE STANDING IN THE STUDY."
+        PRINT "THERE ARE MORE BOOKSHELVES ON THE WALLS AND A DESK IN THE MIDDLE OF THE ROOM."
+        PRINT "ON THE DESK ARE SEVERAL QUILLS, AND PAPERS."
+     END IF
+     CALL wanttodo
+      IF option$ = "W" THEN
+         CALL library
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL option$ = "W" OR quit = 1
+END IF
+
+END SUB
+
+SUB take
+'Lets Devon take an item in the room
+PRINT "WHAT WOULD YOU LIKE TO TAKE?"
+INPUT get$
+IF get$ <> getable$(getspot) THEN
+   PRINT
+END IF
+
+END SUB
+
+SUB talk
+'Lets Devon talk to things
+PRINT "WHO WOULD YOU LIKE TO TALK TO?"
+INPUT talkto$
+PRINT "WHAT WOULD YOU LIKE TO SAY?"
+INPUT say$
+IF talkto$ <> talkable$(Talkspot) THEN
+   PRINT
+END IF
+
+END SUB
+
+SUB treasury
+'Ventok's lethal treasury
+IF quit <> 1 THEN
+   PRINT "IN THIS ROOM ARE PILES AND PILES OF GOLD AND SILVER!"
+   PRINT "IN THE CENTER OF THE ROOM IS ONE VERY LARGE CHEST."
+   PRINT "YOUR CURIOSITY OVERCOMES YOU, AND YOU WALK OVER TO THE CHEST TO OPEN IT."
+   PRINT "YOU SLOWLY OPEN THE CHEST AND LOOK IN."
+   PRINT "AS YOU LOOK IN, YOU FALL INTO THE CHEST AND THE LID SLAMS SHUT!"
+   PRINT "SUDDENLY YOU HEAR THAT ALL TOO FAMILIAR LAUGH."
+   COLOR 4: PRINT "HA.HA..HA..."
+   DO: LOOP UNTIL INKEY$ <> ""
+   LET quit = 1
+   CALL credits
+END IF
+
+END SUB
+
+SUB trophy
+'The trophy room
+LET getspot = 6
+LET Talkspot = 1
+LET Hitspot = 1
+LET Usespot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     PRINT "YOU APPEAR TO BE IN VENTOK'S TROPHY ROOM."
+     PRINT "THERE ARE TROPHIES OF DRAGONS, GRIFFONS, AND CREATURES YOU'VE NEVER SEEN."
+     PRINT "THE ONLY DOOR IS THE ONE TO THE SOUTH."
+     IF getable$(getspot) <> "" THEN
+        PRINT "ON A SMALL TABLE IS A SILVER HUNTING HORN."
+     END IF
+     CALL wanttodo
+      IF option$ = "S" THEN
+         CALL crypt
+      ELSEIF option$ = "TAKE" AND get$ = "HORN" AND getable$(getspot) <> "" THEN
+         CALL pickup
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL option$ = "S" OR quit = 1
+END IF
+
+END SUB
+
+SUB use
+'Devon uses an item in his inventory on something in the room
+PRINT "WHAT WOULD YOU LIKE TO USE?"
+INPUT equip$
+FOR X = 1 TO 12
+   IF inventory$(X) = equip$ THEN
+      LET ishere = X
+   END IF
+NEXT X
+IF ishere <> 12 THEN
+   PRINT "WHAT WOULD YOU LIKE TO USE IT ON?"
+   INPUT useon$
+   IF useon$ <> useable$(Usespot) THEN
+      PRINT
+   END IF
+END IF
+  
+END SUB
+
+SUB ventok
+'Ventok himself
+LET getspot = 1
+LET Usespot = 7
+LET Hitspot = 1
+LET Talkspot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     IF ventokdead <> 1 THEN
+        PRINT "YOU ARE IN VENTOK'S THRONE ROOM."
+        PRINT "AS YOU ENTER, HE TURNS TO YOU, STANDS AND BOWS."
+        COLOR 4: PRINT "I MUST ADMIT, I DIDN'T EXPECT YOU TO MAKE IT THIS FAR."
+                 PRINT "I SALUTE YOU."
+        COLOR 1: PRINT "WHAT GOOD IS A SALUTE FROM YOU?"
+                 PRINT "I WANT KING DRAKE."
+        COLOR 4: PRINT "SOMETIMES WHAT YOU WANT IS NOT ALWAYS WHAT YOU GET."
+                 PRINT "THIS IS ONE OF THOSE TIMES!"
+        COLOR 7
+        PRINT "AS IF TO PROVE HIS POINT, HE HURLS A BOLT OF RED LIGHTNING AT YOU!"
+        IF ringon = 1 THEN
+           PRINT "THE LIGHTNING FLIES RIGHT AT YOUR RING!"
+           PRINT "BECAUSE OF THE STRANGE CUTS, THE LIGHTNING JUST BOUNCES AROUND INSIDE IT."
+           DO: LOOP UNTIL INKEY$ <> ""
+        ELSE
+           PRINT "THE LIGHTNING HITS YOU AND BLOWS YOU TO PIECES, INTSTANTLY AND PAINLESSLY."
+           DO: LOOP UNTIL INKEY$ <> ""
+           LET quit = 1
+           CALL credits
+        END IF
+     ELSE
+        PRINT "YOU ARE IN VENTOK'S THRONE ROOM."
+        PRINT "THERE ARE DOORS TO THE NORTH AND EAST."
+     END IF
+     CALL wanttodo
+      IF option$ = "E" AND ventokdead <> 1 THEN
+         PRINT "AS YOU TRY TO MOVE PAST HIM, VENTOK GRABS YOU."
+         PRINT "THE TOUCH OF HIS FINGERS BURNS RIGHT THROUGH YOUR ARMS."
+         PRINT "HE DROPS YOU AND AFTER SEVERAL PAINFUL MINUTES, YOU DIE."
+         DO: LOOP UNTIL INKEY$ <> ""
+         LET quit = 1
+         CALL credits
+      ELSEIF option$ = "E" AND ventokdead = 1 THEN
+         CALL stairs6
+      ELSEIF ringon = 1 AND option$ = "USE" AND equip$ = "RING" AND useon$ = "VENTOK" AND ventokdead <> 1 THEN
+         CLS
+         PRINT "YOU POINT THE RING AT VENTOK."
+         COLOR 1: PRINT "DIE VENTOK!"
+         COLOR 4: PRINT "NO!"
+         COLOR 1: PRINT "YES!"
+         COLOR 7
+         PRINT "ALL THE LIGHTNING THAT IS STORED UP IN THE RING FIRES OUT!"
+         COLOR 4: PRINT "NOOOOOOOOO!"
+         COLOR 7
+         PRINT "AS THE LIGHTNING HITS VENTOK..."
+         PRINT "THERE IS A VERY LOUD EXPLOSION THAT CAUSES YOU TO COVER YOUR EYES AND EARS."
+         PRINT "WHEN THE DUST CLEARS, VENTOK IS GONE!"
+         DO: LOOP UNTIL INKEY$ <> ""
+         LET ventokdead = 1
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL (ventokdead = 1 AND option$ = "E") OR quit = 1
+END IF
+
+END SUB
+
+SUB wanttodo
+IF quit <> 1 THEN
+   PRINT "WHAT WOULD YOU LIKE TO DO?"
+   INPUT option$
+   IF option$ = "TAKE" THEN
+      CALL take
+   ELSEIF option$ = "HELP" THEN
+      CALL commands
+   ELSEIF option$ = "HIT" THEN
+      CALL hit
+   ELSEIF option$ = "USE" THEN
+      CALL use
+   ELSEIF option$ = "TALK" THEN
+      CALL talk
+   ELSEIF option$ = "INVENTORY" THEN
+      CALL carrying
+   ELSEIF option$ = "QUIT" THEN
+      CALL nomore
+   END IF
+END IF
+
+END SUB
+
+SUB worstfear
+'Devon faces his worst fear
+LET getspot = 1
+LET Usespot = 1
+LET Hitspot = 1
+LET Talkspot = 1
+IF quit <> 1 THEN
+   DO
+     CLS
+     IF seenfear <> 1 THEN
+        PRINT "AS YOU ENTER THE ROOM, YOU SEE YOURSELF LOOKING AT YOU."
+        DO: LOOP UNTIL INKEY$ <> ""
+        PRINT "BEFORE YOUR EYES HE BEGIN TO AGE."
+        PRINT "IN A MINUTE, HE HAS AGED ABOUT SIXTY YEARS."
+        DO: LOOP UNTIL INKEY$ <> ""
+        PRINT "HE CLUTCHES HIS CHEST AND FALLS OVER. DEAD."
+        DO: LOOP UNTIL INKEY$ <> ""
+        PRINT "TO YOUR HORROR YOU RELIZE, YOU JUST SAW YOUR OWN DEATH."
+        PRINT "A FEELING OF SICKNESS COMES OVER YOU AND YOU BEGIN TO STAGGER."
+     ELSE
+        PRINT "YOU ARE IN AN EMPTY ROOM."
+        PRINT "DOORS ARE TO THE SOUTH AND WEST."
+     END IF
+     CALL wanttodo
+      IF option$ = "S" AND seenfear <> 1 THEN
+         PRINT "AS YOU PASS BY THE DEAD FORM OF YOURSELF IN SIXTY YEARS..."
+         PRINT "THE FEELING OF SICKNESS BECOMES STRONGER THAN EVER."
+         PRINT "AS YOU LOOK AT THE DEAD FORM AT YOUR FEET, YOUR HEART EXPLODES."
+         DO: LOOP UNTIL INKEY$ <> ""
+         LET quit = 1
+         CALL credits
+      ELSEIF option$ = "S" AND seenfear = 1 THEN
+         CALL riddle
+      ELSEIF option$ = "USE" AND equip$ = "AMULET" AND useon$ = "SELF" THEN
+         CLS
+         COLOR 1: PRINT "HELP ME..."
+         COLOR 7: PRINT "YOU BEGIN TO SQEEZE THE AMULET UNTIL YOUR HAND BLEEDS."
+         COLOR 3: PRINT "DEVON..."
+         COLOR 1: PRINT "AMELIA...?"
+         COLOR 3: PRINT "I SAID I WOULD BE ALWAYS BE THERE. I MEANT IT."
+                  PRINT "NOW, STRAIGHTEN UP, THAT DEAD THING OVER THERE WON'T HURT YOU."
+         COLOR 1: PRINT "THANK YOU."
+         COLOR 3: PRINT "MOVE IT. DRAKE NEEDS YOUR HELP!"
+         COLOR 7: PRINT "WITH NEW ENERGY, YOU STRAIGHTEN UP, AND SEE THE DEAD FIGURE DISAPPEAR."
+         DO: LOOP UNTIL INKEY$ <> ""
+         LET seenfear = 1
+      ELSE
+         CALL nocando
+      END IF
+   LOOP UNTIL quit = 1 OR (option$ = "S" AND seenfear = 1)
+END IF
+
+END SUB
+
