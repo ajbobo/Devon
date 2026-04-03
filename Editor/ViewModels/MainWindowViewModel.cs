@@ -337,7 +337,9 @@ public partial class MainWindowViewModel : ObservableObject
                     Text = textItem.GetProperty("text").GetString() ?? "",
                     Color = textItem.TryGetProperty("color", out JsonElement colorElem) ? colorElem.GetString() : null,
                     Wait = textItem.TryGetProperty("wait", out JsonElement waitElem) && waitElem.ValueKind == JsonValueKind.True,
-                    Clear = textItem.TryGetProperty("clear", out JsonElement clearElem) && clearElem.ValueKind == JsonValueKind.True
+                    Clear = textItem.TryGetProperty("clear", out JsonElement clearElem) && clearElem.ValueKind == JsonValueKind.True,
+                    Condition = textItem.TryGetProperty("condition", out JsonElement condElem) ? condElem.GetString() : null,
+                    Result = textItem.TryGetProperty("result", out JsonElement resultElem) ? resultElem.GetString() : null
                 });
             }
         }
@@ -355,7 +357,9 @@ public partial class MainWindowViewModel : ObservableObject
                 text = t.Text,
                 color = t.Color,
                 wait = t.Wait,
-                clear = t.Clear
+                clear = t.Clear,
+                condition = t.Condition,
+                result = t.Result
             }).ToList()
         };
     }

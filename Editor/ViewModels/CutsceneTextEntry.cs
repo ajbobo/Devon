@@ -19,4 +19,10 @@ public partial class CutsceneTextEntry : ObservableObject
 
     [ObservableProperty]
     private bool _clear = false;
+
+    [ObservableProperty]
+    private string? _condition;
+
+    [ObservableProperty]
+    private string? _result;
 }

@@ -82,8 +82,27 @@ public class FakeConsole : IConsole
     }
 }
 
+/// <summary>
+/// Fake IActionExecutor for testing cutscene result execution (does nothing)
+/// </summary>
+public class FakeActionExecutor : IActionExecutor
+{
+    public void Execute(string? commands, GameState state) { }
+}
+
 public class CutsceneRendererTests
 {
+    private readonly IConditionEvaluator _evaluator = new ConditionEvaluator();
+
+    private GameState CreateGameState()
+    {
+        return new GameState
+        {
+            Player = new Player(),
+            CurrentRoom = new Room { Name = "TestRoom" },
+        };
+    }
+
     [Fact]
     public void PlayCutscene_WithoutWait_DisplaysAllLines()
     {
@@ -98,10 +117,12 @@ public class CutsceneRendererTests
             }
         };
         var console = new FakeConsole(); // no key presses
-        var renderer = new CutsceneRenderer(console);
+        var renderer = new CutsceneRenderer(console, _evaluator);
+        var state = CreateGameState();
+        var executor = new FakeActionExecutor();
 
         // Act
-        renderer.PlayCutscene(cutscene);
+        renderer.PlayCutscene(cutscene, state, executor);
 
         // Assert
         Assert.Equal(3, console.OutputLines.Count);
@@ -123,10 +144,12 @@ public class CutsceneRendererTests
             }
         };
         var console = new FakeConsole(new ConsoleKeyInfo('a', ConsoleKey.A, false, false, false));
-        var renderer = new CutsceneRenderer(console);
+        var renderer = new CutsceneRenderer(console, _evaluator);
+        var state = CreateGameState();
+        var executor = new FakeActionExecutor();
 
         // Act
-        renderer.PlayCutscene(cutscene);
+        renderer.PlayCutscene(cutscene, state, executor);
 
         // Assert - output: "Line 1", "" (empty after wait), "Line 2"
         Assert.Equal(3, console.OutputLines.Count);
@@ -154,10 +177,12 @@ public class CutsceneRendererTests
             new ConsoleKeyInfo('a', ConsoleKey.A, false, false, false), // consumed after line1
             new ConsoleKeyInfo(' ', ConsoleKey.Escape, false, false, false) // consumed at line2 wait
         );
-        var renderer = new CutsceneRenderer(console);
+        var renderer = new CutsceneRenderer(console, _evaluator);
+        var state = CreateGameState();
+        var executor = new FakeActionExecutor();
 
         // Act
-        renderer.PlayCutscene(cutscene);
+        renderer.PlayCutscene(cutscene, state, executor);
 
         // Assert - output: "Line 1", "Line 2", ""
         Assert.Equal(3, console.OutputLines.Count);
@@ -181,10 +206,12 @@ public class CutsceneRendererTests
             }
         };
         var console = new FakeConsole(new ConsoleKeyInfo(' ', ConsoleKey.Escape, false, false, false));
-        var renderer = new CutsceneRenderer(console);
+        var renderer = new CutsceneRenderer(console, _evaluator);
+        var state = CreateGameState();
+        var executor = new FakeActionExecutor();
 
         // Act
-        renderer.PlayCutscene(cutscene);
+        renderer.PlayCutscene(cutscene, state, executor);
 
         // Assert - only first line, no empty lines
         Assert.Single(console.OutputLines);
@@ -204,10 +231,12 @@ public class CutsceneRendererTests
             }
         };
         var console = new FakeConsole(new ConsoleKeyInfo(' ', ConsoleKey.Escape, false, false, false));
-        var renderer = new CutsceneRenderer(console);
+        var renderer = new CutsceneRenderer(console, _evaluator);
+        var state = CreateGameState();
+        var executor = new FakeActionExecutor();
 
         // Act
-        renderer.PlayCutscene(cutscene);
+        renderer.PlayCutscene(cutscene, state, executor);
 
         // Assert - output: "Line 1", ""
         Assert.Equal(2, console.OutputLines.Count);
@@ -229,10 +258,12 @@ public class CutsceneRendererTests
             }
         };
         var console = new FakeConsole();
-        var renderer = new CutsceneRenderer(console);
+        var renderer = new CutsceneRenderer(console, _evaluator);
+        var state = CreateGameState();
+        var executor = new FakeActionExecutor();
 
         // Act
-        renderer.PlayCutscene(cutscene);
+        renderer.PlayCutscene(cutscene, state, executor);
 
         // Assert
         Assert.Equal(2, console.OutputLines.Count);
@@ -244,10 +275,12 @@ public class CutsceneRendererTests
     public void PlayCutscene_NullCutscene_ThrowsArgumentNullException()
     {
         var console = new FakeConsole();
-        var renderer = new CutsceneRenderer(console);
+        var renderer = new CutsceneRenderer(console, _evaluator);
+        var state = CreateGameState();
+        var executor = new FakeActionExecutor();
 
         // Act & Assert
-        Assert.Throws<ArgumentNullException>(() => renderer.PlayCutscene(null!));
+        Assert.Throws<ArgumentNullException>(() => renderer.PlayCutscene(null!, state, executor));
     }
 
     [Fact]
@@ -262,10 +295,12 @@ public class CutsceneRendererTests
             }
         };
         var console = new FakeConsole();
-        var renderer = new CutsceneRenderer(console);
+        var renderer = new CutsceneRenderer(console, _evaluator);
+        var state = CreateGameState();
+        var executor = new FakeActionExecutor();
 
         // Act
-        renderer.PlayCutscene(cutscene);
+        renderer.PlayCutscene(cutscene, state, executor);
 
         // Assert - we can't directly test color in FakeConsole without extra tracking
         // But we can verify it doesn't throw and both lines are written
@@ -291,10 +326,12 @@ public class CutsceneRendererTests
             new ConsoleKeyInfo('a', ConsoleKey.A, false, false, false), // consumed after line1
             new ConsoleKeyInfo('b', ConsoleKey.B, false, false, false)  // consumed at line2 wait
         );
-        var renderer = new CutsceneRenderer(console);
+        var renderer = new CutsceneRenderer(console, _evaluator);
+        var state = CreateGameState();
+        var executor = new FakeActionExecutor();
 
         // Act
-        renderer.PlayCutscene(cutscene);
+        renderer.PlayCutscene(cutscene, state, executor);
 
         // Assert - output: "Line 1", "Line 2", "", "Line 3"
         Assert.Equal(4, console.OutputLines.Count);
@@ -302,5 +339,63 @@ public class CutsceneRendererTests
         Assert.Contains("Line 2", console.OutputLines);
         Assert.Contains("", console.OutputLines);
         Assert.Contains("Line 3", console.OutputLines);
+    }
+
+    [Fact]
+    public void PlayCutscene_ConditionTrue_ShowsLine()
+    {
+        // Arrange: line with condition Player.hasItem(sword), and player has the sword
+        var cutscene = new Cutscene
+        {
+            Text = new List<CutsceneText>
+            {
+                new() { Text = "Safe" },
+                new() { Condition = "Player.hasItem(sword)", Text = "Has sword" },
+                new() { Text = "End" }
+            }
+        };
+        var console = new FakeConsole();
+        var renderer = new CutsceneRenderer(console, _evaluator);
+        var state = CreateGameState();
+        state.Player.AddItem("sword");
+        var executor = new FakeActionExecutor();
+
+        // Act
+        renderer.PlayCutscene(cutscene, state, executor);
+
+        // Assert - all lines shown since condition is true
+        Assert.Contains("Has sword", console.OutputLines);
+        Assert.Contains("Safe", console.OutputLines);
+        Assert.Contains("End", console.OutputLines);
+    }
+
+    [Fact]
+    public void PlayCutscene_ConditionFalse_SkipsLine()
+    {
+        // Arrange: two mutually exclusive outcome lines (like Study armor scenario)
+        var cutscene = new Cutscene
+        {
+            Text = new List<CutsceneText>
+            {
+                new() { Text = "Ventok appears" },
+                new() { Text = "Throws fire" },
+                new() { Condition = "Player.hasItem(Armor)", Text = "You live, thanks to armor" },
+                new() { Condition = "!Player.hasItem(Armor)", Text = "You die" }
+            }
+        };
+        var console = new FakeConsole();
+        var renderer = new CutsceneRenderer(console, _evaluator);
+        var state = CreateGameState();
+        // Player does NOT have armor
+        var executor = new FakeActionExecutor();
+
+        // Act
+        renderer.PlayCutscene(cutscene, state, executor);
+
+        // Assert - "You live" skipped, "You die" shown
+        Assert.DoesNotContain("You live, thanks to armor", console.OutputLines);
+        Assert.Contains("You die", console.OutputLines);
+        Assert.Contains("Ventok appears", console.OutputLines);
+        Assert.Contains("Throws fire", console.OutputLines);
     }
 }

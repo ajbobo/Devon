@@ -259,6 +259,14 @@
                                                             <TextBlock Text="Color:" VerticalAlignment="Center"/>
                                                             <TextBox Text="{Binding Color}" Width="80" Margin="2,0,0,0"/>
                                                         </StackPanel>
+                                                        <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                                                            <TextBlock Text="Condition:" VerticalAlignment="Center"/>
+                                                            <TextBox Text="{Binding Condition, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="2,0,0,0"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                                                            <TextBlock Text="Result:" VerticalAlignment="Center"/>
+                                                            <TextBox Text="{Binding Result, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="2,0,0,0"/>
+                                                        </StackPanel>
                                                     </StackPanel>
                                                 </DataTemplate>
                                             </ListBox.ItemTemplate>

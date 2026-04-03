@@ -7,19 +7,25 @@
           "text": "The screen fades to black...",
           "color": "DarkBlue",
           "wait": true,
-          "clear": true
+          "clear": true,
+          "condition": "",
+          "result": ""
         },
         {
           "text": "A faint whispering emerges from the darkness...",
           "color": "Gray",
           "wait": false,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": ""
         },
         {
           "text": "You find yourself standing before an ancient gate.",
           "color": "Yellow",
           "wait": true,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": ""
         }
       ]
     },
@@ -30,25 +36,33 @@
           "text": "You see the prison",
           "color": null,
           "wait": false,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": ""
         },
         {
           "text": "You walk towards it",
           "color": null,
           "wait": false,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": ""
         },
         {
           "text": "It slams closed behind you",
           "color": null,
           "wait": true,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": "Room.addCondition(prison_locked)"
         },
         {
           "text": "You die here",
           "color": null,
           "wait": true,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": "Game.gameOver()"
         }
       ]
     },
@@ -59,13 +73,17 @@
           "text": "\u003CEaten by griffin\u003E",
           "color": null,
           "wait": true,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": ""
         },
         {
           "text": "\u003CYou die\u003E",
           "color": null,
           "wait": true,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": "Game.gameOver()"
         }
       ]
     },
@@ -76,13 +94,17 @@
           "text": "\u003COut in space\u003E",
           "color": null,
           "wait": true,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": ""
         },
         {
           "text": "\u003CYou die\u003E",
           "color": null,
           "wait": true,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": "Game.gameOver()"
         }
       ]
     },
@@ -93,13 +115,17 @@
           "text": "\u003CDrake appears\u003E",
           "color": null,
           "wait": false,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": ""
         },
         {
           "text": "\u003CDrake disappears\u003E",
           "color": null,
           "wait": true,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": ""
         }
       ]
     },
@@ -110,19 +136,33 @@
           "text": "\u003CVentok appears\u003E",
           "color": null,
           "wait": false,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": ""
         },
         {
           "text": "\u003CThrows fire\u003E",
           "color": null,
           "wait": true,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": ""
         },
         {
-          "text": "\u003CYou live or die - finish me\u003E",
+          "text": "\u003CYou live, thanks to armor\u003E",
           "color": null,
           "wait": true,
-          "clear": false
+          "clear": false,
+          "condition": "Player.hasItem(Armor)",
+          "result": ""
+        },
+        {
+          "text": "\u003CYou die. Should have worn armor\u003E",
+          "color": null,
+          "wait": true,
+          "clear": false,
+          "condition": "!Player.hasItem(Armor)",
+          "result": "Game.gameOver()"
         }
       ]
     },
@@ -133,19 +173,25 @@
           "text": "\u003CLots of gold\u003E",
           "color": null,
           "wait": false,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": ""
         },
         {
           "text": "\u003CTreasure chest\u003E",
           "color": null,
           "wait": false,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": ""
         },
         {
           "text": "You are eaten by the Luggage",
           "color": null,
           "wait": true,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": "Game.gameOver()"
         }
       ]
     },
@@ -156,19 +202,33 @@
           "text": "\u003CVentok shoots you with lightning\u003E",
           "color": null,
           "wait": false,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": ""
         },
         {
           "text": "\u003CCatch the lightning in the ring\u003E",
           "color": null,
           "wait": false,
-          "clear": false
+          "clear": false,
+          "condition": "Player.hasItem(ring)",
+          "result": ""
         },
         {
           "text": "\u003CRing is full of lightning\u003E",
           "color": null,
           "wait": true,
-          "clear": false
+          "clear": false,
+          "condition": "Player.hasItem(ring)",
+          "result": ""
+        },
+        {
+          "text": "\u003CYou get zapped by lightning and die\u003E",
+          "color": null,
+          "wait": true,
+          "clear": false,
+          "condition": "!Player.hasItem(ring)",
+          "result": "Game.gameOver()"
         }
       ]
     },
@@ -179,13 +239,17 @@
           "text": "\u003CSee old Devon\u003E",
           "color": null,
           "wait": false,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": ""
         },
         {
           "text": "\u003COld Devon dies\u003E",
           "color": null,
           "wait": true,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": ""
         }
       ]
     },
@@ -196,13 +260,17 @@
           "text": "\u003CSaved Drake\u003E",
           "color": null,
           "wait": false,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": ""
         },
         {
           "text": "\u003CYou win!\u003E",
           "color": null,
           "wait": true,
-          "clear": false
+          "clear": false,
+          "condition": "",
+          "result": "Game.gameOver()"
         }
       ]
     }

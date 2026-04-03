@@ -29,7 +29,9 @@ public partial class CutsceneEditorViewModel : ObservableObject
                 Text = line.Text,
                 Color = line.Color,
                 Wait = line.Wait,
-                Clear = line.Clear
+                Clear = line.Clear,
+                Condition = line.Condition,
+                Result = line.Result
             });
         }
     }
@@ -45,7 +47,9 @@ public partial class CutsceneEditorViewModel : ObservableObject
                 Text = entry.Text,
                 Color = entry.Color,
                 Wait = entry.Wait,
-                Clear = entry.Clear
+                Clear = entry.Clear,
+                Condition = entry.Condition,
+                Result = entry.Result
             });
         }
     }

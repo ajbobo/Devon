@@ -18,4 +18,6 @@ public class CutsceneText
     public string? Color { get; set; }  // Optional color name (e.g., "yellow", "red")
     public bool Wait { get; set; } = false;  // If true, pause for key press after displaying
     public bool Clear { get; set; } = false; // If true, clear screen before displaying this line
+    public string? Condition { get; set; }   // Optional condition expression to show this line
+    public string? Result { get; set; }      // Optional action to perform after showing this line
 }

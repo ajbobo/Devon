@@ -78,6 +78,8 @@ Cutscenes are defined in a JSON file, separate from the Rooms
                     "text":"<text to display>",
                     "wait": true <-- Optional - If true, the cutscene pauses until the user presses a key
                     "clear": true <-- Optional - If true, the screen is cleared BEFORE this line of text is displayed
+                    "condition": "<the condition that must be true to show this text>",
+                    "result": "<the action that is performed after the text is shown>"
                 },
                 {
                     "color":"<the color of the text>",

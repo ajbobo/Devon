@@ -10,5 +10,5 @@ public interface ICutsceneRenderer
     /// <summary>
     /// Plays the given cutscene by displaying its text lines with appropriate formatting
     /// </summary>
-    void PlayCutscene(Cutscene cutscene);
+    bool PlayCutscene(Cutscene cutscene, GameState state, IActionExecutor executor);
 }

@@ -61,7 +61,7 @@ public class ActionExecutor : IActionExecutor
                 ExecutePlayer(state.Player, methodPart, arg);
                 break;
             case "Room":
-                ExecuteRoom(state.CurrentRoom, methodPart, arg);
+                ExecuteRoom(state, methodPart, arg);
                 break;
             case "Game":
                 ExecuteGame(state, methodPart);
@@ -103,8 +103,9 @@ public class ActionExecutor : IActionExecutor
         }
     }
 
-    private void ExecuteRoom(Room? room, string method, string arg)
+    private void ExecuteRoom(GameState state, string method, string arg)
     {
+        var room = state.CurrentRoom;
         if (room == null)
             throw new InvalidOperationException("Cannot execute room command: no current room");
 
@@ -120,7 +121,7 @@ public class ActionExecutor : IActionExecutor
         {
             if (_cutscenes.TryGetValue(arg, out var cutscene))
             {
-                _cutsceneRenderer.PlayCutscene(cutscene);
+                _cutsceneRenderer.PlayCutscene(cutscene, state, this);
             }
             else
             {

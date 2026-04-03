@@ -85,7 +85,7 @@ public class Game
                               ?? _state.Rooms.Values.First();
 
             // Initialize services that need cutscenes
-            var cutsceneRenderer = new CutsceneRenderer(_console);
+            var cutsceneRenderer = new CutsceneRenderer(_console, _conditionEvaluator);
             _actionExecutor = new ActionExecutor(cutsceneRenderer, _state.Cutscenes);
             _menuRenderer = new MenuRenderer(_conditionEvaluator, _console);
             _actionInvoker = new ActionInvoker(_actionExecutor, _conditionEvaluator, _console);
